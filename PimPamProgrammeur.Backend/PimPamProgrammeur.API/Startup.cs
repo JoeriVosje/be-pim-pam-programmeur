@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PimPamProgrammeur.API.Mapping;
+using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Data;
+using PimPamProgrammeur.Repository;
 
 namespace PimPamProgrammeur.API
 {
@@ -27,10 +31,23 @@ namespace PimPamProgrammeur.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
             services.AddDbContext<PimPamProgrammeurContext>(opt =>
            opt.UseSqlServer(Configuration.GetConnectionString("PimPamProgrammeurConnection"))
            .EnableSensitiveDataLogging());
+
+            // repositories
+            services.AddSingleton<IModuleRepository, ModuleRepository>();
+
+            // automapper
+            var mapperConfig = new MapperConfiguration(mc => { mc.AddProfile(new DtoMapping()); });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            // Processor
+            services.AddSingleton<IModuleProcessor, ModuleProcessor>();
+
+            // controllers
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
