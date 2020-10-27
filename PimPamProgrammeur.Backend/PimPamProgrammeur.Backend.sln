@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimPamProgrammeur.Model", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimPamProgrammeur.Dto", "PimPamProgrammeur.Dto\PimPamProgrammeur.Dto.csproj", "{7AA08AB2-4542-4DE6-8BA9-E31AB1391859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PimPamProgrammeur.Repository", "PimPamProgrammeur.Repository\PimPamProgrammeur.Repository.csproj", "{08F1D4F4-C258-4C39-AB0C-E5F15F719892}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimPamProgrammeur.Repository", "PimPamProgrammeur.Repository\PimPamProgrammeur.Repository.csproj", "{08F1D4F4-C258-4C39-AB0C-E5F15F719892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
