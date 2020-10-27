@@ -29,7 +29,6 @@ namespace PimPamProgrammeur.API.Mapping
         {
             return new Module()
             {
-                Id = Guid.NewGuid(),
                 Name = moduleDto.Name
             };
         }
