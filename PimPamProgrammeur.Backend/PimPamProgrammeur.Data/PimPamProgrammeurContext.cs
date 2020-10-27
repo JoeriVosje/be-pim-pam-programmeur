@@ -15,6 +15,6 @@ namespace PimPamProgrammeur.Data
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Module> Modules { get; set; }
     }
 }
