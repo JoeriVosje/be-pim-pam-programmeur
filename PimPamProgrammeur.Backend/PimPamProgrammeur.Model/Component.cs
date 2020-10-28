@@ -7,6 +7,7 @@ namespace PimPamProgrammeur.Model
     public class Component
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
         [Required]
         [ForeignKey("Module")]

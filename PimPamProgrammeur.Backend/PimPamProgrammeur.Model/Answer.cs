@@ -9,6 +9,7 @@ namespace PimPamProgrammeur.Model
     public class Answer
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
         [Required]
         public string Response { get; set; } // 'Awnser': member names cannot be the same as the enclosing type

@@ -9,6 +9,7 @@ namespace PimPamProgrammeur.Model
     public class Classroom
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
         [Required]
         public string ModuleId { get; set; }
