@@ -15,6 +15,8 @@ namespace PimPamProgrammeur.Model
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
+        public string Password { get; set; } 
         public Classroom ClassRoom { get; set; } //ClassRoom conform the Swaggerhub name
         [Required]
         public int Role { get; set; }
