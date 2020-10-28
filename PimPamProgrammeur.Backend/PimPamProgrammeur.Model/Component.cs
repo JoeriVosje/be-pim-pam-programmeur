@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,6 +24,6 @@ namespace PimPamProgrammeur.Model
         [Required]
         public string Hint { get; set; }
         [Required]
-        public Answer[] Answers { get; set; } // List<Answer> ?
+        public List<Answer> Answers { get; set; }
     }
 }
