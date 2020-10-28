@@ -8,11 +8,9 @@ namespace PimPamProgrammeur.Model
     public class Component
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; }
         [Required]
-        [ForeignKey("Module")]
-        public string ModuleId { get; set; } //Connection with Module (Guid id of class Module)
+        public string ModuleId { get; set; } 
         [Required]
         public string Title { get; set; }
         [Required]

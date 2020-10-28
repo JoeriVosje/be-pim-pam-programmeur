@@ -9,13 +9,19 @@ namespace PimPamProgrammeur.Model
     public class Classroom
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; }
-        [Required]
-        public string ModuleId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         public string Major { get; set; }
+
+        //Foreign key
+        public Guid ModuleId { get; set; }
+        public Guid UserId { get; set; }
+
+        //Navigation properties
+        public Module Module { get; set; }
+        public ICollection<User> Users { get; set; }
+        
     }
 }

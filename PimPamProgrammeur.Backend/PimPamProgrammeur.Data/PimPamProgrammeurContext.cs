@@ -16,5 +16,14 @@ namespace PimPamProgrammeur.Data
         }
 
         public DbSet<Module> Modules { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Component> Components { get; set; }
+        public DbSet<ComponentInfo> ComponentInfos { get; set; }
+        public DbSet<Result> Results { get; set; }
+        public DbSet<ResultOverview> ResultOverviews { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+
     }
 }

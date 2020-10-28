@@ -8,7 +8,6 @@ namespace PimPamProgrammeur.Model
     public class ComponentInfo
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; }
         public Type Type { get; set; }
     }

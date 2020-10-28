@@ -7,8 +7,9 @@ namespace PimPamProgrammeur.Model
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; }
+        
+        [EmailAddress]
         [Required]
         public string Email { get; set; }
         [Required]
@@ -17,11 +18,13 @@ namespace PimPamProgrammeur.Model
         public string LastName { get; set; }
         [Required]
         public string Password { get; set; } 
-        public Classroom ClassRoom { get; set; } //ClassRoom conform the Swaggerhub name
         [Required]
         public int Role { get; set; }
         [Required]
         public string CreationDate { get; set; }
+
+        //Navigation property
+        public Classroom ClassRoom { get; set; } //Alleen id?
 
     }
 }

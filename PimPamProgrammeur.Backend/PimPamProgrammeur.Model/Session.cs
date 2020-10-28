@@ -8,9 +8,10 @@ namespace PimPamProgrammeur.Model
 {
     public class Session
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         [Required]
-        [ForeignKey("Module")]
-        public Guid ModuleId { get; set; } //Connection with the Module id
+        public Guid ModuleId { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
     }
