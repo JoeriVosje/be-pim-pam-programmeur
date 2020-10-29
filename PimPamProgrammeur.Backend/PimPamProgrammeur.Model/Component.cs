@@ -10,8 +10,6 @@ namespace PimPamProgrammeur.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
-        public string ModuleId { get; set; } 
-        [Required]
         public string Title { get; set; }
         [Required]
         public string Theory { get; set; }
@@ -21,7 +19,13 @@ namespace PimPamProgrammeur.Model
         public bool Skippable { get; set; }
         [Required]
         public string Hint { get; set; }
-        [Required]
-        public List<Answer> Answers { get; set; }
+
+        //Foreign 
+        public Guid ModuleId { get; set; }
+        public Guid CorrectAnswerId { get; set; }
+
+        //Navigation property
+        public virtual Module Module { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

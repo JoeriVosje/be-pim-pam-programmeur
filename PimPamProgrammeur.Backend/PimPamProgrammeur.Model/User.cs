@@ -23,8 +23,11 @@ namespace PimPamProgrammeur.Model
         [Required]
         public string CreationDate { get; set; }
 
+        //Foreign key
+        public Guid ClassroomId { get; set; }
+
         //Navigation property
-        public Classroom ClassRoom { get; set; } //Alleen id?
+        public virtual Classroom ClassRoom { get; set; }
 
     }
 }

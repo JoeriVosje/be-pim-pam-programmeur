@@ -13,5 +13,11 @@ namespace PimPamProgrammeur.Model
         [Required]
         public string Response { get; set; } // 'Answer': member names cannot be the same as the enclosing type
 
+        //Foreign key
+        public Guid ComponentId { get; set; }
+
+        //Navigation property
+        public virtual Component Component { get; set; }
+
     }
 }

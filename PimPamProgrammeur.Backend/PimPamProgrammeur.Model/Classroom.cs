@@ -17,11 +17,10 @@ namespace PimPamProgrammeur.Model
 
         //Foreign key
         public Guid ModuleId { get; set; }
-        public Guid UserId { get; set; }
 
         //Navigation properties
-        public Module Module { get; set; }
-        public ICollection<User> Users { get; set; }
+        public virtual Module Module { get; set; }
+        public virtual ICollection<User> Users { get; set; }
         
     }
 }

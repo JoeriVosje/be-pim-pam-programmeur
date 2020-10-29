@@ -26,9 +26,7 @@ namespace PimPamProgrammeur.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PimPamProgrammeurContext>(opt =>
-           opt.UseSqlServer(Configuration.GetConnectionString("PimPamProgrammeurConnection"))
-           .EnableSensitiveDataLogging());
+            services.AddDbContext<PimPamProgrammeurContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("PimPamProgrammeurConnection")));
 
             // Repositories
             services.AddTransient<IModuleRepository, ModuleRepository>();

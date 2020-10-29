@@ -10,9 +10,12 @@ namespace PimPamProgrammeur.Model
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        [Required]
+        public bool IsActive { get; set; }
+
+        //Foreign key
         public Guid ModuleId { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+
+        //Navigation property
+        public virtual Module Module { get; set; }
     }
 }
