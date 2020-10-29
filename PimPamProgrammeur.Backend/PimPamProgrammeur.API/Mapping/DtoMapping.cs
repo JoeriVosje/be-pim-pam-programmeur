@@ -21,7 +21,8 @@ namespace PimPamProgrammeur.API.Mapping
             return new ModuleResponseDto()
             {
                 Id = module.Id,
-                Name = module.Name
+                Name = module.Name,
+                CreationDate = module.CreationDate
             };
         }
 

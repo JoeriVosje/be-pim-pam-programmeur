@@ -11,7 +11,7 @@ namespace PimPamProgrammeur.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
-        public string Response { get; set; } // 'Answer': member names cannot be the same as the enclosing type
+        public string Description { get; set; }
 
         //Foreign key
         public Guid ComponentId { get; set; }

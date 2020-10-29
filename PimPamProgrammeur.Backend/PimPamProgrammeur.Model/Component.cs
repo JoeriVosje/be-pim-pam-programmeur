@@ -22,7 +22,7 @@ namespace PimPamProgrammeur.Model
 
         //Foreign 
         public Guid ModuleId { get; set; }
-        public Guid CorrectAnswerId { get; set; }
+        public Guid? CorrectAnswerId { get; set; }
 
         //Navigation property
         public virtual Module Module { get; set; }

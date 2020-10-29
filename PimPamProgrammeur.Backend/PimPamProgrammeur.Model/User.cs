@@ -24,7 +24,7 @@ namespace PimPamProgrammeur.Model
         public string CreationDate { get; set; }
 
         //Foreign key
-        public Guid ClassroomId { get; set; }
+        public Guid? ClassroomId { get; set; }
 
         //Navigation property
         public virtual Classroom ClassRoom { get; set; }

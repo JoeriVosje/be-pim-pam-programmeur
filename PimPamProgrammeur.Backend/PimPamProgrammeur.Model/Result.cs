@@ -10,7 +10,6 @@ namespace PimPamProgrammeur.Model
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public bool Succes { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
