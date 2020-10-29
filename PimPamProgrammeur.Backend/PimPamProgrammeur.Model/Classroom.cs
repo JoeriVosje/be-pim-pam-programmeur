@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace PimPamProgrammeur.Model
 {
-    public class Module
+    public class Classroom
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public DateTime CreationDate { get; set; }
+        [Required]
+        public string Major { get; set; }
 
-        //Navigation property
-        public virtual ICollection<Component> Components { get; set; }
-        public virtual Session Session { get; set; }
+        //Foreign key
+        public Guid ModuleId { get; set; }
+
+        //Navigation properties
+        public virtual Module Module { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        
     }
 }

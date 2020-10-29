@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PimPamProgrammeur.Data;
 
 namespace PimPamProgrammeur.Data.Migrations
 {
     [DbContext(typeof(PimPamProgrammeurContext))]
-    partial class PimPamProgrammeurContextModelSnapshot : ModelSnapshot
+    [Migration("20201029181320_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +30,7 @@ namespace PimPamProgrammeur.Data.Migrations
                     b.Property<Guid>("ComponentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Response")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -69,7 +71,7 @@ namespace PimPamProgrammeur.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CorrectAnswerId")
+                    b.Property<Guid>("CorrectAnswerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Hint")
@@ -134,6 +136,9 @@ namespace PimPamProgrammeur.Data.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Succes")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -172,7 +177,7 @@ namespace PimPamProgrammeur.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClassroomId")
+                    b.Property<Guid>("ClassroomId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreationDate")
@@ -260,7 +265,9 @@ namespace PimPamProgrammeur.Data.Migrations
                 {
                     b.HasOne("PimPamProgrammeur.Model.Classroom", "ClassRoom")
                         .WithMany("Users")
-                        .HasForeignKey("ClassroomId");
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
