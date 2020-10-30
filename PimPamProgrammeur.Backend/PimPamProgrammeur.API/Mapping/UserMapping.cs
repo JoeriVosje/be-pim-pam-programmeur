@@ -9,16 +9,16 @@ namespace PimPamProgrammeur.API.Mapping
     {
         public UserMapping()
         {
-            CreateMap<(string password, UserRequestDto), User>().ConvertUsing(e => UserRequestDtoToUser(e));
-            CreateMap<User, UserResponseDto>().ConvertUsing(e => UserToUserResponseDto(e));
+            CreateMap<(string password, UserRequestDto), User>().ConvertUsing((e, _, context) => UserRequestDtoToUser(e));
+            CreateMap<User, UserResponseDto>().ConvertUsing((e, _, context) => UserToUserResponseDto(e, context));
         }
 
-        private UserResponseDto UserToUserResponseDto(User user)
+        private UserResponseDto UserToUserResponseDto(User user, ResolutionContext context)
         {
             return new UserResponseDto
             {
                 Id = user.Id,
-                Classroom = null, // TODO as soon as classRepo is implemented
+                Classroom = null, //context.Mapper.Map<ClassroomResponseDto>(user.ClassRoom), // TODO enable as soon as classRepo is implemented
                 CreationDate = user.CreationDate,
                 Email = user.Email,
                 FirstName = user.FirstName,

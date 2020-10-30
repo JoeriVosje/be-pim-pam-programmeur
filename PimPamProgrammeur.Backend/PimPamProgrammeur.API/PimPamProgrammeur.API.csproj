@@ -21,6 +21,7 @@
     <ProjectReference Include="..\PimPamProgrammeur.Dto\PimPamProgrammeur.Dto.csproj" />
     <ProjectReference Include="..\PimPamProgrammeur.Model\PimPamProgrammeur.Model.csproj" />
     <ProjectReference Include="..\PimPamProgrammeur.Repository\PimPamProgrammeur.Repository.csproj" />
+    <ProjectReference Include="..\PimPamProgrammeur.Utils\PimPamProgrammeur.Utils.csproj" />
   </ItemGroup>
 
 

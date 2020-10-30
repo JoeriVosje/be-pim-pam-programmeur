@@ -6,17 +6,20 @@ using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
+using PimPamProgrammeur.Utils;
 
 namespace PimPamProgrammeur.API.Processors
 {
     public class UserProcessor : IUserProcessor
     {
         private readonly IUserRepository _userRepository;
+        private readonly ITokenProvider _tokenProvider;
         private readonly IMapper _mapper;
 
-        public UserProcessor(IUserRepository userRepository, IMapper mapper)
+        public UserProcessor(IUserRepository userRepository, ITokenProvider tokenProvider, IMapper mapper)
         {
             _userRepository = userRepository;
+            _tokenProvider = tokenProvider;
             _mapper = mapper;
         }
 
@@ -67,9 +70,7 @@ namespace PimPamProgrammeur.API.Processors
 
             var userResponse = _mapper.Map<UserResponseDto>(foundUser);
 
-            // TODO return _jwtService.Create(userResponse);
-
-            return "abc"; // JWT
+            return _tokenProvider.GenerateToken(userResponse);
         }
     }
 }

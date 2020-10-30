@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
@@ -30,6 +32,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="userRequestDto">The user to save</param>
         /// <returns>The saved module</returns>
         [HttpPost]
+        [AuthorizeAdmin]
         [ProducesResponseType(typeof(UserResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostUser(UserRequestDto userRequestDto)
@@ -74,7 +77,8 @@ namespace PimPamProgrammeur.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserResponseDto), 200)]
         [ProducesResponseType(204)]
-        public IActionResult GetUserById([FromRoute] Guid id)
+        [AuthorizeAdmin] // TODO Do we need to allow this endpoint for students?
+        public IActionResult GetUser([FromRoute] Guid id)
         {
             var user = _userProcessor.GetUser(id);
             if (user == null)
@@ -92,7 +96,8 @@ namespace PimPamProgrammeur.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserResponseDto>), 200)]
         [ProducesResponseType(204)]
-        public IActionResult GetUserById()
+        [AuthorizeAdmin]
+        public IActionResult GetUser()
         {
             var users = _userProcessor.GetUsers().ToList();
             if (users.Count == 0)
@@ -110,6 +115,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <returns>The saved module</returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
+        [AuthorizeAdmin]
         public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
         {
             await _userProcessor.DeleteUser(id);

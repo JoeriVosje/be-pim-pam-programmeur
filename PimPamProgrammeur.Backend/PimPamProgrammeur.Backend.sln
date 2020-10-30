@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimPamProgrammeur.Dto", "Pi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimPamProgrammeur.Repository", "PimPamProgrammeur.Repository\PimPamProgrammeur.Repository.csproj", "{08F1D4F4-C258-4C39-AB0C-E5F15F719892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PimPamProgrammeur.Utils", "PimPamProgrammeur.Utils\PimPamProgrammeur.Utils.csproj", "{4E21C462-121C-4905-BC84-82F9861B3A9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{08F1D4F4-C258-4C39-AB0C-E5F15F719892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08F1D4F4-C258-4C39-AB0C-E5F15F719892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08F1D4F4-C258-4C39-AB0C-E5F15F719892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E21C462-121C-4905-BC84-82F9861B3A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E21C462-121C-4905-BC84-82F9861B3A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E21C462-121C-4905-BC84-82F9861B3A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E21C462-121C-4905-BC84-82F9861B3A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
