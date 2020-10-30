@@ -10,6 +10,7 @@ using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
+using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 
 namespace PimPamProgrammeur.API
@@ -30,17 +31,26 @@ namespace PimPamProgrammeur.API
 
             // Repositories
             services.AddTransient<IModuleRepository, ModuleRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             // AutoMapper
-            var mapperConfig = new MapperConfiguration(mc => { mc.AddProfile(new DtoMapping()); });
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ModuleMapping());
+                mc.AddProfile(new UserMapping());
+                
+            });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
+            services.AddTransient<IUserProcessor, UserProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
+            services.AddTransient<IValidator<UserRequestDto>, UserRequestDtoValidator>();
+            services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
 
             // controllers
             services.AddControllers();

@@ -1,16 +1,13 @@
 ﻿
 namespace PimPamProgrammeur.Dto.Validator
 {
-    public class ModuleRequestDtoValidator : IValidator<ModuleRequestDto>
+    public class ModuleRequestDtoValidator : Validator<ModuleRequestDto>
     {
-        public ValidationResult Validate(ModuleRequestDto entity)
+        public override ValidationResult Validate(ModuleRequestDto entity)
         {
             var validationResult = new ValidationResult();
-            
-            if (string.IsNullOrEmpty(entity.Name))
-            {
-                validationResult.Errors.Add("Module cannot be empty");
-            }
+
+            ValidateNullOrEmpty(validationResult, nameof(entity.Name), entity.Name);
 
             return validationResult;
         }
