@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +52,10 @@ namespace PimPamProgrammeur.API
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            // SmtpClient
+            services.AddSingleton(p => ActivatorUtilities.CreateInstance<SmtpClient>(p, Constants.Smtp.MailAddress, Constants.Smtp.MailServerPort));
+            services.AddSingleton<ISmtpService, SmtpService>();
 
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
