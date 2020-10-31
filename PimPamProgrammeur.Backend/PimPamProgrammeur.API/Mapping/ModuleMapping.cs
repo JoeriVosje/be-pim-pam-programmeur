@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Mapping
 {
-    public class DtoMapping : Profile
+    public class ModuleMapping : Profile
     {
-        public DtoMapping()
+        public ModuleMapping()
         {
             CreateMap<ModuleRequestDto, Module>().ConvertUsing(e => ModuleRequestDtoToModule(e));
             CreateMap<Module, ModuleResponseDto>().ConvertUsing(e => ModuleToModuleResponseDto(e));

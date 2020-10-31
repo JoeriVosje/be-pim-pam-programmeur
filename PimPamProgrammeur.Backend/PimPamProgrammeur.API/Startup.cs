@@ -1,16 +1,23 @@
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PimPamProgrammeur.API.Mapping;
+using PimPamProgrammeur.API.Middleware;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
+using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
+using PimPamProgrammeur.Utils;
 
 namespace PimPamProgrammeur.API
 {
@@ -28,27 +35,46 @@ namespace PimPamProgrammeur.API
         {
             services.AddDbContext<PimPamProgrammeurContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("PimPamProgrammeurConnection")));
 
+            services.AddSingleton<JwtSecurityTokenHandler>();
+            services.AddSingleton<ITokenProvider, TokenProvider>();
+
             // Repositories
             services.AddTransient<IModuleRepository, ModuleRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             // AutoMapper
-            var mapperConfig = new MapperConfiguration(mc => { mc.AddProfile(new DtoMapping()); });
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ModuleMapping());
+                mc.AddProfile(new UserMapping());
+                
+            });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
+            services.AddTransient<IUserProcessor, UserProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
+            services.AddTransient<IValidator<UserRequestDto>, UserRequestDtoValidator>();
+            services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
 
             // controllers
+            services.AddAuthentication(Constants.TokenAuthenticationScheme)
+                .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { }); ;
+            services.AddAuthorization(e =>
+            {
+                e.AddPolicy(Constants.Admin, builder => builder.RequireClaim(Constants.RoleId, new List<string> {"1"}));
+                e.AddPolicy(Constants.Student, builder => builder.RequireClaim(Constants.RoleId, new List<string> {"0","1"}));
+            });
             services.AddControllers();
             services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ITokenProvider tokenProvider)
         {
             app.UseSwagger();
 
@@ -65,7 +91,7 @@ namespace PimPamProgrammeur.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

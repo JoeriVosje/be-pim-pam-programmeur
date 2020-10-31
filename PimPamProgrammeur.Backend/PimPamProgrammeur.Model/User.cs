@@ -21,7 +21,7 @@ namespace PimPamProgrammeur.Model
         [Required]
         public int Role { get; set; }
         [Required]
-        public string CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         //Foreign key
         public Guid? ClassroomId { get; set; }
