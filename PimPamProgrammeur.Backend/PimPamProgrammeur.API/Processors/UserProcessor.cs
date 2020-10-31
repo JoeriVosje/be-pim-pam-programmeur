@@ -16,19 +16,21 @@ namespace PimPamProgrammeur.API.Processors
         private readonly ITokenProvider _tokenProvider;
         private readonly IMapper _mapper;
         private readonly ISmtpService _smtpService;
+        private readonly IHashingService _hashingService;
 
-        public UserProcessor(IUserRepository userRepository, ITokenProvider tokenProvider, IMapper mapper, ISmtpService smtpService)
+        public UserProcessor(IUserRepository userRepository, ITokenProvider tokenProvider, IMapper mapper, ISmtpService smtpService, IHashingService hashingService)
         {
             _userRepository = userRepository;
             _tokenProvider = tokenProvider;
             _mapper = mapper;
             _smtpService = smtpService;
+            _hashingService = hashingService;
         }
 
         public async Task<UserResponseDto> SaveUser(UserRequestDto userRequest)
         {
             var password = "abc"; // TODO _passwordGenerator.Generate(6);
-            // TODO password = _hashService.generateHash(password)
+            password = _hashingService.HashPassword(userRequest.Email, password);
             var user = _mapper.Map<User>((password, userRequest));
 
             var savedUser = await _userRepository.SaveUser(user);
@@ -69,7 +71,7 @@ namespace PimPamProgrammeur.API.Processors
 
         public string Login(UserLoginRequestDto userLoginRequestDto)
         {
-            var password = userLoginRequestDto.Password; // TODO _hashService.generateHash(password)
+            var password = _hashingService.HashPassword(userLoginRequestDto.Email, userLoginRequestDto.Password);
 
             var foundUser = _userRepository.FindUser(userLoginRequestDto.Email, password);
 
