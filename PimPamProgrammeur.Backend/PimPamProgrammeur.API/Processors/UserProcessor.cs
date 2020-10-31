@@ -15,12 +15,14 @@ namespace PimPamProgrammeur.API.Processors
         private readonly IUserRepository _userRepository;
         private readonly ITokenProvider _tokenProvider;
         private readonly IMapper _mapper;
+        private readonly ISmtpService _smtpService;
 
-        public UserProcessor(IUserRepository userRepository, ITokenProvider tokenProvider, IMapper mapper)
+        public UserProcessor(IUserRepository userRepository, ITokenProvider tokenProvider, IMapper mapper, ISmtpService smtpService)
         {
             _userRepository = userRepository;
             _tokenProvider = tokenProvider;
             _mapper = mapper;
+            _smtpService = smtpService;
         }
 
         public async Task<UserResponseDto> SaveUser(UserRequestDto userRequest)
@@ -32,8 +34,8 @@ namespace PimPamProgrammeur.API.Processors
             var savedUser = await _userRepository.SaveUser(user);
 
             var userResponse = _mapper.Map<UserResponseDto>(savedUser);
-            
-            // TODO _emailService.SendEmail(userResponse);
+
+            _smtpService.SendEmail(password, userResponse);
 
             return userResponse;
         }
