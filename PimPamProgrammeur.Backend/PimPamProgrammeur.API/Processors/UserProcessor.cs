@@ -35,8 +35,16 @@ namespace PimPamProgrammeur.API.Processors
 
             var userResponse = _mapper.Map<UserResponseDto>(savedUser);
 
-            _smtpService.SendEmail(password, userResponse);
-
+            try
+            {
+                _smtpService.SendEmail(password, userResponse);
+            }
+            catch
+            {
+                await _userRepository.DeleteUser(userResponse.Id);
+                throw;
+            }
+            
             return userResponse;
         }
 

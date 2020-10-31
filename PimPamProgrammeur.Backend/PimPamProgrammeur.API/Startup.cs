@@ -54,7 +54,7 @@ namespace PimPamProgrammeur.API
             services.AddSingleton(mapper);
 
             // SmtpClient
-            services.AddSingleton(p => ActivatorUtilities.CreateInstance<SmtpClient>(p, Constants.Smtp.MailAddress, Constants.Smtp.MailServerPort));
+            services.AddSingleton(p => ActivatorUtilities.CreateInstance<SmtpClient>(p, Constants.Smtp.MailServerAddress, Constants.Smtp.MailServerPort));
             services.AddSingleton<ISmtpService, SmtpService>();
 
             // Processor

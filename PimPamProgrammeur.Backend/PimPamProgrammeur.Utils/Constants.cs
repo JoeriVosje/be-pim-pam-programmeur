@@ -18,11 +18,11 @@ namespace PimPamProgrammeur.Utils
         {
             public const string MailServerAddress = "smtp.gmail.com";
             public static readonly int MailServerPort = 587;
-            public const string MailUsername = "edustar.servicedesk@gmail.com";
-            public const string MailPassword = "?csedQUAh86@q_%jD2";
+            public const string MailUsername = "pimpamprogrammeur@gmail.com";
+            public const string MailPassword = "#pE_^Lm64@pRLqGL";
             public static readonly bool UseSsl = true;
-            public const string MailAddress = "edustar.servicedesk@gmail.com";
-            public const string MailSenderAlias = "EduStar";
+            public const string MailAddress = "pimpamprogrammeur@gmail.com";
+            public const string MailSenderAlias = Constants.ApplicationName;
         }
 
         public struct Authentication

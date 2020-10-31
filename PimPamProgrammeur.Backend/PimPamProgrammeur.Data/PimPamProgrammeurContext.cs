@@ -12,8 +12,6 @@ namespace PimPamProgrammeur.Data
         public PimPamProgrammeurContext(DbContextOptions<PimPamProgrammeurContext> options)
             : base(options)
         {
-            // This makes EF a bit faster. Don't use this when you add logic to the controller that relies on the query results
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<Module> Modules { get; set; }
