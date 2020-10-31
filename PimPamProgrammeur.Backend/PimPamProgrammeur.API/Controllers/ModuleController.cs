@@ -17,11 +17,14 @@ namespace PimPamProgrammeur.API.Controllers
     {
         private readonly IModuleProcessor _moduleProcessor;
         private readonly IValidator<ModuleRequestDto> _moduleRequestValidator;
+        private readonly IValidator<ModuleUpdateRequestDto> _moduleUpdateRequestValidator;
 
-        public ModuleController(IModuleProcessor processor, IValidator<ModuleRequestDto> moduleRequestValidator)
+
+        public ModuleController(IModuleProcessor processor, IValidator<ModuleRequestDto> moduleRequestValidator, IValidator<ModuleUpdateRequestDto> moduleUpdateRequestValidator)
         {
             _moduleProcessor = processor;
             _moduleRequestValidator = moduleRequestValidator;
+            _moduleUpdateRequestValidator = moduleUpdateRequestValidator;
         }
 
         /// <summary>
@@ -30,7 +33,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="request">The module to get</param>
         /// <returns>The module</returns>
         [HttpGet("{id}")]
-        [AuthorizeAdmin]
+        //[AuthorizeAdmin]
         [ProducesResponseType(typeof(ModuleResponseDto), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
@@ -65,6 +68,30 @@ namespace PimPamProgrammeur.API.Controllers
             var module = await _moduleProcessor.SaveModule(request);
 
             return Ok(module);
+        }
+
+        /// <summary>
+        /// Change name from Module
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(ModuleResponseDto), 200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
+        public async Task<IActionResult> PutModule(ModuleUpdateRequestDto request)
+        {
+            var validationResult = _moduleUpdateRequestValidator.Validate(request);
+            if (validationResult.Errors.Any())
+            {
+                return BadRequest(validationResult);
+            }
+
+            var module = await _moduleProcessor.UpdateModule(request);
+
+            return Ok(module);
+
         }
     }
 }

@@ -60,6 +60,7 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
             services.AddTransient<IValidator<UserRequestDto>, UserRequestDtoValidator>();
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
+            services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
 
             // controllers
             services.AddAuthentication(Constants.TokenAuthenticationScheme)

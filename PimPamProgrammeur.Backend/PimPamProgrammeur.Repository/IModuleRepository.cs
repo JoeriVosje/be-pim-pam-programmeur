@@ -8,5 +8,6 @@ namespace PimPamProgrammeur.Repository
     {
         Task<Module> SaveModule(Module module);
         Module GetModule(Guid id);
+        Task<Module> UpdateModule(Module module);
     }
 }

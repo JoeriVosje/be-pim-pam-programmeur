@@ -1,4 +1,5 @@
-﻿using PimPamProgrammeur.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Model;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,17 @@ namespace PimPamProgrammeur.Repository
         public Module GetModule(Guid id) 
         { 
             return _context.Modules.FirstOrDefault(e => e.Id == id); 
+        }
+
+        public async Task<Module> UpdateModule(Module module)
+        {
+            module.CreationDate = DateTime.Now;
+
+            _context.Entry(module).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return module;
         }
     }
 }

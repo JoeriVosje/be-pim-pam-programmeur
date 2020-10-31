@@ -8,5 +8,6 @@ namespace PimPamProgrammeur.API.Processors
     {
         Task<ModuleResponseDto> SaveModule(ModuleRequestDto requestDto);
         ModuleResponseDto GetModule(Guid id);
+        Task<ModuleResponseDto> UpdateModule(ModuleUpdateRequestDto requestDto);
     }
 }
