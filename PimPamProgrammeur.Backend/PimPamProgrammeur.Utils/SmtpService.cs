@@ -19,13 +19,14 @@ namespace PimPamProgrammeur.Utils
         {
             var message = new MailMessage();
             message.To.Add(responseDto.Email);
-            message.Subject = $"{Constants.ApplicationName} accountbevestiging";
-            message.Body = $"Beste " + responseDto.FirstName + ",\n\n" +
-                $"Er is een account voor u aangemaakt op {Constants.ApplicationName}.\n\n" +
-                $"Je kan inloggen met het e-mailadres {responseDto.Email} en het wachtwoord {password} \n" +
-                "Klik op de onderstaande link om naar de applicatie te gaan.\n\n" +
-                Constants.Authentication.BaseUrl + "\n\n" +
-                "Met vriendelijke groeten,\n\n" +
+            message.Subject = $"Je {Constants.ApplicationName} account is aangemaakt";
+            message.Body = $"Beste {responseDto.FirstName}" + ",\n\n" +
+                $"Er is een account voor je aangemaakt op {Constants.ApplicationName}.\n\n" +
+                $"Je kan de volgende gegevens gebruiken om in te loggen: \n" + 
+                $"E-mailadres: {responseDto.Email} \n"+
+                $"Wachtwoord:  {password} \n\n" +
+                $"Ga snel naar {Constants.Authentication.BaseUrl} en start met het leren programmeren!\n\n" +
+                "Heel veel succes!\n\n" +
                 $"Het {Constants.ApplicationName} team";
             SendMessage(message);
         }
