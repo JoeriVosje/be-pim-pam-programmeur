@@ -60,6 +60,9 @@ namespace PimPamProgrammeur.API
             // HashingService
             services.AddSingleton<IHashingService, HashingService>();
 
+            // PasswordGeneratorService
+            services.AddSingleton<IPasswordGeneratorService, PasswordGeneratorService>();
+
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
             services.AddTransient<IUserProcessor, UserProcessor>();
