@@ -73,8 +73,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <summary>
         /// Change name from Module
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>The updated module</returns>
         [HttpPut]
         [AuthorizeAdmin]
         [ProducesResponseType(typeof(ModuleResponseDto), 200)]
