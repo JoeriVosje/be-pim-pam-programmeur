@@ -18,6 +18,8 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Module> SaveModule(Module module)
         {
+            module.CreationDate = DateTime.Now;
+
             await _context.Modules.AddAsync(module);
             await _context.SaveChangesAsync();
 
