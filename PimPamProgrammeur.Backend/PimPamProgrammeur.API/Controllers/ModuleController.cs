@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
@@ -14,13 +15,34 @@ namespace PimPamProgrammeur.API.Controllers
 
     public class ModuleController : ControllerBase
     {
-        private readonly IModuleProcessor _processor;
+        private readonly IModuleProcessor _moduleProcessor;
         private readonly IValidator<ModuleRequestDto> _moduleRequestValidator;
 
         public ModuleController(IModuleProcessor processor, IValidator<ModuleRequestDto> moduleRequestValidator)
         {
-            _processor = processor;
+            _moduleProcessor = processor;
             _moduleRequestValidator = moduleRequestValidator;
+        }
+
+        /// <summary>
+        /// Gets a module from the database
+        /// </summary>
+        /// <param name="request">The module to get</param>
+        /// <returns>The module</returns>
+        [HttpGet("{id}")]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(ModuleResponseDto), 200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
+        public IActionResult GetModule([FromRoute] Guid id)
+        {
+            var module = _moduleProcessor.GetModule(id);
+            if (module == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(module);
         }
 
         /// <summary>
@@ -40,7 +62,7 @@ namespace PimPamProgrammeur.API.Controllers
                 return BadRequest(validationResult);
             }
 
-            var module = await _processor.SaveModule(request);
+            var module = await _moduleProcessor.SaveModule(request);
 
             return Ok(module);
         }

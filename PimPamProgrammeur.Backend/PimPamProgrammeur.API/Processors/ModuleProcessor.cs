@@ -28,5 +28,10 @@ namespace PimPamProgrammeur.API.Processors
             return _mapper.Map<ModuleResponseDto>(resultModule);
 
         }
+        public ModuleResponseDto GetModule(Guid id)
+        {
+            var module = _moduleRepository.GetModule(id);
+            return module == null ? null : _mapper.Map<ModuleResponseDto>(module);
+        }
     }
 }
