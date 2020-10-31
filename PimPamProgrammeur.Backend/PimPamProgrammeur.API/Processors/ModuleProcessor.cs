@@ -21,12 +21,27 @@ namespace PimPamProgrammeur.API.Processors
         }
         public async Task<ModuleResponseDto> SaveModule(ModuleRequestDto requestDto)
         {
+
             var module = _mapper.Map<Module>(requestDto);
 
             var resultModule = await _moduleRepository.SaveModule(module);
 
             return _mapper.Map<ModuleResponseDto>(resultModule);
 
+        }
+        public ModuleResponseDto GetModule(Guid id)
+        {
+            var module = _moduleRepository.GetModule(id);
+            return module == null ? null : _mapper.Map<ModuleResponseDto>(module);
+        }
+
+        public async Task<ModuleResponseDto> UpdateModule(ModuleUpdateRequestDto requestDto)
+        {
+            var module = _mapper.Map<Module>(requestDto);
+            
+            var resultModule = await _moduleRepository.UpdateModule(module);
+
+            return _mapper.Map<ModuleResponseDto>(resultModule);
         }
     }
 }
