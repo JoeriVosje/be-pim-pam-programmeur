@@ -58,6 +58,12 @@ namespace PimPamProgrammeur.API
             services.AddSingleton(p => ActivatorUtilities.CreateInstance<SmtpClient>(p, Constants.Smtp.MailServerAddress, Constants.Smtp.MailServerPort));
             services.AddSingleton<ISmtpService, SmtpService>();
 
+            // HashingService
+            services.AddSingleton<IHashingService, HashingService>();
+
+            // PasswordGeneratorService
+            services.AddSingleton<IPasswordGeneratorService, PasswordGeneratorService>();
+
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
             services.AddTransient<IUserProcessor, UserProcessor>();
@@ -68,6 +74,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IValidator<UserRequestDto>, UserRequestDtoValidator>();
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
+            services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
 
             // controllers
             services.AddAuthentication(Constants.TokenAuthenticationScheme)
