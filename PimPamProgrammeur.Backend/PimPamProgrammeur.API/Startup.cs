@@ -42,13 +42,14 @@ namespace PimPamProgrammeur.API
             // Repositories
             services.AddTransient<IModuleRepository, ModuleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IClassroomRepository, ClassroomRepository>();
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ModuleMapping());
                 mc.AddProfile(new UserMapping());
-                
+                mc.AddProfile(new ClassroomMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -66,11 +67,13 @@ namespace PimPamProgrammeur.API
             // Processor
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
             services.AddTransient<IUserProcessor, UserProcessor>();
+            services.AddTransient<IClassroomProcessor, ClassroomProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
             services.AddTransient<IValidator<UserRequestDto>, UserRequestDtoValidator>();
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
+            services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
 
             // controllers
