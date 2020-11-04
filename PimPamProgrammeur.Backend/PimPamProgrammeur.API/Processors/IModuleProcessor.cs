@@ -1,5 +1,6 @@
 ﻿using PimPamProgrammeur.Dto;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -9,5 +10,6 @@ namespace PimPamProgrammeur.API.Processors
         Task<ModuleResponseDto> SaveModule(ModuleRequestDto requestDto);
         ModuleResponseDto GetModule(Guid id);
         Task<ModuleResponseDto> UpdateModule(ModuleUpdateRequestDto requestDto);
+        IEnumerable<ModuleResponseDto> GetModules();
     }
 }

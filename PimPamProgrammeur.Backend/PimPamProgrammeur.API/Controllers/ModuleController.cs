@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -91,6 +92,25 @@ namespace PimPamProgrammeur.API.Controllers
 
             return Ok(module);
 
+        }
+
+
+        [HttpGet]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(IEnumerable<ModuleResponseDto>), 200)]
+        [ProducesResponseType(204)]
+        public IActionResult GetAllModules()
+        {
+            //First get all the modules 
+            var modules = _moduleProcessor.GetModules().ToList();
+
+            // check if there's content
+            if (modules.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(modules);
         }
     }
 }
