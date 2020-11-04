@@ -4,6 +4,7 @@ using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -77,6 +78,25 @@ namespace PimPamProgrammeur.API.Controllers
             await _classroomProcessor.DeleteClassroom(id);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Get all the classrooms
+        /// </summary>
+        /// <returns>A list of classrooms</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ClassroomResponseDto>), 200)]
+        [ProducesResponseType(204)]
+        [AuthorizeAdmin]
+        public IActionResult GetAllClassrooms()
+        {
+            var classrooms = _classroomProcessor.GetAllClassrooms().ToList();
+            if (classrooms.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(classrooms);
         }
     }
 }
