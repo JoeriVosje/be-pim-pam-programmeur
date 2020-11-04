@@ -43,5 +43,13 @@ namespace PimPamProgrammeur.API.Processors
 
             return _mapper.Map<ModuleResponseDto>(resultModule);
         }
+
+        public IEnumerable<ModuleResponseDto> GetModules()
+        {
+            //Connection with repository
+            var modules = _moduleRepository.GetModules();
+            //Return and map the module model to the ModuleResponseDTO 
+            return _mapper.Map<IEnumerable<ModuleResponseDto>>(modules);
+        }
     }
 }

@@ -94,17 +94,17 @@ namespace PimPamProgrammeur.API.Controllers
 
         }
 
-
+        /// <summary>
+        /// Get all modules
+        /// </summary>
+        /// <returns>A list of modules</returns>
         [HttpGet]
         [AuthorizeAdmin]
         [ProducesResponseType(typeof(IEnumerable<ModuleResponseDto>), 200)]
         [ProducesResponseType(204)]
         public IActionResult GetAllModules()
         {
-            //First get all the modules 
             var modules = _moduleProcessor.GetModules().ToList();
-
-            // check if there's content
             if (modules.Count == 0)
             {
                 return NoContent();
