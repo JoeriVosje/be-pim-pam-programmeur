@@ -86,5 +86,11 @@ namespace PimPamProgrammeur.API.Processors
 
             return _tokenProvider.GenerateToken(userResponse);
         }
+
+        public IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId)
+        {
+            //var users = _userRepository.
+            throw new NotImplementedException();
+        }
     }
 }

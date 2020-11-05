@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
@@ -32,7 +31,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="userRequestDto">The user to save</param>
         /// <returns>The saved module</returns>
         [HttpPost]
-        [AuthorizeAdmin]
+        //[AuthorizeAdmin]
         [ProducesResponseType(typeof(UserResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostUser(UserRequestDto userRequestDto)
@@ -123,6 +122,20 @@ namespace PimPamProgrammeur.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("by-classroom")]
+        [ProducesResponseType(typeof(IEnumerable<UserResponseDto>), 200)]
+        [ProducesResponseType(204)]
+        //[AuthorizeAdmin]
+        public IActionResult GetUserByClassroomId(Guid classroomId)
+        {
+            var users = _userProcessor.GetUsersByClassroomId(classroomId).ToList();
+            if (users.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(users);
+        }
 
     }
 }
