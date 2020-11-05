@@ -32,7 +32,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="userRequestDto">The user to save</param>
         /// <returns>The saved module</returns>
         [HttpPost]
-        [AuthorizeAdmin]
+        //[AuthorizeAdmin]
         [ProducesResponseType(typeof(UserResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostUser(UserRequestDto userRequestDto)
@@ -65,6 +65,10 @@ namespace PimPamProgrammeur.API.Controllers
             }
 
             var accessToken = _userProcessor.Login(userLoginRequestDto);
+            if (accessToken == null)
+            {
+                return Unauthorized();
+            }
 
             return Ok(accessToken);
         }
