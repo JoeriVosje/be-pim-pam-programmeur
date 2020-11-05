@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "e891a070-5327-448e-b4ad-411797f50410",
+		"name": "PimPamUser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b568857-a8bd-4240-978e-e0e6eb444aee",
+								"exec": [
+									"pm.globals.set('tokenadmin', responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin2@hhs.nl\",\r\n  \"password\": \"mlLJp6tB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/user/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MODULE",
+			"item": [
+				{
+					"name": "POST MODULE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd5732da-96b1-45fc-8c54-f7858d407a3c",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('moduleid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MyModule\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/module/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE MODULE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{moduleid}}\",\r\n  \"name\": \"MyModuleUpdated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/module/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MODULE BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/module/{{moduleid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								"{{moduleid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CLASSROOM",
+			"item": [
+				{
+					"name": "POST CLASSROOM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c5c29b5-b733-4190-83be-ea9e74092f59",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('classroomid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ABC1\",\r\n  \"moduleId\": \"{{moduleid}}\",\r\n  \"major\": \"Software Engineering\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/classroom/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"classroom",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLASSROOM",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/classroom/{{classroomid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"classroom",
+								"{{classroomid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CLASSROOM",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/classroom/{{classroomid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"classroom",
+								"{{classroomid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "POST USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b610fdcc-f76c-43f1-af36-669f8c821848",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('userid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"17081246@student.hhs.nl\",\r\n  \"firstName\": \"Student\",\r\n  \"lastName\": \"Hhs\",\r\n  \"classroomId\": \"{{classroomid}}\",\r\n  \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL USER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/user/{{userid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user",
+								"{{userid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/user/{{userid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user",
+								"{{userid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{tokenadmin}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d6f307ac-1636-4fc5-a471-2a542e3da6dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ebe20a28-9651-4a71-b557-c99b0a3dc5a6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
