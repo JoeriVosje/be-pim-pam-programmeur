@@ -30,7 +30,6 @@ namespace PimPamProgrammeur.API.Processors
             var classrooms = _classroomRepository.GetAllClassrooms();
 
             return _mapper.Map<IEnumerable<ClassroomResponseDto>>(classrooms);
-            throw new NotImplementedException();
         }
 
         public ClassroomResponseDto GetClassroom(Guid id)
