@@ -26,12 +26,12 @@ namespace PimPamProgrammeur.Repository
 
         public Session GetSession(Guid id)
         {
-            return _context.Sessions.FirstOrDefault(e => e.Id == id);
+            return _context.Sessions.Include(x => x.Module).FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<Session> GetOpenSessions(Guid moduleId)
         {
-            return _context.Sessions.Where(e => e.ModuleId == moduleId && e.EndTime == DateTime.MinValue);
+            return _context.Sessions.Include(x => x.Module).Where(e => e.ModuleId == moduleId && e.EndTime == DateTime.MinValue);
         }
 
         public async Task<Session> UpdateSession(Session session)
@@ -45,7 +45,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Session> GetSessions()
         {
-            return _context.Sessions.ToList();
+            return _context.Sessions.Include(x => x.Module).ToList();
         }
     }
 }
