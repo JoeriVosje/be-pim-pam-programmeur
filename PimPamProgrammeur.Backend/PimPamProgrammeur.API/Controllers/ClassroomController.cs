@@ -76,7 +76,7 @@ namespace PimPamProgrammeur.API.Controllers
         {
             await _classroomProcessor.DeleteClassroom(id);
 
-            return NoContent();
+            return Ok();
         }
     }
 }

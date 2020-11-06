@@ -120,7 +120,7 @@ namespace PimPamProgrammeur.API.Controllers
         {
             await _userProcessor.DeleteUser(id);
 
-            return NoContent();
+            return Ok();
         }
 
 

@@ -22,7 +22,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task DeleteClassroom(Guid id)
         {
-            await _classroomRepository.DeleteClassroom(id);
+            if (_classroomRepository.GetClassroom(id) != null)
+            {
+                await _classroomRepository.DeleteClassroom(id);
+            }
         }
 
         public ClassroomResponseDto GetClassroom(Guid id)
