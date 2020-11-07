@@ -14,7 +14,7 @@ namespace PimPamProgrammeur.Dto
         public bool Skippable { get; set; }
         public string Hint { get; set; }
 
-        public Guid CorrectAnswer { get; set; }
+        public Guid? CorrectAnswer { get; set; }
         public ICollection<Answer> Answers { get; set; }
     }
 }
