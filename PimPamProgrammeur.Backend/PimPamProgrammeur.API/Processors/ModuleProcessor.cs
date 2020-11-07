@@ -3,6 +3,7 @@ using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -40,6 +41,14 @@ namespace PimPamProgrammeur.API.Processors
             var resultModule = await _moduleRepository.UpdateModule(module);
 
             return _mapper.Map<ModuleResponseDto>(resultModule);
+        }
+
+        public IEnumerable<ModuleResponseDto> GetModules()
+        {
+            //Connection with repository
+            var modules = _moduleRepository.GetModules();
+            //Return and map the module model to the ModuleResponseDTO 
+            return _mapper.Map<IEnumerable<ModuleResponseDto>>(modules);
         }
     }
 }

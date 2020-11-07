@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="request">The module to get</param>
         /// <returns>The module</returns>
         [HttpGet("{id}")]
-        //[AuthorizeAdmin]
+        [AuthorizeAdmin]
         [ProducesResponseType(typeof(ModuleResponseDto), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
@@ -91,6 +92,25 @@ namespace PimPamProgrammeur.API.Controllers
 
             return Ok(module);
 
+        }
+
+        /// <summary>
+        /// Get all modules
+        /// </summary>
+        /// <returns>A list of modules</returns>
+        [HttpGet]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(IEnumerable<ModuleResponseDto>), 200)]
+        [ProducesResponseType(204)]
+        public IActionResult GetAllModules()
+        {
+            var modules = _moduleProcessor.GetModules().ToList();
+            if (modules.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(modules);
         }
     }
 }

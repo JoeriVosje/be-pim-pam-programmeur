@@ -54,7 +54,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task DeleteUser(Guid id)
         {
-            await _userRepository.DeleteUser(id);
+            if (_userRepository.GetUser(id) != null)
+            {
+                await _userRepository.DeleteUser(id);
+            }
         }
 
         public IEnumerable<UserResponseDto> GetUsers()
@@ -89,6 +92,12 @@ namespace PimPamProgrammeur.API.Processors
             var userResponse = _mapper.Map<UserResponseDto>(foundUser);
 
             return _tokenProvider.GenerateToken(userResponse);
+        }
+
+        public IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId)
+        {
+            var users = _userRepository.GetUserByClassroomId(classroomId);
+            return _mapper.Map<IEnumerable<UserResponseDto>>(users);
         }
     }
 }
