@@ -93,25 +93,6 @@ namespace PimPamProgrammeur.API.Controllers
         }
 
         /// <summary>
-        /// Gets all users
-        /// </summary>
-        /// <returns>The saved module</returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<UserResponseDto>), 200)]
-        [ProducesResponseType(204)]
-        [AuthorizeAdmin]
-        public IActionResult GetUser()
-        {
-            var users = _userProcessor.GetUsers().ToList();
-            if (users.Count == 0)
-            {
-                return NoContent();
-            }
-
-            return Ok(users);
-        }
-
-        /// <summary>
         /// Gets a single user by Id
         /// </summary>
         /// <param name="id">The user id</param>
@@ -126,19 +107,36 @@ namespace PimPamProgrammeur.API.Controllers
             return Ok();
         }
 
-        [HttpGet("by-classroom")]
+        /// <summary>
+        /// Get all users by classroom id or without.
+        /// </summary>
+        /// <param name="classroomId">Guid id from a classroom</param>
+        /// <returns>A list of users</returns>
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserResponseDto>), 200)]
         [ProducesResponseType(204)]
         [AuthorizeAdmin]
-        public IActionResult GetUserByClassroomId(Guid classroomId)
+        public IActionResult GetAllUsers([FromQuery]Guid classroomId)
         {
-            var users = _userProcessor.GetUsersByClassroomId(classroomId).ToList();
-            if (users.Count == 0)
+            if (classroomId == Guid.Empty)
+            {
+                var users = _userProcessor.GetUsers().ToList();
+                if (users.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                return Ok(users);
+
+            }
+
+               var usersByClassRoomID = _userProcessor.GetUsersByClassroomId(classroomId).ToList();
+            if (usersByClassRoomID.Count == 0)
             {
                 return NoContent();
             }
 
-            return Ok(users);
+            return Ok(usersByClassRoomID);
         }
 
     }
