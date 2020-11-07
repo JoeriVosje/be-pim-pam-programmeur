@@ -18,7 +18,7 @@ namespace PimPamProgrammeur.API.Mapping
             return new UserResponseDto
             {
                 Id = user.Id,
-                Classroom = null, //context.Mapper.Map<ClassroomResponseDto>(user.ClassRoom), // TODO enable as soon as classRepo is implemented
+                Classroom = context.Mapper.Map<ClassroomResponseDto>(user.ClassRoom), 
                 CreationDate = user.CreationDate,
                 Email = user.Email,
                 FirstName = user.FirstName,

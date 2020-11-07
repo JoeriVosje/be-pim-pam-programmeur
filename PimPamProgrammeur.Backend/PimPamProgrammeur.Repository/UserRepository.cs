@@ -1,8 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Model;
 
@@ -39,7 +39,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<User> GetUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(x => x.ClassRoom).ToList();
         }
 
         public User FindUser(string email, string password)
@@ -50,6 +50,11 @@ namespace PimPamProgrammeur.Repository
         public User FindUser(string email)
         {
             return _context.Users.FirstOrDefault(e => e.Email == email);
+        }
+
+        public IEnumerable<User> GetUserByClassroomId(Guid ClassroomId)
+        {
+            return _context.Users.Where(e => e.ClassroomId == ClassroomId);
         }
     }
 }
