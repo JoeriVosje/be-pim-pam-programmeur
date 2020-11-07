@@ -51,5 +51,10 @@ namespace PimPamProgrammeur.Repository
         {
             return _context.Users.FirstOrDefault(e => e.Email == email);
         }
+
+        public IEnumerable<User> GetUserByClassroomId(Guid ClassroomId)
+        {
+            return _context.Users.Where(e => e.ClassroomId == ClassroomId);
+        }
     }
 }

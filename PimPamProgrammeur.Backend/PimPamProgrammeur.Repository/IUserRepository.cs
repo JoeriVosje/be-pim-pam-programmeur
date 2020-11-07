@@ -14,5 +14,6 @@ namespace PimPamProgrammeur.Repository
         User FindUser(string email, string password);
 
         User FindUser(string email);
+        IEnumerable<User> GetUserByClassroomId(Guid ClassroomId);
     }
 }
