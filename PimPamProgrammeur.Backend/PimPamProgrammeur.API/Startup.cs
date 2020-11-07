@@ -45,6 +45,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
             services.AddTransient<ISessionRepository, SessionRepository>();
+            services.AddTransient<IComponentRepository, ComponentRepository>();
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
@@ -53,6 +54,7 @@ namespace PimPamProgrammeur.API
                 mc.AddProfile(new UserMapping());
                 mc.AddProfile(new ClassroomMapping());
                 mc.AddProfile(new SessionMapping());
+                mc.AddProfile(new ComponentMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -72,6 +74,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IUserProcessor, UserProcessor>();
             services.AddTransient<IClassroomProcessor, ClassroomProcessor>();
             services.AddTransient<ISessionProcessor, SessionProcessor>();
+            services.AddTransient<IComponentProcessor, ComponentProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
@@ -79,6 +82,7 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
+            services.AddSingleton<IValidator<ComponentRequestDto>, ComponentRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();

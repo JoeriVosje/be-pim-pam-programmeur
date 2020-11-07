@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Mapping
 {
@@ -21,7 +18,7 @@ namespace PimPamProgrammeur.API.Mapping
             return new ComponentResponseDto
             {
                 Id = component.Id,
-                Answers = component.Answers,
+                Answers = AnswerToAnswerResponse(component.Answers),
                 Hint = component.Hint,
                 Question = component.Question,
                 Skippable = component.Skippable,
@@ -35,7 +32,7 @@ namespace PimPamProgrammeur.API.Mapping
         {
             return new Component
             {
-                Answers = requestDto.Answers,
+                Answers = AnswerRequestDtoToAnswer(requestDto.Answers), 
                 Hint = requestDto.Hint,
                 ModuleId = requestDto.ModuleId,
                 Question = requestDto.Question,
@@ -43,6 +40,39 @@ namespace PimPamProgrammeur.API.Mapping
                 Theory = requestDto.Theory,
                 Title = requestDto.Title
             };
+        }
+
+        //TODO Map this somewhere else the in the component mapping
+        private ICollection<Answer> AnswerRequestDtoToAnswer(ICollection<AnswerRequestDto> e)
+        {
+            var listOfAnswers = new List<Answer>();
+
+            foreach (var item in e)
+            {
+                listOfAnswers.Add(new Answer
+                {
+                    Description = item.Description
+                });
+
+            }
+            return listOfAnswers;
+        }
+
+        //TODO Map this somewhere else the in the component mapping
+        private ICollection<AnswerResponseDto> AnswerToAnswerResponse(ICollection<Answer> e)
+        {
+            var listOfAnswersResponse = new List<AnswerResponseDto>();
+
+            foreach (var item in e)
+            {
+                listOfAnswersResponse.Add(new AnswerResponseDto
+                {
+                    Id = item.Id,
+                    Description = item.Description
+                });
+
+            }
+            return listOfAnswersResponse;
         }
     }
 }
