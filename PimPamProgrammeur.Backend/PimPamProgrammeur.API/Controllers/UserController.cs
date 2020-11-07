@@ -129,7 +129,7 @@ namespace PimPamProgrammeur.API.Controllers
         [HttpGet("by-classroom")]
         [ProducesResponseType(typeof(IEnumerable<UserResponseDto>), 200)]
         [ProducesResponseType(204)]
-        //[AuthorizeAdmin]
+        [AuthorizeAdmin]
         public IActionResult GetUserByClassroomId(Guid classroomId)
         {
             var users = _userProcessor.GetUsersByClassroomId(classroomId).ToList();

@@ -93,8 +93,8 @@ namespace PimPamProgrammeur.API.Processors
 
         public IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId)
         {
-            //var users = _userRepository.
-            throw new NotImplementedException();
+            var users = _userRepository.GetUserByClassroomId(classroomId);
+            return _mapper.Map<IEnumerable<UserResponseDto>>(users);
         }
     }
 }
