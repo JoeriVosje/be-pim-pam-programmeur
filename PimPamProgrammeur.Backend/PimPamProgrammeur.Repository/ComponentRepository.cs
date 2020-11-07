@@ -35,6 +35,11 @@ namespace PimPamProgrammeur.Repository
             return _context.Components.FirstOrDefault(m => m.ModuleId == ModuleId);
         }
 
+        public IEnumerable<Component> GetComponents()
+        {
+            return _context.Components.ToList();
+        }
+
         public async Task<Component> SaveComponent(Component component)
         {
             await _context.Components.AddAsync(component);
