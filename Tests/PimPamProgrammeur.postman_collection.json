@@ -374,19 +374,28 @@
 				{
 					"name": "GET ALL USERS BY CLASSROOM ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiJhZDAzOTQzNi0yMjI2LTRiZGItOTVhMi0wOGQ4ODJmNTEzNDEiLCJSb2xlSWQiOiIxIiwibmJmIjoxNjA0NzM4NjI1LCJleHAiOjE2MDQ4MjUwMjUsImlhdCI6MTYwNDczODYyNX0.iTzWvtfpU2IMBMg5BD13qGtm7CTcU8AzJVZSfDcLVLU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44363/Api/User/by-classroom?classroomId={{classroomid}}",
+							"raw": "https://localhost:44363/api/user?classroomId={{classroomid}}",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44363",
 							"path": [
-								"Api",
-								"User",
-								"by-classroom"
+								"api",
+								"user"
 							],
 							"query": [
 								{
