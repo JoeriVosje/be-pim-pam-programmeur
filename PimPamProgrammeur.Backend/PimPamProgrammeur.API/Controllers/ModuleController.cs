@@ -33,7 +33,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="request">The module to get</param>
         /// <returns>The module</returns>
         [HttpGet("{id}")]
-        //[AuthorizeAdmin]
+        [AuthorizeAdmin]
         [ProducesResponseType(typeof(ModuleResponseDto), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]

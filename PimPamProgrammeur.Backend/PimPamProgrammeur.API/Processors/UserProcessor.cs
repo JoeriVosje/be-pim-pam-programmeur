@@ -54,7 +54,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task DeleteUser(Guid id)
         {
-            await _userRepository.DeleteUser(id);
+            if (_userRepository.GetUser(id) != null)
+            {
+                await _userRepository.DeleteUser(id);
+            }
         }
 
         public IEnumerable<UserResponseDto> GetUsers()
