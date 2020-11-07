@@ -2,7 +2,9 @@
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
+using PimPamProgrammeur.Dto.Validator;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Controllers
@@ -12,10 +14,12 @@ namespace PimPamProgrammeur.API.Controllers
     public class ResultController : ControllerBase
     {
         private readonly IResultProcessor _resultProcessor;
+        private readonly IValidator<ResultRequestDto> _resultRequestValidator;
 
-        public ResultController(IResultProcessor resultProcessor)
+        public ResultController(IResultProcessor resultProcessor, IValidator<ResultRequestDto> resultRequestValidator)
         {
             _resultProcessor = resultProcessor;
+            _resultRequestValidator = resultRequestValidator;
         }
 
         /// <summary>
@@ -49,16 +53,15 @@ namespace PimPamProgrammeur.API.Controllers
         //[ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostResult(ResultRequestDto request)
         {
-            //var validationResult = _resultRequestValidator.Validate(request);
-            //if (validationResult.Errors.Any())
-            //{
-            //    return BadRequest(validationResult);
-            //}
+            var validationResult = _resultRequestValidator.Validate(request);
+            if (validationResult.Errors.Any())
+            {
+                return BadRequest(validationResult);
+            }
 
             var result = await _resultProcessor.SaveResult(request);
 
             return Ok(result);
         }
-
     }
 }

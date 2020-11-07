@@ -23,6 +23,8 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Result> SaveResult(Result result)
         {
+            result.EndTime = DateTime.Now;
+
             await _context.Results.AddAsync(result);
             await _context.SaveChangesAsync();
 

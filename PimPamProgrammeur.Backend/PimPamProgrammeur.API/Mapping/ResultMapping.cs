@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Mapping
 {
@@ -22,7 +17,7 @@ namespace PimPamProgrammeur.API.Mapping
             return new ResultResponseDto
             {
                 //CorrectAnswerId
-                //Hint
+                // Hint 
                 //Success
             };
         }
@@ -31,8 +26,9 @@ namespace PimPamProgrammeur.API.Mapping
         {
             return new Result
             {
+                StartTime = requestDto.StartTime,
                 AnswerId = requestDto.AnswerId,
-                UserId = requestDto.UserId,
+                UserId = requestDto.UserId
             };
         }
     }

@@ -82,13 +82,15 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
+            services.AddSingleton<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();
 
+
             // controllers
             services.AddAuthentication(Constants.TokenAuthenticationScheme)
-                .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { }); ;
+                .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { });
             services.AddAuthorization(e =>
             {
                 e.AddPolicy(Constants.Admin, builder => builder.RequireClaim(Constants.RoleId, new List<string> {"1"}));
