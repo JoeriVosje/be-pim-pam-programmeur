@@ -32,8 +32,8 @@ namespace PimPamProgrammeur.API.Processors
         public async Task<UserResponseDto> SaveUser(UserRequestDto userRequest)
         {
             var password = _passwordGeneratorService.Generate(8);
-            password = _hashingService.HashPassword(userRequest.Email, password);
-            var user = _mapper.Map<User>((password, userRequest));
+            var hashedPassword = _hashingService.HashPassword(password);
+            var user = _mapper.Map<User>((hashedPassword, userRequest));
 
             var savedUser = await _userRepository.SaveUser(user);
 
@@ -73,12 +73,16 @@ namespace PimPamProgrammeur.API.Processors
 
         public string Login(UserLoginRequestDto userLoginRequestDto)
         {
-            var password = _hashingService.HashPassword(userLoginRequestDto.Email, userLoginRequestDto.Password);
-
-            var foundUser = _userRepository.FindUser(userLoginRequestDto.Email, password);
+            var foundUser = _userRepository.FindUser(userLoginRequestDto.Email);
 
             if (foundUser == null)
             {
+                return null;
+            }
+
+            if (!_hashingService.VerifyHashedPassword(foundUser.Password, userLoginRequestDto.Password))
+            {
+                // Maybe return a different response here?
                 return null;
             }
 

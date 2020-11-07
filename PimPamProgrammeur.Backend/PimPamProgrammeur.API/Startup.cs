@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +44,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IModuleRepository, ModuleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
+            services.AddTransient<ISessionRepository, SessionRepository>();
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
@@ -50,6 +52,7 @@ namespace PimPamProgrammeur.API
                 mc.AddProfile(new ModuleMapping());
                 mc.AddProfile(new UserMapping());
                 mc.AddProfile(new ClassroomMapping());
+                mc.AddProfile(new SessionMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -68,6 +71,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IModuleProcessor, ModuleProcessor>();
             services.AddTransient<IUserProcessor, UserProcessor>();
             services.AddTransient<IClassroomProcessor, ClassroomProcessor>();
+            services.AddTransient<ISessionProcessor, SessionProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
@@ -75,6 +79,9 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
+            services.AddSingleton<SessionRequestDtoValidator>();
+            services.AddTransient<OpenSessionRequestDtoValidator>();
+            services.AddTransient<CloseSessionRequestDtoValidator>();
 
             // controllers
             services.AddAuthentication(Constants.TokenAuthenticationScheme)

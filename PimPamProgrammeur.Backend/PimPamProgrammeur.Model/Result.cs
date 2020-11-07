@@ -16,9 +16,11 @@ namespace PimPamProgrammeur.Model
         //Foreign key
         public Guid AnswerId { get; set; }
         public Guid UserId { get; set; }
+        public Guid SessionId { get; set; }
 
         //Navigation property
         public virtual Answer Answer { get; set; }
         public virtual User User { get; set; }
+        public virtual Session Session { get; set; }
     }
 }

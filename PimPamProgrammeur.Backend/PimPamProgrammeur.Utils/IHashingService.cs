@@ -7,11 +7,18 @@ namespace PimPamProgrammeur.Utils
     public interface IHashingService
     {
         /// <summary>
-        /// Hashes a password using the email address as salt and a random generated string as pepper.
+        /// Hashes a password using a RFC 2898 algorithm.
         /// </summary>
-        /// <param name="email">Email address that is used as salt.</param>
         /// <param name="plainTextPassword">Plaintext password that needs to be hashed</param>
         /// <returns>The RFC 2898 hashed password.</returns>
-        string HashPassword(string email, string plainTextPassword);
+        string HashPassword(string plainTextPassword);
+
+        /// <summary>
+        /// Verifies if a hash is cryptographically equal to the hashed plaintext password.
+        /// </summary>
+        /// <param name="hashedPassword"></param>
+        /// <param name="plainTextPassword"></param>
+        /// <returns></returns>
+        bool VerifyHashedPassword(string hashedPassword, string plainTextPassword);
     }
 }

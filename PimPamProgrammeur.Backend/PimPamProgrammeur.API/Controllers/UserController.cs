@@ -64,6 +64,10 @@ namespace PimPamProgrammeur.API.Controllers
             }
 
             var accessToken = _userProcessor.Login(userLoginRequestDto);
+            if (accessToken == null)
+            {
+                return Unauthorized();
+            }
 
             return Ok(accessToken);
         }
