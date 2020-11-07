@@ -10,7 +10,9 @@ namespace PimPamProgrammeur.Model
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public bool IsActive { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
 
         //Foreign key
         public Guid ModuleId { get; set; }

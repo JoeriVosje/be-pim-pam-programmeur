@@ -353,6 +353,126 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "OPEN SESSION",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moduleId\": \"{{moduleid}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/Session/Open",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"Session",
+								"Open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SESSION",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/Session/869da27c-b737-4a09-e004-08d88245defa",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"Session",
+								"869da27c-b737-4a09-e004-08d88245defa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SESSIONS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/Session/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"Session",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLOSE SESSION",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moduleId\": \"{{moduleid}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/Session/Close",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"Session",
+								"Close"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
