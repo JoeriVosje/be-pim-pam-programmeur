@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0900724c-27ec-4c68-b037-4ae247803a0c",
+		"_postman_id": "ec5810b5-00d9-4634-9e3e-0f0add36afb5",
 		"name": "PimPamProgrammeur",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3aa1b88f-6d63-4293-bd5a-871375a13b2f",
+								"id": "b4a88865-710a-4a52-ad8a-de4d2fa4aac6",
 								"exec": [
 									"pm.globals.set('tokenadmin', responseBody);"
 								],
@@ -62,7 +62,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bab59bae-5091-417f-a84d-b92f2d7efa04",
+								"id": "5ad65dcd-24d8-4475-830f-c6784aff6f78",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('moduleid', data.id);"
@@ -149,6 +149,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET ALL MODULES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/module/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -162,7 +183,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3cf0a414-cb9d-4fed-856a-22105b807f0d",
+								"id": "00d29b46-edf0-469c-adb8-a743ad01cc87",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('classroomid', data.id);"
@@ -273,7 +294,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f79caf63-be07-4c57-bc70-bbca864d6092",
+								"id": "f02ef0fd-d578-4d66-aa80-c367b85f7f95",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('userid', data.id);"
@@ -545,7 +566,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "9af4bcc3-0226-4601-85eb-d8b6a30dcbe8",
+				"id": "9bc8096b-11f6-4e90-8bfa-1be4fcb848d6",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -555,7 +576,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "cebf6967-52df-4f6a-9ae2-b2cc8ef07623",
+				"id": "20cf1f2f-f762-4dfc-b72e-0c9bb1729333",
 				"type": "text/javascript",
 				"exec": [
 					""
