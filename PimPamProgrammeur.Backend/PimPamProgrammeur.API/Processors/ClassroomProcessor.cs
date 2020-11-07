@@ -28,6 +28,13 @@ namespace PimPamProgrammeur.API.Processors
             }
         }
 
+        public IEnumerable<ClassroomResponseDto> GetAllClassrooms()
+        {
+            var classrooms = _classroomRepository.GetAllClassrooms();
+
+            return _mapper.Map<IEnumerable<ClassroomResponseDto>>(classrooms);
+        }
+
         public ClassroomResponseDto GetClassroom(Guid id)
         {
             var classroom = _classroomRepository.GetClassroom(id);

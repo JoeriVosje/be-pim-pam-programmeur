@@ -11,5 +11,6 @@ namespace PimPamProgrammeur.API.Processors
         Task<ClassroomResponseDto> SaveClassroom(ClassroomRequestDto classroomRequest);
         Task DeleteClassroom(Guid id);
         ClassroomResponseDto GetClassroom(Guid id);
+        IEnumerable<ClassroomResponseDto> GetAllClassrooms();
     }
 }
