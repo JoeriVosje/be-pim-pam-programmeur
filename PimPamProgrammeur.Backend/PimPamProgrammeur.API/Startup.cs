@@ -46,6 +46,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
             services.AddTransient<ISessionRepository, SessionRepository>();
             services.AddTransient<IComponentRepository, ComponentRepository>();
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>

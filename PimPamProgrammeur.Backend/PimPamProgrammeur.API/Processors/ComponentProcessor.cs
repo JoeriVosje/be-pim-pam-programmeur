@@ -13,11 +13,13 @@ namespace PimPamProgrammeur.API.Processors
     {
         private readonly IMapper _mapper;
         private readonly IComponentRepository _repository;
+        private readonly IAnswerRepository _answerRepository;
 
-        public ComponentProcessor(IMapper mapper, IComponentRepository repository)
+        public ComponentProcessor(IMapper mapper, IComponentRepository repository, IAnswerRepository answerRepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _answerRepository = answerRepository;
         }
 
         public async Task DeleteComponent(Guid id)
@@ -27,7 +29,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public ComponentResponseDto GetComponent(Guid id)
         {
+            var answers = _answerRepository.GetAnswersByComponentId(id);
             var component = _repository.GetComponent(id);
+
+            component.Answers = answers.ToList();
 
             return component == null ? null : _mapper.Map<ComponentResponseDto>(component);
         }
