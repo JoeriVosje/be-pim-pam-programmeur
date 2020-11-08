@@ -104,9 +104,9 @@ namespace PimPamProgrammeur.API.Controllers
         [AuthorizeAdmin]
         [ProducesResponseType(typeof(ComponentResponseDto), 200)]
         [ProducesResponseType(204)]
-        public IActionResult GetComponentByModuleId(Guid moduleid)
+        public IActionResult GetComponentsByModuleId(Guid moduleid)
         {
-            var component = _componentProcessor.GetComponentByModuleId(moduleid);
+            var component = _componentProcessor.GetComponentsByModuleId(moduleid);
             if (component == null)
             {
                 return NoContent();

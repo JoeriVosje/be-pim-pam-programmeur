@@ -46,7 +46,7 @@ namespace PimPamProgrammeur.API.Processors
                 component.Answers = answers.ToList();
             }
 
-            return _mapper.Map<IEnumerable<ComponentResponseDto>>(components); ;
+            return _mapper.Map<IEnumerable<ComponentResponseDto>>(components);
         }
 
         public async Task<ComponentResponseDto> SaveComponent(ComponentRequestDto componentRequest)
@@ -71,13 +71,16 @@ namespace PimPamProgrammeur.API.Processors
             return _mapper.Map<ComponentResponseDto>(updatedComponent);
         }
 
-        public ComponentResponseDto GetComponentByModuleId(Guid id)
+        public IEnumerable<ComponentResponseDto> GetComponentsByModuleId(Guid id)
         {
-            var component = _repository.GetComponentByModule(id);
-            var answers = _answerRepository.GetAnswersByComponentId(component.Id);
-            component.Answers = answers.ToList();
+            var components = _repository.GetComponentsByModule(id);
+            foreach (var item in components)
+            {
+                var answers = _answerRepository.GetAnswersByComponentId(item.Id);
+                item.Answers = answers.ToList();
+            }
 
-            return _mapper.Map<ComponentResponseDto>(component);
+            return _mapper.Map<IEnumerable<ComponentResponseDto>>(components);
 
         }
 

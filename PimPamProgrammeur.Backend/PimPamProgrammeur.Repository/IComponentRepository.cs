@@ -9,7 +9,7 @@ namespace PimPamProgrammeur.Repository
     {
         Task<Component> SaveComponent(Component component);
         Component GetComponent(Guid id);
-        Component GetComponentByModule(Guid ModuleId);
+        IEnumerable<Component> GetComponentsByModule(Guid ModuleId);
         IEnumerable<Component> GetComponents();
         Task DeleteComponent(Guid id);
         Task<Component> UpdateComponent(Component component);

@@ -30,9 +30,9 @@ namespace PimPamProgrammeur.Repository
             return _context.Components.FirstOrDefault(e => e.Id == id);
         }
 
-        public Component GetComponentByModule(Guid ModuleId)
+        public IEnumerable<Component> GetComponentsByModule(Guid ModuleId)
         {
-            return _context.Components.FirstOrDefault(m => m.ModuleId == ModuleId);
+            return _context.Components.Where(m => m.ModuleId == ModuleId).ToList();
         }
 
         public IEnumerable<Component> GetComponents()
