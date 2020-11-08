@@ -30,7 +30,6 @@ namespace PimPamProgrammeur.API.Processors
 
         public ComponentResponseDto GetComponent(Guid id)
         {
-            //TODO WHEN ID is null set here that there's no content
             var component = _repository.GetComponent(id);
             if (component == null)
             {
@@ -68,20 +67,16 @@ namespace PimPamProgrammeur.API.Processors
         {
             var component = _mapper.Map<Component>(componentUpdateRequestDto);
             IEnumerable<Answer> foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
-            //TODO stap 1 Get the answers from components
             foreach (var answer in component.Answers)
             {
-                //TODO Stap 2 For each answer check in Repository from answers
-
                 Answer updateAnswer = foundAnswers.FirstOrDefault(e => e.Id == answer.Id);
                 updateAnswer.Description = answer.Description;
-                // step 3 In for each update the answer description
                 await _answerRepository.UpdateAnswerByComponentId(updateAnswer);
 
             }
 
-            IEnumerable<Answer> foundAnswersRight = _answerRepository.GetAnswersByComponentId(component.Id);
-            component.Answers = foundAnswersRight.ToList();
+            foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
+            component.Answers = foundAnswers.ToList();
 
             Component updatedComponent = await _repository.UpdateComponent(component);
 
