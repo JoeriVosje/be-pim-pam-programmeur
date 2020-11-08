@@ -15,9 +15,16 @@ namespace PimPamProgrammeur.Repository
             _context = context;
         }
 
+        public IEnumerable<Answer> DeleteAnswersByComponentId(Guid componentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Answer> GetAnswersByComponentId(Guid componentId)
         {
             return _context.Answers.Where(e => e.ComponentId == componentId);
         }
+
+
     }
 }

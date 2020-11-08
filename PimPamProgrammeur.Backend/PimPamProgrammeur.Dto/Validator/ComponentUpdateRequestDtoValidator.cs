@@ -10,7 +10,7 @@ namespace PimPamProgrammeur.Dto.Validator
         {
             var validationResult = new ValidationResult();
 
-            ValidateNullOrEmpty(validationResult, nameof(entity.Id), entity.Id.ToString());
+            ValidateNull(validationResult, nameof(entity.Id), entity.Id);
 
             return validationResult;
         }

@@ -18,10 +18,11 @@ namespace PimPamProgrammeur.API.Controllers
         private readonly IValidator<ComponentRequestDto> _validator;
         private readonly IValidator<ComponentUpdateRequestDto> _requestValidator;
 
-        public ComponentController(IComponentProcessor componentProcessor, IValidator<ComponentRequestDto> validator)
+        public ComponentController(IComponentProcessor componentProcessor, IValidator<ComponentRequestDto> validator, IValidator<ComponentUpdateRequestDto> requestValidator)
         {
             _componentProcessor = componentProcessor;
             _validator = validator;
+            _requestValidator = requestValidator;
         }
 
         [HttpPost]

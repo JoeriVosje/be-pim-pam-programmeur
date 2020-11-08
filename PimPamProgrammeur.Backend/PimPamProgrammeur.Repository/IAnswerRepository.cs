@@ -8,5 +8,6 @@ namespace PimPamProgrammeur.Repository
     public interface IAnswerRepository
     {
         IEnumerable<Answer> GetAnswersByComponentId(Guid componentId);
+        IEnumerable<Answer> DeleteAnswersByComponentId(Guid componentId);
     }
 }
