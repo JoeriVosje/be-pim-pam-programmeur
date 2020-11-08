@@ -31,8 +31,12 @@ namespace PimPamProgrammeur.API.Processors
         public ComponentResponseDto GetComponent(Guid id)
         {
             //TODO WHEN ID is null set here that there's no content
-            var answers = _answerRepository.GetAnswersByComponentId(id);
             var component = _repository.GetComponent(id);
+            if (component == null)
+            {
+                return null;
+            }
+            var answers = _answerRepository.GetAnswersByComponentId(id);
 
             component.Answers = answers.ToList();
 
