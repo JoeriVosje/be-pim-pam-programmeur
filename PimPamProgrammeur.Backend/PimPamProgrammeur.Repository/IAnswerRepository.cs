@@ -10,5 +10,7 @@ namespace PimPamProgrammeur.Repository
     {
         IEnumerable<Answer> GetAnswersByComponentId(Guid componentId);
         Task DeleteAnswersByComponentId(Guid componentId);
+        Task<Answer> UpdateAnswerByComponentId(Answer answer);
+
     }
 }

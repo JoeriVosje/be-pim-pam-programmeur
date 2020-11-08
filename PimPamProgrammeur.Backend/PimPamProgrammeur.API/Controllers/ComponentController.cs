@@ -95,7 +95,7 @@ namespace PimPamProgrammeur.API.Controllers
                 return BadRequest(validationResult);
             }
 
-            var component = await _componentProcessor.UpdateComponent(componentRequest.Id);
+            var component = await _componentProcessor.UpdateComponent(componentRequest);
 
             return Ok(component);
         }

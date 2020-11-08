@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
+using System;
 using System.Collections.Generic;
 
 namespace PimPamProgrammeur.API.Mapping
@@ -11,7 +12,10 @@ namespace PimPamProgrammeur.API.Mapping
         {
             CreateMap<Component, ComponentResponseDto>().ConvertUsing((e, _, context) => ComponentToComponentResponseDto(e, context));
             CreateMap<ComponentRequestDto, Component>().ConvertUsing((e, _, context) => ComponentRequestDtoToComponent(e));
+            CreateMap<ComponentUpdateRequestDto, Component>().ConvertUsing((e, _, context) => ComponentUpdateRequestDtoToComponent(e));
         }
+
+        
 
         private ComponentResponseDto ComponentToComponentResponseDto(Component component, ResolutionContext resolution)
         {
@@ -40,6 +44,39 @@ namespace PimPamProgrammeur.API.Mapping
                 Theory = requestDto.Theory,
                 Title = requestDto.Title
             };
+        }
+
+        private Component ComponentUpdateRequestDtoToComponent(ComponentUpdateRequestDto requestDto)
+        {
+            return new Component
+            {
+                Answers = AnswerUpdateRequestDtoToAnswer(requestDto.Answers),
+                Hint = requestDto.Hint,
+                ModuleId = requestDto.ModuleId,
+                Question = requestDto.Question,
+                Skippable = requestDto.Skippable,
+                Theory = requestDto.Theory,
+                Title = requestDto.Title,
+                Id = requestDto.Id
+            };
+
+        }
+
+        private ICollection<Answer> AnswerUpdateRequestDtoToAnswer(ICollection<AnswerUpdateRequestDto> updateRequestDto)
+        {
+            var listOfAnswers = new List<Answer>();
+
+            foreach (var item in updateRequestDto)
+            {
+                listOfAnswers.Add(new Answer
+                {
+                    Description = item.Description,
+                    Id = item.Id,
+                    ComponentId = item.ComponentId
+                });
+
+            }
+            return listOfAnswers;
         }
 
         //TODO Map this somewhere else the in the component mapping

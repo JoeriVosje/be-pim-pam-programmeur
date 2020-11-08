@@ -64,15 +64,26 @@ namespace PimPamProgrammeur.API.Processors
             return componentResponse;
         }
 
-        public async Task<ComponentResponseDto> UpdateComponent(Guid id)
+        public async Task<ComponentResponseDto> UpdateComponent(ComponentUpdateRequestDto componentUpdateRequestDto)
         {
-            var component = _mapper.Map<Component>(id);
+            var component = _mapper.Map<Component>(componentUpdateRequestDto);
+            IEnumerable<Answer> foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
             //TODO stap 1 Get the answers from components
+            foreach (var answer in component.Answers)
+            {
+                //TODO Stap 2 For each answer check in Repository from answers
 
-            //TODO Stap 2 For each answer check in Repository from answers
-            // step 3 In for each update the answer description
+                Answer updateAnswer = foundAnswers.FirstOrDefault(e => e.Id == answer.Id);
+                updateAnswer.Description = answer.Description;
+                // step 3 In for each update the answer description
+                await _answerRepository.UpdateAnswerByComponentId(updateAnswer);
 
-            var updatedComponent = await _repository.UpdateComponent(component);
+            }
+
+            IEnumerable<Answer> foundAnswersRight = _answerRepository.GetAnswersByComponentId(component.Id);
+            component.Answers = foundAnswersRight.ToList();
+
+            Component updatedComponent = await _repository.UpdateComponent(component);
 
             return _mapper.Map<ComponentResponseDto>(updatedComponent);
         }

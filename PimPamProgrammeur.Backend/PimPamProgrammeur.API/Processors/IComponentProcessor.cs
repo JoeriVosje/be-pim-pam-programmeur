@@ -22,7 +22,7 @@ namespace PimPamProgrammeur.API.Processors
         Task DeleteComponent(Guid id);
 
         // Post 
-        Task<ComponentResponseDto> UpdateComponent(Guid id);
+        Task<ComponentResponseDto> UpdateComponent(ComponentUpdateRequestDto componentUpdateRequestDto);
 
         // Get By Module Id
         IEnumerable<ComponentResponseDto> GetComponentsByModuleId(Guid id);

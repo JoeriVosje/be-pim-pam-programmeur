@@ -50,7 +50,6 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Component> UpdateComponent(Component component)
         {
-            _context.Entry(component).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return component;
