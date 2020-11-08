@@ -24,11 +24,13 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task DeleteComponent(Guid id)
         {
+            await _answerRepository.DeleteAnswersByComponentId(id);
             await _repository.DeleteComponent(id);
         }
 
         public ComponentResponseDto GetComponent(Guid id)
         {
+            //TODO WHEN ID is null set here that there's no content
             var answers = _answerRepository.GetAnswersByComponentId(id);
             var component = _repository.GetComponent(id);
 
