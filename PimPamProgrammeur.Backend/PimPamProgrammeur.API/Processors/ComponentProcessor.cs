@@ -61,6 +61,11 @@ namespace PimPamProgrammeur.API.Processors
         public async Task<ComponentResponseDto> UpdateComponent(Guid id)
         {
             var component = _mapper.Map<Component>(id);
+            //TODO stap 1 Get the answers from components
+
+            //TODO Stap 2 For each answer check in Repository from answers
+            // step 3 In for each update the answer description
+
             var updatedComponent = await _repository.UpdateComponent(component);
 
             return _mapper.Map<ComponentResponseDto>(updatedComponent);
