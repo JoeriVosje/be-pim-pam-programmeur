@@ -98,5 +98,20 @@ namespace PimPamProgrammeur.API.Controllers
 
             return Ok(component);
         }
+
+        [HttpGet("module/{moduleid}")]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(ComponentResponseDto), 200)]
+        [ProducesResponseType(204)]
+        public IActionResult GetComponentByModuleId(Guid moduleid)
+        {
+            var component = _componentProcessor.GetComponentByModuleId(moduleid);
+            if (component == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(component);
+        }
     }
 }

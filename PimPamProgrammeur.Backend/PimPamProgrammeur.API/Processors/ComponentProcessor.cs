@@ -37,11 +37,16 @@ namespace PimPamProgrammeur.API.Processors
             return component == null ? null : _mapper.Map<ComponentResponseDto>(component);
         }
 
-        public IEnumerable<Component> GetComponents()
+        public IEnumerable<ComponentResponseDto> GetComponents()
         {
             var components = _repository.GetComponents();
+            foreach (var component in components)
+            {
+                var answers = _answerRepository.GetAnswersByComponentId(component.Id);
+                component.Answers = answers.ToList();
+            }
 
-            return components;
+            return _mapper.Map<IEnumerable<ComponentResponseDto>>(components); ;
         }
 
         public async Task<ComponentResponseDto> SaveComponent(ComponentRequestDto componentRequest)
@@ -60,5 +65,16 @@ namespace PimPamProgrammeur.API.Processors
 
             return _mapper.Map<ComponentResponseDto>(updatedComponent);
         }
+
+        public ComponentResponseDto GetComponentByModuleId(Guid id)
+        {
+            var component = _repository.GetComponentByModule(id);
+            var answers = _answerRepository.GetAnswersByComponentId(component.Id);
+            component.Answers = answers.ToList();
+
+            return _mapper.Map<ComponentResponseDto>(component);
+
+        }
+
     }
 }

@@ -16,12 +16,15 @@ namespace PimPamProgrammeur.API.Processors
         ComponentResponseDto GetComponent(Guid id);
 
         // Get all
-        IEnumerable<Component> GetComponents();
+        IEnumerable<ComponentResponseDto> GetComponents();
 
         // Delete
         Task DeleteComponent(Guid id);
 
         // Post 
         Task<ComponentResponseDto> UpdateComponent(Guid id);
+
+        // Get By Module Id
+        ComponentResponseDto GetComponentByModuleId(Guid id);
     }
 }
