@@ -82,23 +82,23 @@ namespace PimPamProgrammeur.API.Controllers
             return Ok(components);
         }
 
-        [HttpPut]
-        [AuthorizeAdmin]
-        [ProducesResponseType(typeof(ComponentResponseDto), 200)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(typeof(ValidationResult), 400)]
-        public async Task<IActionResult> UpdateComponent(ComponentUpdateRequestDto componentRequest)
-        {
-            var validationResult = _requestValidator.Validate(componentRequest);
-            if (validationResult.Errors.Any())
-            {
-                return BadRequest(validationResult);
-            }
+        //[HttpPut]
+        //[AuthorizeAdmin]
+        //[ProducesResponseType(typeof(ComponentResponseDto), 200)]
+        //[ProducesResponseType(204)]
+        //[ProducesResponseType(typeof(ValidationResult), 400)]
+        //public async Task<IActionResult> UpdateComponent(ComponentUpdateRequestDto componentRequest)
+        //{
+        //    var validationResult = _requestValidator.Validate(componentRequest);
+        //    if (validationResult.Errors.Any())
+        //    {
+        //        return BadRequest(validationResult);
+        //    }
 
-            var component = await _componentProcessor.UpdateComponent(componentRequest);
+        //    var component = await _componentProcessor.UpdateComponent(componentRequest);
 
-            return Ok(component);
-        }
+        //    return Ok(component);
+        //}
 
         [HttpGet("module/{moduleid}")]
         [AuthorizeAdmin]
