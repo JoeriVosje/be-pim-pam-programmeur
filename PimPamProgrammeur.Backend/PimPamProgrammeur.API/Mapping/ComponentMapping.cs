@@ -58,6 +58,7 @@ namespace PimPamProgrammeur.API.Mapping
                 Theory = requestDto.Theory,
                 Title = requestDto.Title,
                 Id = requestDto.Id
+
             };
 
         }
@@ -72,7 +73,9 @@ namespace PimPamProgrammeur.API.Mapping
                 {
                     Description = item.Description,
                     Id = item.Id,
-                    ComponentId = item.ComponentId
+                    ComponentId = item.ComponentId,
+                    IsCorrectAnswer = item.IsCorrectAnswer
+                    
                 });
 
             }
@@ -106,7 +109,9 @@ namespace PimPamProgrammeur.API.Mapping
                 listOfAnswersResponse.Add(new AnswerResponseDto
                 {
                     Id = item.Id,
-                    Description = item.Description
+                    Description = item.Description,
+                    IsCorrectAnswer = item.IsCorrectAnswer
+                    
                 });
 
             }

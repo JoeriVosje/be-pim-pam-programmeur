@@ -69,6 +69,7 @@ namespace PimPamProgrammeur.API.Processors
                     savedComponent.CorrectAnswerId = item.Id;
                 }
             }
+
             savedComponent.Answers = answers.ToList();
 
             //Step 3. Update the component
