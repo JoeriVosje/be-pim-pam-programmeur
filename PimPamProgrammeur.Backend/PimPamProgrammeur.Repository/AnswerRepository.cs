@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PimPamProgrammeur.Data;
+﻿using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Model;
 using System;
 using System.Collections.Generic;
@@ -28,8 +27,10 @@ namespace PimPamProgrammeur.Repository
             foreach (var answer in answers)
             {
                 _context.Answers.Remove(answer);
-                await _context.SaveChangesAsync();
             }
+
+            await _context.SaveChangesAsync();
+
         }
         public async Task<Answer> UpdateAnswerByComponentId(Answer answer)
         {

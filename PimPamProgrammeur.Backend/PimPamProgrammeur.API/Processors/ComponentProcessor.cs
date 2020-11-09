@@ -58,24 +58,8 @@ namespace PimPamProgrammeur.API.Processors
         {
             var component = _mapper.Map<Component>(componentRequest);
             var savedComponent = await _repository.SaveComponent(component);
-            //Create the component and after that the answer has been created.
-            //step 1 get the answer and check which answer has a true.
-            var answers =  _answerRepository.GetAnswersByComponentId(savedComponent.Id);
-            //step 2 add the corectAnswerId with the answerId.
-            foreach (var item in answers)
-            {
-                if(item.IsCorrectAnswer == true)
-                {
-                    savedComponent.CorrectAnswerId = item.Id;
-                }
-            }
 
-            savedComponent.Answers = answers.ToList();
-
-            //Step 3. Update the component
-            var updatedComponentWithCorrectAnswerId = await _repository.UpdateComponent(savedComponent);
-
-            var componentResponse = _mapper.Map<ComponentResponseDto>(updatedComponentWithCorrectAnswerId);
+            var componentResponse = _mapper.Map<ComponentResponseDto>(savedComponent);
 
             return componentResponse;
         }

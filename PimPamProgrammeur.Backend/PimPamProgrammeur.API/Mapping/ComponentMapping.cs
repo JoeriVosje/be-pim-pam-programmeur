@@ -28,7 +28,7 @@ namespace PimPamProgrammeur.API.Mapping
                 Skippable = component.Skippable,
                 Theory = component.Theory,
                 Title = component.Title,
-                CorrectAnswer = component.CorrectAnswerId
+                ModuleId = component.ModuleId
             };
         }
 
@@ -110,7 +110,6 @@ namespace PimPamProgrammeur.API.Mapping
                 {
                     Id = item.Id,
                     Description = item.Description,
-                    IsCorrectAnswer = item.IsCorrectAnswer
                     
                 });
 
