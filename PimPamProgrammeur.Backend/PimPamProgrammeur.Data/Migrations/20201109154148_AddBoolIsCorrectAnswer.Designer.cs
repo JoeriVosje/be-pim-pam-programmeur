@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PimPamProgrammeur.Data;
 
 namespace PimPamProgrammeur.Data.Migrations
 {
     [DbContext(typeof(PimPamProgrammeurContext))]
-    partial class PimPamProgrammeurContextModelSnapshot : ModelSnapshot
+    [Migration("20201109154148_AddBoolIsCorrectAnswer")]
+    partial class AddBoolIsCorrectAnswer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +72,9 @@ namespace PimPamProgrammeur.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CorrectAnswerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Hint")
