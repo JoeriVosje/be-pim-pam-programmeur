@@ -88,7 +88,8 @@ namespace PimPamProgrammeur.API.Mapping
             {
                 listOfAnswers.Add(new Answer
                 {
-                    Description = item.Description
+                    Description = item.Description,
+                    IsCorrectAnswer = item.IsCorrectAnswer
                 });
 
             }

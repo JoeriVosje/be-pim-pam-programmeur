@@ -9,5 +9,6 @@ namespace PimPamProgrammeur.Dto
         public Guid Id { get; set; }
         public string Description { get; set; }
         public Guid ComponentId { get; set; }
+        public bool IsCorrectAnswer { get; set; }
     }
 }
