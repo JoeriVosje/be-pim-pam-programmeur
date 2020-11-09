@@ -45,7 +45,7 @@ namespace PimPamProgrammeur.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ComponentResponseDto), 200)]
         [ProducesResponseType(204)]
-        [AuthorizeAdmin]
+        [AuthorizeStudent]
         public IActionResult GetComponent([FromRoute] Guid id)
         {
             var component = _componentProcessor.GetComponent(id);
@@ -101,7 +101,7 @@ namespace PimPamProgrammeur.API.Controllers
         //}
 
         [HttpGet("module/{moduleid}")]
-        [AuthorizeAdmin]
+        [AuthorizeStudent]
         [ProducesResponseType(typeof(ComponentResponseDto), 200)]
         [ProducesResponseType(204)]
         public IActionResult GetComponentsByModuleId(Guid moduleid)
