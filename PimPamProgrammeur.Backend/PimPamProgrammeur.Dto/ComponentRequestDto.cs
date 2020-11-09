@@ -18,6 +18,6 @@ namespace PimPamProgrammeur.Dto
         public string Question { get; set; }
         public bool Skippable { get; set; }
         public string Hint { get; set; }
-        public ICollection<AnswerRequestDto> Answers { get; set; } // Answer Response??
+        public ICollection<AnswerRequestDto> Answers { get; set; }
     }
 }
