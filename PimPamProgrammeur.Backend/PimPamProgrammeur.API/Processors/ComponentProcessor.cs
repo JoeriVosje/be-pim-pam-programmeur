@@ -58,6 +58,7 @@ namespace PimPamProgrammeur.API.Processors
         public async Task<ComponentResponseDto> UpdateComponent(ComponentUpdateRequestDto componentUpdateRequestDto)
         {
             var component = _mapper.Map<Component>(componentUpdateRequestDto);
+            //UNCOMMENT BECAUSE OF LAZY LOADING
             //IEnumerable<Answer> foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
             //foreach (var answer in component.Answers)
             //{
