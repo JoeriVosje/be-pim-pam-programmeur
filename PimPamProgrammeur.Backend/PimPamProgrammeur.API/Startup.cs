@@ -89,7 +89,7 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
-            services.AddSingleton<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
+            services.AddTransient<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentRequestDto>, ComponentRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentUpdateRequestDto>, ComponentUpdateRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();

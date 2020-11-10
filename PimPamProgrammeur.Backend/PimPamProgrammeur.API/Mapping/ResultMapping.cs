@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
 
@@ -16,9 +17,8 @@ namespace PimPamProgrammeur.API.Mapping
         {
             return new ResultResponseDto
             {
-                //CorrectAnswerId
-                // Hint 
-                //Success
+                Hint = result.Answer.Component.Hint,
+                Success = result.Answer.IsCorrectAnswer
             };
         }
 
@@ -28,7 +28,8 @@ namespace PimPamProgrammeur.API.Mapping
             {
                 StartTime = requestDto.StartTime,
                 AnswerId = requestDto.AnswerId,
-                UserId = requestDto.UserId
+                UserId = requestDto.UserId,
+                SessionId = requestDto.SessionId
             };
         }
     }

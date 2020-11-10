@@ -18,7 +18,7 @@ namespace PimPamProgrammeur.Repository
         }
         public IEnumerable<Result> FindResult(Guid sessionId, Guid userId)
         {
-            return _context.Results.Include(x => x.Session).Where(e => e.SessionId == sessionId && e.UserId == userId);
+            return _context.Results.Where(e => e.SessionId == sessionId && e.UserId == userId);
         }
 
         public async Task<Result> SaveResult(Result result)

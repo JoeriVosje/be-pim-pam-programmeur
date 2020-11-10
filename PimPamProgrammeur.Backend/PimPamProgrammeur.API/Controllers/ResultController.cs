@@ -50,7 +50,7 @@ namespace PimPamProgrammeur.API.Controllers
         [HttpPost]
         [AuthorizeAdmin]
         [ProducesResponseType(typeof(ResultResponseDto), 200)]
-        //[ProducesResponseType(typeof(ValidationResult), 400)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostResult(ResultRequestDto request)
         {
             var validationResult = _resultRequestValidator.Validate(request);

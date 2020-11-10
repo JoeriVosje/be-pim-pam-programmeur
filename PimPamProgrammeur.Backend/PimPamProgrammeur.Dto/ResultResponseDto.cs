@@ -6,7 +6,6 @@ namespace PimPamProgrammeur.Dto
 {
     public class ResultResponseDto
     {
-        public Guid CorrectAnswerId { get; set; }
         public bool Success { get; set; }
         public string Hint { get; set; }
     }
