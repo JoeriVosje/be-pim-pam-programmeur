@@ -22,7 +22,7 @@ namespace PimPamProgrammeur.Repository
             await _context.Sessions.AddAsync(session);
             await _context.SaveChangesAsync();
 
-            return session;
+            return _context.Sessions.Include(e => e.Module).First(id => id.Id == session.Id);
         }
 
         public Session GetSession(Guid id)
