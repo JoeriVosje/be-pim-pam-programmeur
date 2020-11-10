@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using PimPamProgrammeur.API.Mapping;
 using PimPamProgrammeur.API.Middleware;
 using PimPamProgrammeur.API.Processors;
@@ -94,8 +97,8 @@ namespace PimPamProgrammeur.API
                 .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { }); ;
             services.AddAuthorization(e =>
             {
-                e.AddPolicy(Constants.Admin, builder => builder.RequireClaim(Constants.RoleId, new List<string> {"1"}));
-                e.AddPolicy(Constants.Student, builder => builder.RequireClaim(Constants.RoleId, new List<string> {"0","1"}));
+                e.AddPolicy(Constants.Admin, builder => builder.RequireClaim(Constants.RoleId, new List<string> { "1" }));
+                e.AddPolicy(Constants.Student, builder => builder.RequireClaim(Constants.RoleId, new List<string> { "0", "1" }));
             });
             services.AddControllers();
             services.AddSwaggerGen();
@@ -110,10 +113,8 @@ namespace PimPamProgrammeur.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+
+            app.UseDeveloperExceptionPage();
 
 
             app.UseHttpsRedirection();
