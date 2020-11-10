@@ -22,25 +22,25 @@ namespace PimPamProgrammeur.API.Controllers
             _resultRequestValidator = resultRequestValidator;
         }
 
-        /// <summary>
-        /// Finds a result by sessionId and userId
-        /// </summary>
-        /// <param name="sessionId"></param>
-        /// <param name="userId"></param>
-        /// <returns>The result</returns>
-        [HttpGet("{sessionId}/{userId}")]
-        [ProducesResponseType(typeof(ResultResponseDto), 200)]
-        [ProducesResponseType(204)]
-        public IActionResult FindResult([FromRoute] Guid sessionId, Guid userId)
-        {
-            var result = _resultProcessor.FindResults(sessionId, userId);
-            if (result == null)
-            {
-                return NoContent();
-            }
+        /* /// <summary>
+         /// Finds a result by sessionId and userId
+         /// </summary>
+         /// <param name="sessionId"></param>
+         /// <param name="userId"></param>
+         /// <returns>The result</returns>
+         [HttpGet("{sessionId}/{userId}")]
+         [ProducesResponseType(typeof(ResultResponseDto), 200)]
+         [ProducesResponseType(204)]
+         public IActionResult FindResult([FromRoute] Guid sessionId, Guid userId)
+         {
+             var result = _resultProcessor.FindResults(sessionId, userId);
+             if (result == null)
+             {
+                 return NoContent();
+             }
 
-            return Ok(result);
-        }
+             return Ok(result);
+         }*/
 
         /// <summary>
         /// Saves a result to the database

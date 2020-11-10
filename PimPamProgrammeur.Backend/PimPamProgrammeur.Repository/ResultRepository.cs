@@ -28,7 +28,7 @@ namespace PimPamProgrammeur.Repository
             await _context.Results.AddAsync(result);
             await _context.SaveChangesAsync();
 
-            return result;
+            return _context.Results.Include(e => e.Answer).First(e => e.Id == result.Id); ;
         }
     }
 }
