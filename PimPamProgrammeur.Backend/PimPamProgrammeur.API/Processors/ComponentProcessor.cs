@@ -4,7 +4,6 @@ using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -35,9 +34,6 @@ namespace PimPamProgrammeur.API.Processors
             {
                 return null;
             }
-            var answers = _answerRepository.GetAnswersByComponentId(id);
-
-            component.Answers = answers.ToList();
 
             return component == null ? null : _mapper.Map<ComponentResponseDto>(component);
         }
@@ -45,11 +41,6 @@ namespace PimPamProgrammeur.API.Processors
         public IEnumerable<ComponentResponseDto> GetComponents()
         {
             var components = _repository.GetComponents();
-            foreach (var component in components)
-            {
-                var answers = _answerRepository.GetAnswersByComponentId(component.Id);
-                component.Answers = answers.ToList();
-            }
 
             return _mapper.Map<IEnumerable<ComponentResponseDto>>(components);
         }
@@ -67,17 +58,17 @@ namespace PimPamProgrammeur.API.Processors
         public async Task<ComponentResponseDto> UpdateComponent(ComponentUpdateRequestDto componentUpdateRequestDto)
         {
             var component = _mapper.Map<Component>(componentUpdateRequestDto);
-            IEnumerable<Answer> foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
-            foreach (var answer in component.Answers)
-            {
-                Answer updateAnswer = foundAnswers.FirstOrDefault(e => e.Id == answer.Id);
-                updateAnswer.Description = answer.Description;
-                await _answerRepository.UpdateAnswerByComponentId(updateAnswer);
+            //IEnumerable<Answer> foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
+            //foreach (var answer in component.Answers)
+            //{
+            //    Answer updateAnswer = foundAnswers.FirstOrDefault(e => e.Id == answer.Id);
+            //    updateAnswer.Description = answer.Description;
+            //    await _answerRepository.UpdateAnswerByComponentId(updateAnswer);
 
-            }
+            //}
 
-            foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
-            component.Answers = foundAnswers.ToList();
+            //foundAnswers = _answerRepository.GetAnswersByComponentId(component.Id);
+            //component.Answers = foundAnswers.ToList();
 
             Component updatedComponent = await _repository.UpdateComponent(component);
 
@@ -87,12 +78,6 @@ namespace PimPamProgrammeur.API.Processors
         public IEnumerable<ComponentResponseDto> GetComponentsByModuleId(Guid id)
         {
             var components = _repository.GetComponentsByModule(id);
-            foreach (var item in components)
-            {
-                var answers = _answerRepository.GetAnswersByComponentId(item.Id);
-                item.Answers = answers.ToList();
-            }
-
             return _mapper.Map<IEnumerable<ComponentResponseDto>>(components);
 
         }
