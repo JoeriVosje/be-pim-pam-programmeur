@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "e891a070-5327-448e-b4ad-411797f50410",
-		"name": "PimPamUser",
+		"_postman_id": "ec5810b5-00d9-4634-9e3e-0f0add36afb5",
+		"name": "PimPamProgrammeur",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0b568857-a8bd-4240-978e-e0e6eb444aee",
+								"id": "b4a88865-710a-4a52-ad8a-de4d2fa4aac6",
 								"exec": [
 									"pm.globals.set('tokenadmin', responseBody);"
 								],
@@ -62,7 +62,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd5732da-96b1-45fc-8c54-f7858d407a3c",
+								"id": "5ad65dcd-24d8-4475-830f-c6784aff6f78",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('moduleid', data.id);"
@@ -149,6 +149,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET ALL MODULES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/module/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -162,7 +183,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9c5c29b5-b733-4190-83be-ea9e74092f59",
+								"id": "00d29b46-edf0-469c-adb8-a743ad01cc87",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('classroomid', data.id);"
@@ -240,6 +261,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET ALL CLASSROOMS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/classroom",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"classroom"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -253,7 +294,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b610fdcc-f76c-43f1-af36-669f8c821848",
+								"id": "f02ef0fd-d578-4d66-aa80-c367b85f7f95",
 								"exec": [
 									"var data = JSON.parse(responseBody);\r",
 									"pm.globals.set('userid', data.id);"
@@ -346,6 +387,42 @@
 								"api",
 								"user",
 								"{{userid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL USERS BY CLASSROOM ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiJhZDAzOTQzNi0yMjI2LTRiZGItOTVhMi0wOGQ4ODJmNTEzNDEiLCJSb2xlSWQiOiIxIiwibmJmIjoxNjA0NzM4NjI1LCJleHAiOjE2MDQ4MjUwMjUsImlhdCI6MTYwNDczODYyNX0.iTzWvtfpU2IMBMg5BD13qGtm7CTcU8AzJVZSfDcLVLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/user?classroomId={{classroomid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user"
+							],
+							"query": [
+								{
+									"key": "classroomId",
+									"value": "{{classroomid}}"
+								}
 							]
 						}
 					},
@@ -489,7 +566,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "d6f307ac-1636-4fc5-a471-2a542e3da6dd",
+				"id": "9bc8096b-11f6-4e90-8bfa-1be4fcb848d6",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -499,7 +576,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ebe20a28-9651-4a71-b557-c99b0a3dc5a6",
+				"id": "20cf1f2f-f762-4dfc-b72e-0c9bb1729333",
 				"type": "text/javascript",
 				"exec": [
 					""

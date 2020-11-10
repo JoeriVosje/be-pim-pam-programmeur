@@ -12,5 +12,6 @@ namespace PimPamProgrammeur.API.Processors
         IEnumerable<UserResponseDto> GetUsers();
         UserResponseDto GetUser(Guid id);
         string Login(UserLoginRequestDto userLoginRequestDto);
+        IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId);
     }
 }

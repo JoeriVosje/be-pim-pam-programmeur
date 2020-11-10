@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using PimPamProgrammeur.Data;
 using PimPamProgrammeur.Model;
 
@@ -26,12 +27,12 @@ namespace PimPamProgrammeur.Repository
 
         public Session GetSession(Guid id)
         {
-            return _context.Sessions.FirstOrDefault(e => e.Id == id);
+            return GetSessionAndModule().FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<Session> GetOpenSessions(Guid moduleId)
         {
-            return _context.Sessions.Where(e => e.ModuleId == moduleId && e.EndTime == DateTime.MinValue);
+            return GetSessionAndModule().Where(e => e.ModuleId == moduleId && e.EndTime == DateTime.MinValue);
         }
 
         public async Task<Session> UpdateSession(Session session)
@@ -45,7 +46,11 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Session> GetSessions()
         {
-            return _context.Sessions.ToList();
+            return GetSessionAndModule().ToList();
+        }
+        private IIncludableQueryable<Session, Module> GetSessionAndModule()
+        {
+            return _context.Sessions.Include(x => x.Module); 
         }
     }
 }

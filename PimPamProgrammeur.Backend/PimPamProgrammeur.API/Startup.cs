@@ -46,6 +46,8 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
             services.AddTransient<ISessionRepository, SessionRepository>();
             services.AddTransient<IResultRepository, ResultRepository>();
+            services.AddTransient<IComponentRepository, ComponentRepository>();
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
@@ -55,6 +57,7 @@ namespace PimPamProgrammeur.API
                 mc.AddProfile(new ClassroomMapping());
                 mc.AddProfile(new SessionMapping());
                 mc.AddProfile(new ResultMapping());
+                mc.AddProfile(new ComponentMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -75,6 +78,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IClassroomProcessor, ClassroomProcessor>();
             services.AddTransient<ISessionProcessor, SessionProcessor>();
             services.AddTransient<IResultProcessor, ResultProcessor>();
+            services.AddTransient<IComponentProcessor, ComponentProcessor>();
 
             // Validators
             services.AddSingleton<IValidator<ModuleRequestDto>, ModuleRequestDtoValidator>();
@@ -83,6 +87,8 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
             services.AddSingleton<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
+            services.AddSingleton<IValidator<ComponentRequestDto>, ComponentRequestDtoValidator>();
+            services.AddSingleton<IValidator<ComponentUpdateRequestDto>, ComponentUpdateRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();

@@ -42,5 +42,10 @@ namespace PimPamProgrammeur.Repository
 
             return module;
         }
+
+        public IEnumerable<Module> GetModules()
+        {
+            return _context.Modules.ToList();
+        }
     }
 }
