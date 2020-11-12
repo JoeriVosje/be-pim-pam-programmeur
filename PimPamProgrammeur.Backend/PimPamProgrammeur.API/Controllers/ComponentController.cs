@@ -4,6 +4,7 @@ using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
+using PimPamProgrammeur.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Controllers
 {
-    [EnableCors("Constants.AllowedCorsPolicies")]
+    [EnableCors(Constants.AllowedCorsPolicies)]
     [Route("api/[controller]")]
     [ApiController]
     public class ComponentController : ControllerBase
