@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
 
@@ -15,6 +14,14 @@ namespace PimPamProgrammeur.API.Mapping
 
         private ResultResponseDto ResultToResultResponseDto(Result result, ResolutionContext resolution)
         {
+            if(result.Answer == null)
+            {
+                return new ResultResponseDto
+                {
+                    Hint = null,
+                    Success = null
+                };
+            }
             return new ResultResponseDto
             {
                 Hint = result.Answer.Component.Hint,
@@ -32,5 +39,6 @@ namespace PimPamProgrammeur.API.Mapping
                 SessionId = requestDto.SessionId
             };
         }
+
     }
 }
