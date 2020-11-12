@@ -135,9 +135,9 @@ namespace PimPamProgrammeur.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseAuthentication();
             // UseCors needs to be placed after UseRouting, but before UseAuthorization
             app.UseCors(AllowedCorsPolicies);
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
