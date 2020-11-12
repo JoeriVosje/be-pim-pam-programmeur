@@ -56,7 +56,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="userLoginRequestDto">The user to login with</param>
         /// <returns>The saved module</returns>
         [HttpPost("login")]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(UserLoginResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public IActionResult Login(UserLoginRequestDto userLoginRequestDto)
         {
@@ -66,13 +66,13 @@ namespace PimPamProgrammeur.API.Controllers
                 return BadRequest(validationResult);
             }
 
-            var accessToken = _userProcessor.Login(userLoginRequestDto);
-            if (accessToken == null)
+            var responseDto = _userProcessor.Login(userLoginRequestDto);
+            if (responseDto == null)
             {
                 return Unauthorized();
             }
 
-            return Ok(accessToken);
+            return Ok(responseDto);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace PimPamProgrammeur.API.Controllers
 
             }
 
-               var usersByClassRoomID = _userProcessor.GetUsersByClassroomId(classroomId).ToList();
+            var usersByClassRoomID = _userProcessor.GetUsersByClassroomId(classroomId).ToList();
             if (usersByClassRoomID.Count == 0)
             {
                 return NoContent();
