@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ec5810b5-00d9-4634-9e3e-0f0add36afb5",
+		"_postman_id": "aae9650d-32ca-47b7-b895-104dfe8fbf95",
 		"name": "PimPamProgrammeur",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b4a88865-710a-4a52-ad8a-de4d2fa4aac6",
+								"id": "ebabb8d6-9707-4b78-9bb9-b420395d1c16",
 								"exec": [
 									"pm.globals.set('tokenadmin', responseBody);"
 								],
@@ -57,32 +57,31 @@
 			"name": "MODULE",
 			"item": [
 				{
-					"name": "POST MODULE",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "5ad65dcd-24d8-4475-830f-c6784aff6f78",
-								"exec": [
-									"var data = JSON.parse(responseBody);\r",
-									"pm.globals.set('moduleid', data.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "GET MODULE BY ID",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"MyModule\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
+						"url": {
+							"raw": "https://localhost:44363/api/module/{{moduleid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"module",
+								"{{moduleid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MODULES",
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "https://localhost:44363/api/module/",
 							"protocol": "https",
@@ -130,31 +129,32 @@
 					"response": []
 				},
 				{
-					"name": "GET MODULE BY ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44363/api/module/{{moduleid}}",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44363",
-							"path": [
-								"api",
-								"module",
-								"{{moduleid}}"
-							]
+					"name": "POST MODULE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4c995f6-1046-404a-adc1-774c165ba967",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('moduleid', data.id);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET ALL MODULES",
+					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MyModule\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "https://localhost:44363/api/module/",
 							"protocol": "https",
@@ -178,34 +178,12 @@
 			"name": "CLASSROOM",
 			"item": [
 				{
-					"name": "POST CLASSROOM",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "00d29b46-edf0-469c-adb8-a743ad01cc87",
-								"exec": [
-									"var data = JSON.parse(responseBody);\r",
-									"pm.globals.set('classroomid', data.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "GET ALL CLASSROOMS",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"ABC1\",\r\n  \"moduleId\": \"{{moduleid}}\",\r\n  \"major\": \"Software Engineering\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "https://localhost:44363/api/classroom/",
+							"raw": "https://localhost:44363/api/classroom",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -213,8 +191,7 @@
 							"port": "44363",
 							"path": [
 								"api",
-								"classroom",
-								""
+								"classroom"
 							]
 						}
 					},
@@ -263,12 +240,34 @@
 					"response": []
 				},
 				{
-					"name": "GET ALL CLASSROOMS",
+					"name": "POST CLASSROOM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf0e9011-0a54-46e1-872f-cae6e54dc9d9",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('classroomid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ABC1\",\r\n  \"moduleId\": \"{{moduleid}}\",\r\n  \"major\": \"Software Engineering\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://localhost:44363/api/classroom",
+							"raw": "https://localhost:44363/api/classroom/",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -276,7 +275,8 @@
 							"port": "44363",
 							"path": [
 								"api",
-								"classroom"
+								"classroom",
+								""
 							]
 						}
 					},
@@ -288,68 +288,6 @@
 		{
 			"name": "USER",
 			"item": [
-				{
-					"name": "POST USER",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f02ef0fd-d578-4d66-aa80-c367b85f7f95",
-								"exec": [
-									"var data = JSON.parse(responseBody);\r",
-									"pm.globals.set('userid', data.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"17081246@student.hhs.nl\",\r\n  \"firstName\": \"Student\",\r\n  \"lastName\": \"Hhs\",\r\n  \"classroomId\": \"{{classroomid}}\",\r\n  \"role\": 0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://localhost:44363/api/user",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44363",
-							"path": [
-								"api",
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET ALL USER",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44363/api/user",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44363",
-							"path": [
-								"api",
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "GET USER BY ID",
 					"request": {
@@ -372,12 +310,12 @@
 					"response": []
 				},
 				{
-					"name": "DELETE USER",
+					"name": "GET ALL USER",
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44363/api/user/{{userid}}",
+							"raw": "https://localhost:44363/api/user",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -385,8 +323,7 @@
 							"port": "44363",
 							"path": [
 								"api",
-								"user",
-								"{{userid}}"
+								"user"
 							]
 						}
 					},
@@ -427,6 +364,69 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/user/{{userid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user",
+								"{{userid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05e3da5f-b847-4045-ac27-be9e4a387025",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('userid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"17081246@student.hhs.nl\",\r\n  \"firstName\": \"Student\",\r\n  \"lastName\": \"Hhs\",\r\n  \"classroomId\": \"{{classroomid}}\",\r\n  \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -434,6 +434,27 @@
 		{
 			"name": "Session",
 			"item": [
+				{
+					"name": "GET SESSIONS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/Session/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"Session",
+								""
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "OPEN SESSION",
 					"request": {
@@ -498,27 +519,6 @@
 					"response": []
 				},
 				{
-					"name": "GET SESSIONS",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44363/api/Session/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44363",
-							"path": [
-								"api",
-								"Session",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "CLOSE SESSION",
 					"request": {
 						"method": "POST",
@@ -550,6 +550,164 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Result",
+			"item": [
+				{
+					"name": "POST RESULT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"answerId\": \"4f1df90e-a06f-474f-8ca4-08d885abe86f\",\r\n  \"sessionId\": \"3c87b8d3-6715-4018-664d-08d885ace737\",\r\n  \"startTime\": \"2020-11-10T19:08:37.003Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/result",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"result"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "COMPONENT",
+			"item": [
+				{
+					"name": "POST COMPONENT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7188e59-40dd-4da5-b150-b35a601a180b",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.globals.set('componentid', data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiJhZDAzOTQzNi0yMjI2LTRiZGItOTVhMi0wOGQ4ODJmNTEzNDEiLCJSb2xlSWQiOiIxIiwibmJmIjoxNjA0NzYwMzA2LCJleHAiOjE2MDQ4NDY3MDYsImlhdCI6MTYwNDc2MDMwNn0.PyS8zlWNL5vlgi_rNIEeNGg6bYUqRtUi6foi1SgdIVQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moduleId\":  \"{{moduleid}}\",\r\n    \"title\": \"It's a component!\",\r\n    \"theory\": \"Cheese is a dairy product, derived from milk and produced in wide ranges of flavors, textures and forms by coagulation of the milk protein casein. It comprises proteins and fat from milk, usually the milk of cows, buffalo, goats, or sheep. During production, the milk is usually acidified and adding the enzymes of rennet (or bacterial enzymes with similar activity) causes the milk proteins (casein) to coagulate. The solids (curd) are separated from the liquid (whey) and pressed into final form.[1] Some cheeses have aromatic molds on the rind, the outer layer, or throughout. Most cheeses melt at cooking temperature.\",\r\n    \"question\": \"What happens when you eat cheese before going to bed?\",\r\n    \"hint\": \"it's like milk before going to bed\",\r\n    \"answers\":[{\r\n        \"description\":\"Eating cheese before going to bed. Improves your sleep quality\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44363/api/component/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"component",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPONENT BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/component/{{componentid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"component",
+								"{{componentid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPONENT BY MODULE ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/component/module/{{moduleid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"component",
+								"module",
+								"{{moduleid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMPONENT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44363/api/component/{{componentid}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44363",
+							"path": [
+								"api",
+								"component",
+								"{{componentid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -566,7 +724,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "9bc8096b-11f6-4e90-8bfa-1be4fcb848d6",
+				"id": "4014f78b-1010-4aff-9323-2e73ae37fa20",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -576,7 +734,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "20cf1f2f-f762-4dfc-b72e-0c9bb1729333",
+				"id": "a39b2b98-4e7a-49a3-b2a3-99229191148e",
 				"type": "text/javascript",
 				"exec": [
 					""

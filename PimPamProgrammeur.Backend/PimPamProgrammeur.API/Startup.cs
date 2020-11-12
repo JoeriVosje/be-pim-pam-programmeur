@@ -48,6 +48,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
             services.AddTransient<ISessionRepository, SessionRepository>();
+            services.AddTransient<IResultRepository, ResultRepository>();
             services.AddTransient<IComponentRepository, ComponentRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
 
@@ -58,6 +59,7 @@ namespace PimPamProgrammeur.API
                 mc.AddProfile(new UserMapping());
                 mc.AddProfile(new ClassroomMapping());
                 mc.AddProfile(new SessionMapping());
+                mc.AddProfile(new ResultMapping());
                 mc.AddProfile(new ComponentMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
@@ -78,6 +80,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IUserProcessor, UserProcessor>();
             services.AddTransient<IClassroomProcessor, ClassroomProcessor>();
             services.AddTransient<ISessionProcessor, SessionProcessor>();
+            services.AddTransient<IResultProcessor, ResultProcessor>();
             services.AddTransient<IComponentProcessor, ComponentProcessor>();
 
             // Validators
@@ -86,15 +89,17 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<IValidator<UserLoginRequestDto>, UserLoginRequestDtoValidator>();
             services.AddSingleton<IValidator<ClassroomRequestDto>, ClassroomRequestDtoValidator>();
             services.AddSingleton<IValidator<ModuleUpdateRequestDto>, ModuleUpdateRequestDtoValidator>();
+            services.AddTransient<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentRequestDto>, ComponentRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentUpdateRequestDto>, ComponentUpdateRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();
 
+
             // controllers
             services.AddAuthentication(Constants.TokenAuthenticationScheme)
-                .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { }); ;
+                .AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.TokenAuthenticationScheme, o => { });
             services.AddAuthorization(e =>
             {
                 e.AddPolicy(Constants.Admin, builder => builder.RequireClaim(Constants.RoleId, new List<string> { "1" }));

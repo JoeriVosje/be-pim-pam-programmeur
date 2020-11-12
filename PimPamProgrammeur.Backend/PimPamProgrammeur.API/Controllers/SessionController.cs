@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
-using PimPamProgrammeur.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Controllers
 {
