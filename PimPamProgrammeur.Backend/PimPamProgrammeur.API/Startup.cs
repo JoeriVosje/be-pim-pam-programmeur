@@ -28,16 +28,25 @@ namespace PimPamProgrammeur.API
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy(Constants.AllowedCorsPolicies, builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+
             services.AddDbContext<PimPamProgrammeurContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("PimPamProgrammeurConnection")));
 
             services.AddSingleton<JwtSecurityTokenHandler>();
@@ -125,6 +134,8 @@ namespace PimPamProgrammeur.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            // UseCors needs to be placed after UseRouting, but before UseAuthorization
+            app.UseCors(Constants.AllowedCorsPolicies);
             app.UseAuthentication();
             app.UseAuthorization();
 
