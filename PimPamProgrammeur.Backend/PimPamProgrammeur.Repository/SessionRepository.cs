@@ -32,7 +32,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Session> GetOpenSessions(Guid moduleId)
         {
-            return GetSessionAndModule().Where(e => e.ModuleId == moduleId && e.EndTime == DateTime.MinValue);
+            return GetSessionAndModule().Where(e => e.ModuleId == moduleId && e.EndTime == null);
         }
 
         public async Task<Session> UpdateSession(Session session)

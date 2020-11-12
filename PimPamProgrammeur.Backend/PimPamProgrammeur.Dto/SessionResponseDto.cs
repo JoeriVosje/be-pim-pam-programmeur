@@ -12,6 +12,6 @@ namespace PimPamProgrammeur.Dto
 
         public DateTime StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }
