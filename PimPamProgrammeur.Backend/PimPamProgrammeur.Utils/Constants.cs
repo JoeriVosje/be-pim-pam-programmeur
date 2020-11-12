@@ -12,6 +12,7 @@ namespace PimPamProgrammeur.Utils
         public const string Student = "Student";
         public const string TokenAuthenticationScheme = "TokenAuthenticationScheme";
         public const string ApplicationName = "Pim Pam Programmeur";
+        public const string AllowedCorsPolicies = "AllowedCorsPolicies";
 
 
         public struct Smtp
