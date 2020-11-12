@@ -11,8 +11,8 @@ using PimPamProgrammeur.Dto.Validator;
 
 namespace PimPamProgrammeur.API.Controllers
 {
-    [Route("api/[controller]")]
     [EnableCors("AllowedCorsPolicies")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {

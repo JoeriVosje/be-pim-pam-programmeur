@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Controllers
 {
-    [Route("api/[controller]")]
     [EnableCors("AllowedCorsPolicies")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ResultController : ControllerBase
     {
