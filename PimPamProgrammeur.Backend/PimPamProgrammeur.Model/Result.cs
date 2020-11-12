@@ -9,9 +9,10 @@ namespace PimPamProgrammeur.Model
         public Guid Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public bool HasSkipped { get; set; }
 
         //Foreign key
-        public Guid? AnswerId { get; set; }
+        public Guid AnswerId { get; set; }
         public Guid UserId { get; set; }
         public Guid SessionId { get; set; }
 

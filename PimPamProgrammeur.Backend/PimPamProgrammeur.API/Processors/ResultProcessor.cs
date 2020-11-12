@@ -13,11 +13,13 @@ namespace PimPamProgrammeur.API.Processors
     {
         private readonly IResultRepository _resultRepository;
         private readonly IMapper _mapper;
+        private readonly IAnswerRepository _answerRepository;
 
-        public ResultProcessor(IResultRepository resultRepository, IMapper mapper)
+        public ResultProcessor(IResultRepository resultRepository, IMapper mapper, IAnswerRepository answerRepository)
         {
             _resultRepository = resultRepository;
             _mapper = mapper;
+            _answerRepository = answerRepository;
         }
         public IEnumerable<ResultResponseDto> FindResults(Guid sessionId, Guid userId)
         {
@@ -30,6 +32,18 @@ namespace PimPamProgrammeur.API.Processors
         {
             var result = _mapper.Map<Result>(resultRequest);
             var savedResult = await _resultRepository.SaveResult(result);
+
+            //If SavedResult has isSkipped get the right Answer
+            if (savedResult.HasSkipped == true)
+            {
+                var getRightAnswer = _answerRepository.GetAnswersById(savedResult.AnswerId);
+                savedResult.AnswerId = getRightAnswer.Id;
+                savedResult.Answer = getRightAnswer;
+                var RightResult = _mapper.Map<ResultResponseDto>(savedResult);
+                return RightResult;
+
+            }
+
             var resultResponse = _mapper.Map<ResultResponseDto>(savedResult);
 
             return resultResponse;

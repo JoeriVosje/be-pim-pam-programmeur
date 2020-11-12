@@ -38,5 +38,15 @@ namespace PimPamProgrammeur.Repository
 
             return answer;
         }
+
+        public Answer GetAnswersById(Guid answerId)
+        {
+            var answer = _context.Answers.FirstOrDefault(e => e.Id == answerId);
+
+            var answers = _context.Answers.Where(e => e.ComponentId == answer.ComponentId);
+            var rightAnswer = answers.FirstOrDefault(e => e.IsCorrectAnswer == true);
+
+            return rightAnswer;
+        }
     }
 }

@@ -14,18 +14,11 @@ namespace PimPamProgrammeur.API.Mapping
 
         private ResultResponseDto ResultToResultResponseDto(Result result, ResolutionContext resolution)
         {
-            if(result.Answer == null)
-            {
-                return new ResultResponseDto
-                {
-                    Hint = null,
-                    Success = null
-                };
-            }
             return new ResultResponseDto
             {
                 Hint = result.Answer.Component.Hint,
-                Success = result.Answer.IsCorrectAnswer
+                Success = result.Answer.IsCorrectAnswer,
+                Description = result.Answer.Description
             };
         }
 
@@ -36,7 +29,8 @@ namespace PimPamProgrammeur.API.Mapping
                 StartTime = requestDto.StartTime,
                 AnswerId = requestDto.AnswerId,
                 UserId = requestDto.UserId,
-                SessionId = requestDto.SessionId
+                SessionId = requestDto.SessionId,
+                HasSkipped = requestDto.HasSkipped
             };
         }
 
