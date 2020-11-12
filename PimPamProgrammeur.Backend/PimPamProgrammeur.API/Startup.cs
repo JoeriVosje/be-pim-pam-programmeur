@@ -30,7 +30,6 @@ namespace PimPamProgrammeur.API
     {
         public IConfiguration Configuration { get; }
 
-        private readonly string AllowedCorsPolicies = "_allowedCorsPolicies";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,7 +39,7 @@ namespace PimPamProgrammeur.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(o => o.AddPolicy(name: AllowedCorsPolicies, builder =>
+            services.AddCors(o => o.AddPolicy(Constants.AllowedCorsPolicies, builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
@@ -136,7 +135,7 @@ namespace PimPamProgrammeur.API
 
             app.UseRouting();
             // UseCors needs to be placed after UseRouting, but before UseAuthorization
-            app.UseCors(AllowedCorsPolicies);
+            app.UseCors(Constants.AllowedCorsPolicies);
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Controllers
 {
-    [EnableCors("AllowedCorsPolicies")]
+    [EnableCors("Constants.AllowedCorsPolicies")]
     [Route("api/[controller]")]
     [ApiController]
     public class SessionController : ControllerBase
