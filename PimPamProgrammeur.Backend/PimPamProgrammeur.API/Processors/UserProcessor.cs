@@ -74,7 +74,7 @@ namespace PimPamProgrammeur.API.Processors
             return user == null ? null : _mapper.Map<UserResponseDto>(user);
         }
 
-        public string Login(UserLoginRequestDto userLoginRequestDto)
+        public UserLoginResponseDto Login(UserLoginRequestDto userLoginRequestDto)
         {
             var foundUser = _userRepository.FindUser(userLoginRequestDto.Email);
 
@@ -91,7 +91,9 @@ namespace PimPamProgrammeur.API.Processors
 
             var userResponse = _mapper.Map<UserResponseDto>(foundUser);
 
-            return _tokenProvider.GenerateToken(userResponse);
+            var token = _tokenProvider.GenerateToken(userResponse);
+
+            return _mapper.Map<UserLoginResponseDto>((token, userResponse));
         }
 
         public IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId)
