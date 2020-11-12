@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace PimPamProgrammeur.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowedCorsPolicies")]
     [ApiController]
     public class ComponentController : ControllerBase
     {

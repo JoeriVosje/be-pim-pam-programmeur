@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
@@ -11,6 +12,7 @@ using PimPamProgrammeur.Dto.Validator;
 namespace PimPamProgrammeur.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowedCorsPolicies")]
     [ApiController]
     public class UserController : ControllerBase
     {
