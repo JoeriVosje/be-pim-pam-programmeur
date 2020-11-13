@@ -74,6 +74,19 @@ namespace PimPamProgrammeur.API.Processors
             return user == null ? null : _mapper.Map<UserResponseDto>(user);
         }
 
+        public UserResponseDto GetUser(string token)
+        {
+            var userId = _tokenProvider.GetUserId(token);
+            if (!userId.HasValue)
+            {
+                return null;
+            }
+
+            var user = _userRepository.GetUser(userId.Value);
+
+            return _mapper.Map<UserResponseDto>(user);
+        }
+
         public UserLoginResponseDto Login(UserLoginRequestDto userLoginRequestDto)
         {
             var foundUser = _userRepository.FindUser(userLoginRequestDto.Email);

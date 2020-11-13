@@ -48,6 +48,24 @@ namespace PimPamProgrammeur.Utils
             return (false, null);
         }
 
+        public Guid? GetUserId(string token)
+        {
+            var (isValid, claims) = this.ReadToken(token);
+            if (!isValid)
+            {
+                return null;
+            }
+
+            var userIdClaim
+                = claims.FirstOrDefault(e => e.Type == Constants.UserId);
+            if (string.IsNullOrEmpty(userIdClaim?.Value) || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return null;
+            }
+
+            return userId;
+        }
+
         private SecurityToken GetSecurityToken(string token)
         {
             var tokenValidationParams = new TokenValidationParameters

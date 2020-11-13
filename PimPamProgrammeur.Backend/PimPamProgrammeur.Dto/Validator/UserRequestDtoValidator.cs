@@ -8,11 +8,14 @@ namespace PimPamProgrammeur.Dto.Validator
     public class UserRequestDtoValidator : Validator<UserRequestDto>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IClassroomRepository _classroomRepository;
 
-        public UserRequestDtoValidator(IUserRepository userRepository)
+        public UserRequestDtoValidator(IUserRepository userRepository, IClassroomRepository classroomRepository)
         {
-            this._userRepository = userRepository;
+            _userRepository = userRepository;
+            _classroomRepository = classroomRepository;
         }
+
 
         public override ValidationResult Validate(UserRequestDto entity)
         {
@@ -26,6 +29,11 @@ namespace PimPamProgrammeur.Dto.Validator
             if (_userRepository.FindUser(entity.Email) != null)
             {
                 validationResult.Errors.Add($"User with email {entity.Email} already added");
+            }
+
+            if (_classroomRepository.GetClassroom(entity.ClassroomId) == null)
+            {
+                validationResult.Errors.Add($"Classroom {entity.ClassroomId} not found");
             }
 
             return validationResult;

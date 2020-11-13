@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
 
@@ -35,7 +36,7 @@ namespace PimPamProgrammeur.API.Mapping
             {
                 StartTime = requestDto.StartTime,
                 AnswerId = requestDto.AnswerId,
-                UserId = requestDto.UserId,
+                UserId = requestDto.UserId ?? Guid.Empty,
                 SessionId = requestDto.SessionId
             };
         }

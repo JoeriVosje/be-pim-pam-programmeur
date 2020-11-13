@@ -28,6 +28,11 @@ namespace PimPamProgrammeur.Repository
             return _context.Classrooms.ToList();
         }
 
+        public Classroom GetClassroomByModule(Guid moduleId)
+        {
+            return _context.Classrooms.FirstOrDefault(e => e.ModuleId == moduleId);
+        }
+
         public Classroom GetClassroom(Guid id)
         {
             return _context.Classrooms.FirstOrDefault(e => e.Id == id);
