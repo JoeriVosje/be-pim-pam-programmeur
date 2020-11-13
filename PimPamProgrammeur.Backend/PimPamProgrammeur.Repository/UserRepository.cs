@@ -39,7 +39,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<User> GetUsers()
         {
-            return _context.Users.Include(x => x.ClassRoom).ToList();
+            return _context.Users.Include(x => x.ClassRoom).OrderBy(e => e.CreationDate).ToList();
         }
 
         public User FindUser(string email, string password)
@@ -54,7 +54,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<User> GetUserByClassroomId(Guid ClassroomId)
         {
-            return _context.Users.Where(e => e.ClassroomId == ClassroomId);
+            return _context.Users.Where(e => e.ClassroomId == ClassroomId).OrderBy(e=> e.CreationDate);
         }
     }
 }

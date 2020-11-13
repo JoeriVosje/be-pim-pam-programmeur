@@ -45,7 +45,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Module> GetModules()
         {
-            return _context.Modules.ToList();
+            return _context.Modules.OrderBy(e=> e.CreationDate).ToList();
         }
     }
 }

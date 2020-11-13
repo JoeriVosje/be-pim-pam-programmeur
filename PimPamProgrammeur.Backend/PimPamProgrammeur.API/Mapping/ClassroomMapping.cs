@@ -33,7 +33,8 @@ namespace PimPamProgrammeur.API.Mapping
             {
                 Major = requestDto.Major,
                 ModuleId = requestDto.ModuleId,
-                Name = requestDto.Name
+                Name = requestDto.Name,
+                CreationDate = DateTime.Now
             };
         }
     }

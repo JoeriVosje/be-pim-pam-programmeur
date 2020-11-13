@@ -20,6 +20,8 @@ namespace PimPamProgrammeur.Model
         [Required]
         public string Hint { get; set; }
 
+        public int Order { get; set; }
+
         //Foreign 
         public Guid ModuleId { get; set; }
 
