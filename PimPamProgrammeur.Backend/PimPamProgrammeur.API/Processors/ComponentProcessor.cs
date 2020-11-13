@@ -4,6 +4,7 @@ using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -83,5 +84,18 @@ namespace PimPamProgrammeur.API.Processors
 
         }
 
+        public async Task<IEnumerable<ComponentResponseDto>> OrderComponents(ComponentOrderRequestDto componentOrderRequestDto)
+        {
+            var componentIdList = componentOrderRequestDto.ComponentIds.ToList();
+            var components = new List<ComponentResponseDto>();
+            for (var i = 0; i < componentOrderRequestDto.ComponentIds.Count(); i++)
+            {
+                var c = await _repository.SetOrder(i, componentIdList[i]);
+                components.Add(_mapper.Map<ComponentResponseDto>(c));
+            }
+
+            return components;
+
+        }
     }
 }

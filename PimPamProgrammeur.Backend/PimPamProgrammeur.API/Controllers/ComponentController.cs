@@ -19,13 +19,13 @@ namespace PimPamProgrammeur.API.Controllers
     {
         private readonly IComponentProcessor _componentProcessor;
         private readonly IValidator<ComponentRequestDto> _validator;
-        private readonly IValidator<ComponentUpdateRequestDto> _requestValidator;
+        private readonly IValidator<ComponentOrderRequestDto> _orderValidator;
 
-        public ComponentController(IComponentProcessor componentProcessor, IValidator<ComponentRequestDto> validator, IValidator<ComponentUpdateRequestDto> requestValidator)
+        public ComponentController(IComponentProcessor componentProcessor, IValidator<ComponentRequestDto> validator, IValidator<ComponentOrderRequestDto> orderValidator)
         {
             _componentProcessor = componentProcessor;
             _validator = validator;
-            _requestValidator = requestValidator;
+            _orderValidator = orderValidator;
         }
 
         [HttpPost]
@@ -116,6 +116,23 @@ namespace PimPamProgrammeur.API.Controllers
             }
 
             return Ok(component);
+        }
+
+        [HttpPut("Order")]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(IEnumerable<ComponentResponseDto>), 200)]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> Order(ComponentOrderRequestDto componentOrderRequestDto)
+        {
+            var validationResult = _orderValidator.Validate(componentOrderRequestDto);
+            if (validationResult.Errors.Any())
+            {
+                return BadRequest(validationResult);
+            }
+
+            var componentResponseDtos = await _componentProcessor.OrderComponents(componentOrderRequestDto);
+
+            return Ok(componentResponseDtos);
         }
     }
 }

@@ -26,5 +26,6 @@ namespace PimPamProgrammeur.API.Processors
 
         // Get By Module Id
         IEnumerable<ComponentResponseDto> GetComponentsByModuleId(Guid id);
+        Task<IEnumerable<ComponentResponseDto>> OrderComponents(ComponentOrderRequestDto componentOrderRequestDto);
     }
 }

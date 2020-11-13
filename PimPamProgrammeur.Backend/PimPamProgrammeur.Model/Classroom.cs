@@ -14,6 +14,8 @@ namespace PimPamProgrammeur.Model
         [Required]
         public string Major { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         //Foreign key
         public Guid ModuleId { get; set; }
 

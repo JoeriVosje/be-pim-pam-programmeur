@@ -30,18 +30,24 @@ namespace PimPamProgrammeur.Repository
             return _context.Components.FirstOrDefault(e => e.Id == id);
         }
 
+
+
         public IEnumerable<Component> GetComponentsByModule(Guid ModuleId)
         {
-            return _context.Components.Where(m => m.ModuleId == ModuleId).ToList();
+            return _context.Components.Where(m => m.ModuleId == ModuleId).OrderBy(e => e.Order).ToList();
         }
 
         public IEnumerable<Component> GetComponents()
         {
-            return _context.Components.ToList();
+            return _context.Components.OrderBy(e => e.Order).ToList();
         }
 
         public async Task<Component> SaveComponent(Component component)
         {
+            var highestOrderComponent = GetComponentsByModule(component.ModuleId)
+                .OrderByDescending(e => e.Order).FirstOrDefault();
+
+            component.Order = highestOrderComponent?.Order ?? 0;
             await _context.Components.AddAsync(component);
             await _context.SaveChangesAsync();
 
@@ -51,6 +57,18 @@ namespace PimPamProgrammeur.Repository
         public async Task<Component> UpdateComponent(Component component)
         {
             await _context.SaveChangesAsync();
+
+            return component;
+        }
+
+        public async Task<Component> SetOrder(int order, Guid componentId)
+        {
+            var component = GetComponent(componentId);
+            component.Order = order;
+
+            _context.Entry(component).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            
 
             return component;
         }

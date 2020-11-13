@@ -13,5 +13,6 @@ namespace PimPamProgrammeur.Repository
         IEnumerable<Component> GetComponents();
         Task DeleteComponent(Guid id);
         Task<Component> UpdateComponent(Component component);
+        Task<Component> SetOrder(int i, Guid componentId);
     }
 }

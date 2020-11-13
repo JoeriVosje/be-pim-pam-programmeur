@@ -25,7 +25,7 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Classroom> GetAllClassrooms()
         {
-            return _context.Classrooms.ToList();
+            return _context.Classrooms.OrderBy(e=> e.CreationDate).ToList();
         }
 
         public Classroom GetClassroomByModule(Guid moduleId)
