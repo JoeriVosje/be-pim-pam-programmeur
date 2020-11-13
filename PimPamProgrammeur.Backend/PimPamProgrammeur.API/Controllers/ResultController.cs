@@ -19,12 +19,14 @@ namespace PimPamProgrammeur.API.Controllers
         private readonly IResultProcessor _resultProcessor;
         private readonly ITokenProvider _tokenProvider;
         private readonly IValidator<ResultRequestDto> _resultRequestValidator;
+        private readonly IValidator<EmptyResultRequestDto> _emptyResultRequestValidator;
 
-        public ResultController(IResultProcessor resultProcessor, ITokenProvider tokenProvider, IValidator<ResultRequestDto> resultRequestValidator)
+        public ResultController(IResultProcessor resultProcessor, ITokenProvider tokenProvider, IValidator<ResultRequestDto> resultRequestValidator, IValidator<EmptyResultRequestDto> emptyResultRequestValidator)
         {
             _resultProcessor = resultProcessor;
             _tokenProvider = tokenProvider;
             _resultRequestValidator = resultRequestValidator;
+            _emptyResultRequestValidator = emptyResultRequestValidator;
         }
 
         /* /// <summary>
@@ -74,6 +76,29 @@ namespace PimPamProgrammeur.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("skip")]
+        [AuthorizeStudent]
+        [ProducesResponseType(typeof(AnswerResponseDto), 200)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
+        public async Task<IActionResult> SkippAnswer(EmptyResultRequestDto request)
+        {
+            if (request.UserId == null && !ReadUserIdFromHeaderForEmptyResult(request))
+            {
+                return null;
+            }
+
+            var validationResult = _emptyResultRequestValidator.Validate(request);
+            if (validationResult.Errors.Any())
+            {
+                return BadRequest(validationResult);
+            }
+
+            var result = await _resultProcessor.SaveEmptyResult(request);
+
+            return Ok(result);
+
+        }
+
         private bool ReadUserIdFromHeader(ResultRequestDto request)
         {
             var token = Request.Headers[HeaderNames.Authorization];
@@ -86,5 +111,19 @@ namespace PimPamProgrammeur.API.Controllers
             request.UserId = userId;
             return true;
         }
+
+        private bool ReadUserIdFromHeaderForEmptyResult(EmptyResultRequestDto request)
+        {
+            var token = Request.Headers[HeaderNames.Authorization];
+            var userId = _tokenProvider.GetUserId(token);
+            if (!userId.HasValue)
+            {
+                return false;
+            }
+
+            request.UserId = userId;
+            return true;
+        }
+
     }
 }

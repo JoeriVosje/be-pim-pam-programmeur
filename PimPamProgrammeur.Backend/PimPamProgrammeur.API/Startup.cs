@@ -70,6 +70,7 @@ namespace PimPamProgrammeur.API
                 mc.AddProfile(new SessionMapping());
                 mc.AddProfile(new ResultMapping());
                 mc.AddProfile(new ComponentMapping());
+                mc.AddProfile(new AnswerMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -101,6 +102,7 @@ namespace PimPamProgrammeur.API
             services.AddTransient<IValidator<ResultRequestDto>, ResultRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentRequestDto>, ComponentRequestDtoValidator>();
             services.AddSingleton<IValidator<ComponentUpdateRequestDto>, ComponentUpdateRequestDtoValidator>();
+            services.AddTransient<IValidator<EmptyResultRequestDto>, EmptyResultRequestDtoValidator>();
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();

@@ -13,11 +13,13 @@ namespace PimPamProgrammeur.API.Processors
     {
         private readonly IResultRepository _resultRepository;
         private readonly IMapper _mapper;
+        private readonly IAnswerRepository _answerRepository;
 
-        public ResultProcessor(IResultRepository resultRepository, IMapper mapper)
+        public ResultProcessor(IResultRepository resultRepository, IMapper mapper, IAnswerRepository answerRepository)
         {
             _resultRepository = resultRepository;
             _mapper = mapper;
+            _answerRepository = answerRepository;
         }
         public IEnumerable<ResultResponseDto> FindResults(Guid sessionId, Guid userId)
         {
@@ -34,5 +36,19 @@ namespace PimPamProgrammeur.API.Processors
 
             return resultResponse;
         }
+        public async Task<AnswerResponseDto> SaveEmptyResult(EmptyResultRequestDto request)
+        {
+            var result = _mapper.Map<Result>(request);
+            await _resultRepository.SaveResult(result);
+
+            //Get right answer
+            var rightAnswer = _answerRepository.GetRightAnswerByComponentId(request.ComponentId);
+
+            var answerResponse = _mapper.Map<AnswerResponseDto>(rightAnswer);
+
+            return answerResponse;
+        }
+
+
     }
 }

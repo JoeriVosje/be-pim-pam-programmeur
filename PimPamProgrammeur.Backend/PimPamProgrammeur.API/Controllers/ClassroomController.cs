@@ -32,7 +32,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="classroomRequest">The classroom that needs to be saved.</param>
         /// <returns>The saved classroom.</returns>
         [HttpPost]
-        [AuthorizeAdmin]
+        //[AuthorizeAdmin]
         [ProducesResponseType(typeof(ClassroomResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostClassroom(ClassroomRequestDto classroomRequest)
