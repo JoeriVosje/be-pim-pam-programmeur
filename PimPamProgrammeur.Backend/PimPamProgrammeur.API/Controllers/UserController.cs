@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
 using PimPamProgrammeur.Dto;
@@ -87,6 +88,28 @@ namespace PimPamProgrammeur.API.Controllers
         public IActionResult GetUser([FromRoute] Guid id)
         {
             var user = _userProcessor.GetUser(id);
+            if (user == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(user);
+        }
+
+        /// <summary>
+        /// Gets a single user by Id
+        /// </summary>
+        /// <param name="id">The user id</param>
+        /// <returns>The saved module</returns>
+        [HttpGet("current")]
+        [ProducesResponseType(typeof(UserResponseDto), 200)]
+        [ProducesResponseType(204)]
+        [AuthorizeStudent] // TODO Do we need to allow this endpoint for students?
+        public IActionResult GetCurrentUser()
+        {
+            var token = Request.Headers[HeaderNames.Authorization];
+
+            var user = _userProcessor.GetUser(token);
             if (user == null)
             {
                 return NoContent();

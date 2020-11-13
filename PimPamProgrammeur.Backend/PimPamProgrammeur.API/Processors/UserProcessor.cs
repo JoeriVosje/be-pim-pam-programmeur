@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using PimPamProgrammeur.Dto;
@@ -72,6 +73,26 @@ namespace PimPamProgrammeur.API.Processors
             var user = _userRepository.GetUser(id);
 
             return user == null ? null : _mapper.Map<UserResponseDto>(user);
+        }
+
+        public UserResponseDto GetUser(string token)
+        {
+            var (isValid, claims) = _tokenProvider.ReadToken(token);
+            if (!isValid)
+            {
+                return null;
+            }
+
+            var userIdClaim
+                = claims.FirstOrDefault(e => e.Type == Constants.UserId);
+            if (string.IsNullOrEmpty(userIdClaim?.Value) || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return null;
+            }
+
+            var user = _userRepository.GetUser(userId);
+
+            return _mapper.Map<UserResponseDto>(user);
         }
 
         public UserLoginResponseDto Login(UserLoginRequestDto userLoginRequestDto)
