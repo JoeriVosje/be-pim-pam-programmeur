@@ -10,6 +10,9 @@ namespace PimPamProgrammeur.Dto
 
         public ModuleResponseDto Module { get; set; }
 
+        public int StudentsFinished { get; set; }
+        public int TotalStudents { get; set; }
+
         public DateTime StartTime { get; set; }
 
         public DateTime? EndTime { get; set; }

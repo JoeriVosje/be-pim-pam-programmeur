@@ -13,26 +13,56 @@ namespace PimPamProgrammeur.API.Processors
     public class SessionProcessor : ISessionProcessor
     {
         private readonly ISessionRepository _sessionRepository;
+        private readonly IClassroomRepository _classRoomRepo;
+        private readonly IResultRepository _resultRepo;
         private readonly IMapper _mapper;
 
-        public SessionProcessor(ISessionRepository sessionRepository, IMapper mapper)
+        public SessionProcessor(ISessionRepository sessionRepository, IClassroomRepository classRoomRepo, IResultRepository resultRepo, IMapper mapper)
         {
             _sessionRepository = sessionRepository;
+            _classRoomRepo = classRoomRepo;
+            _resultRepo = resultRepo;
             _mapper = mapper;
         }
 
         public SessionResponseDto GetSession(Guid sessionId)
         {
             var session = _sessionRepository.GetSession(sessionId);
+            var (totalStudents, finishedStudents) = GetStudentStats(session);
 
-            return _mapper.Map<SessionResponseDto>(session);
+            return _mapper.Map<SessionResponseDto>((totalStudents, finishedStudents, session));
+        }
+
+        private (int totalStudents, int finishedStudents) GetStudentStats(Session session)
+        {
+            var classRoom = _classRoomRepo.GetClassroomByModule(session.ModuleId);
+            var totalStudents = classRoom.Users.Count;
+            var componentCount = session.Module.Components.Count;
+
+            var finishedStudents = 0;
+            foreach (var classRoomUser in classRoom.Users)
+            {
+                var results = _resultRepo.FindResult(session.Id, classRoomUser.Id).ToList();
+                if (results.Count == componentCount)
+                {
+                    finishedStudents++;
+                }
+            }
+
+            return (totalStudents, finishedStudents);
         }
 
         public IEnumerable<SessionResponseDto> GetSessions()
         {
-            var session = _sessionRepository.GetSessions();
+            var sessions = _sessionRepository.GetSessions();
 
-            return _mapper.Map<IEnumerable<SessionResponseDto>>(session);
+            var toMap = sessions.Select((s) =>
+            {
+                var stats = GetStudentStats(s);
+                return (stats.totalStudents, stats.finishedStudents, s);
+            });
+
+            return _mapper.Map<IEnumerable<SessionResponseDto>>(toMap);
         }
 
         public async Task<SessionResponseDto> Open(SessionRequestDto sessionRequest)
@@ -42,7 +72,9 @@ namespace PimPamProgrammeur.API.Processors
 
             var savedSession = await _sessionRepository.SaveSession(sessionModel);
 
-            return _mapper.Map<SessionResponseDto>(savedSession);
+            var (totalStudents, finishedStudents) = GetStudentStats(savedSession);
+
+            return _mapper.Map<SessionResponseDto>((totalStudents, finishedStudents, savedSession));
         }
 
         public async Task<SessionResponseDto> Close(SessionRequestDto sessionRequest)
@@ -52,7 +84,9 @@ namespace PimPamProgrammeur.API.Processors
             session.EndTime = DateTime.Now;
             var updatedSession = await _sessionRepository.UpdateSession(session);
 
-            return _mapper.Map<SessionResponseDto>(updatedSession);
+            var (totalStudents, finishedStudents) = GetStudentStats(updatedSession);
+
+            return _mapper.Map<SessionResponseDto>((totalStudents, finishedStudents, updatedSession));
         }
 
         private Session GetCurrentSession(SessionRequestDto sessionRequest)

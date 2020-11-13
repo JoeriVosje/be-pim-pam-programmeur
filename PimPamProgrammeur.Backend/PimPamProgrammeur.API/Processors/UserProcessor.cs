@@ -77,20 +77,13 @@ namespace PimPamProgrammeur.API.Processors
 
         public UserResponseDto GetUser(string token)
         {
-            var (isValid, claims) = _tokenProvider.ReadToken(token);
-            if (!isValid)
+            var userId = _tokenProvider.GetUserId(token);
+            if (!userId.HasValue)
             {
                 return null;
             }
 
-            var userIdClaim
-                = claims.FirstOrDefault(e => e.Type == Constants.UserId);
-            if (string.IsNullOrEmpty(userIdClaim?.Value) || !Guid.TryParse(userIdClaim.Value, out var userId))
-            {
-                return null;
-            }
-
-            var user = _userRepository.GetUser(userId);
+            var user = _userRepository.GetUser(userId.Value);
 
             return _mapper.Map<UserResponseDto>(user);
         }

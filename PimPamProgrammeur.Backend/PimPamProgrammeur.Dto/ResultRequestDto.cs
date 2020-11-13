@@ -8,7 +8,7 @@ namespace PimPamProgrammeur.Dto
     {
         public Guid? AnswerId { get; set; }
         public Guid SessionId { get; set; }
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public DateTime StartTime { get; set; }
     }
 }

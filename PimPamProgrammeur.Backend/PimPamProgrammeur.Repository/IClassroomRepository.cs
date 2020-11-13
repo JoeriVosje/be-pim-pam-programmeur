@@ -11,5 +11,6 @@ namespace PimPamProgrammeur.Repository
         Task DeleteClassroom(Guid id);
         Classroom GetClassroom(Guid id);
         IEnumerable<Classroom> GetAllClassrooms();
+        Classroom GetClassroomByModule(Guid moduleId);
     }
 }
