@@ -57,7 +57,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// <param name="request">The module to save</param>
         /// <returns>The saved module</returns>
         [HttpPost]
-        //[AuthorizeAdmin]
+        [AuthorizeAdmin]
         [ProducesResponseType(typeof(ModuleResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> PostModule(ModuleRequestDto request)
