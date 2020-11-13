@@ -34,7 +34,7 @@ namespace PimPamProgrammeur.Repository
 
         public User GetUser(Guid id)
         {
-            return _context.Users.FirstOrDefault(e => e.Id == id);
+            return _context.Users.Include(x => x.ClassRoom).FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<User> GetUsers()

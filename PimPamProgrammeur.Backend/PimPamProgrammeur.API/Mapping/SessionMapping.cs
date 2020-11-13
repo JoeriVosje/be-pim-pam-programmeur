@@ -9,8 +9,22 @@ namespace PimPamProgrammeur.API.Mapping
     {
         public SessionMapping()
         {
-            CreateMap<SessionRequestDto, Session>().ConvertUsing(e => SessionRequestDtoToSession(e));
             CreateMap<Session, SessionResponseDto>().ConvertUsing((e, _, context) => SessionToSessionResponseDto(e, context));
+            CreateMap<SessionRequestDto, Session>().ConvertUsing(e => SessionRequestDtoToSession(e));
+            CreateMap<(int totalStudents, int finishedStudents, Session model), SessionResponseDto>().ConvertUsing((e, _, context) => SessionWithStatsToSessionResponseDto(e, context));
+        }
+
+        private SessionResponseDto SessionWithStatsToSessionResponseDto((int totalStudents, int finishedStudents, Session session) data, ResolutionContext context)
+        {
+            return new SessionResponseDto
+            {
+                SessionId = data.session.Id,
+                StartTime = data.session.StartTime,
+                EndTime = data.session.EndTime,
+                Module = context.Mapper.Map<ModuleResponseDto>(data.session.Module),
+                StudentsFinished = data.finishedStudents,
+                TotalStudents = data.totalStudents
+            };
         }
 
         private SessionResponseDto SessionToSessionResponseDto(Session session, ResolutionContext context)
