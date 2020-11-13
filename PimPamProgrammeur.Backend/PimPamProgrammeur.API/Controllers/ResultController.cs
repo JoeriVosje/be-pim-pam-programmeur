@@ -80,7 +80,7 @@ namespace PimPamProgrammeur.API.Controllers
         [AuthorizeStudent]
         [ProducesResponseType(typeof(AnswerResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
-        public async Task<IActionResult> SkippAnswer(EmptyResultRequestDto request)
+        public async Task<IActionResult> SkipAnswer(EmptyResultRequestDto request)
         {
             if (request.UserId == null && !ReadUserIdFromHeaderForEmptyResult(request))
             {
