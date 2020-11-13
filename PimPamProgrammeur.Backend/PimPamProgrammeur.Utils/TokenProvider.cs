@@ -7,7 +7,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using PimPamProgrammeur.Dto;
 
 namespace PimPamProgrammeur.Utils
@@ -38,6 +37,7 @@ namespace PimPamProgrammeur.Utils
 
         public (bool isValid, IEnumerable<Claim> claims) ReadToken(string token)
         {
+            token = token.Replace("Bearer", "").Trim();
             var securityToken = GetSecurityToken(token);
             if (securityToken is JwtSecurityToken jwtToken && 
                 DateTime.UtcNow < jwtToken.ValidTo)

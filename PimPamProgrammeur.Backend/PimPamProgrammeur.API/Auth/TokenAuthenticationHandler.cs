@@ -31,7 +31,6 @@ namespace PimPamProgrammeur.API.Middleware
                 return Task.FromResult(AuthenticateResult.Fail("Token is null"));
             }
 
-            bearer = bearer.Replace("Bearer", "").Trim();
             var (isValid, claims) = _tokenProvider.ReadToken(bearer);
             if (!isValid)
             {

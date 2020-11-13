@@ -11,6 +11,7 @@ namespace PimPamProgrammeur.API.Processors
         Task DeleteUser(Guid id);
         IEnumerable<UserResponseDto> GetUsers();
         UserResponseDto GetUser(Guid id);
+        UserResponseDto GetUser(string token);
         UserLoginResponseDto Login(UserLoginRequestDto userLoginRequestDto);
         IEnumerable<UserResponseDto> GetUsersByClassroomId(Guid classroomId);
     }
