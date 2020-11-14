@@ -18,6 +18,6 @@ namespace PimPamProgrammeur.Model
 
         //Navigation property
         public virtual ICollection<Component> Components { get; set; }
-        public virtual Session Session { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
     }
 }
