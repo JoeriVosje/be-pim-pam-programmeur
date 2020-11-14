@@ -36,6 +36,10 @@ namespace PimPamProgrammeur.API.Processors
         private (int totalStudents, int finishedStudents) GetStudentStats(Session session)
         {
             var classRoom = _classRoomRepo.GetClassroomByModule(session.ModuleId);
+            if (classRoom == null)
+            {
+                return (0, 0);
+            }
             var totalStudents = classRoom.Users.Count;
             var componentCount = session.Module.Components.Count;
 
@@ -52,9 +56,9 @@ namespace PimPamProgrammeur.API.Processors
             return (totalStudents, finishedStudents);
         }
 
-        public IEnumerable<SessionResponseDto> GetSessions()
+        public IEnumerable<SessionResponseDto> GetSessions(Guid? moduleId)
         {
-            var sessions = _sessionRepository.GetSessions();
+            var sessions = _sessionRepository.GetSessions(moduleId);
 
             var toMap = sessions.Select((s) =>
             {
