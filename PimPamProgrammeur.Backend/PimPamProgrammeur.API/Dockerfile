@@ -7,12 +7,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["PimPamProgrammeur.API/PimPamProgrammeur.API.csproj", "PimPamProgrammeur.API/"]
-COPY ["PimPamProgrammeur.Model/PimPamProgrammeur.Model.csproj", "PimPamProgrammeur.Model/"]
-COPY ["PimPamProgrammeur.Dto/PimPamProgrammeur.Dto.csproj", "PimPamProgrammeur.Dto/"]
-COPY ["PimPamProgrammeur.Repository/PimPamProgrammeur.Repository.csproj", "PimPamProgrammeur.Repository/"]
-COPY ["PimPamProgrammeur.Data/PimPamProgrammeur.Data.csproj", "PimPamProgrammeur.Data/"]
-COPY ["PimPamProgrammeur.Utils/PimPamProgrammeur.Utils.csproj", "PimPamProgrammeur.Utils/"]
+COPY ["PimPamProgrammeur.API.csproj", "PimPamProgrammeur.API/"]
+COPY ["PimPamProgrammeur.Model.csproj", "PimPamProgrammeur.Model/"]
+COPY ["PimPamProgrammeur.Dto.csproj", "PimPamProgrammeur.Dto/"]
+COPY ["PimPamProgrammeur.Repository.csproj", "PimPamProgrammeur.Repository/"]
+COPY ["PimPamProgrammeur.Data.csproj", "PimPamProgrammeur.Data/"]
+COPY ["PimPamProgrammeur.Utils.csproj", "PimPamProgrammeur.Utils/"]
 RUN dotnet restore "PimPamProgrammeur.API/PimPamProgrammeur.API.csproj"
 COPY . .
 WORKDIR "/src/PimPamProgrammeur.API"
