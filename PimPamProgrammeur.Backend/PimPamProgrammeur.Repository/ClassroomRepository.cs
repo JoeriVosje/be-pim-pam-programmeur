@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace PimPamProgrammeur.Repository
 {
@@ -25,17 +27,22 @@ namespace PimPamProgrammeur.Repository
 
         public IEnumerable<Classroom> GetAllClassrooms()
         {
-            return _context.Classrooms.OrderBy(e=> e.CreationDate).ToList();
+            return GetClassrooms().OrderBy(e=> e.CreationDate).ToList();
         }
 
         public Classroom GetClassroomByModule(Guid moduleId)
         {
-            return _context.Classrooms.FirstOrDefault(e => e.ModuleId == moduleId);
+            return GetClassrooms().FirstOrDefault(e => e.ModuleId == moduleId);
+        }
+
+        private IIncludableQueryable<Classroom, Module> GetClassrooms()
+        {
+            return _context.Classrooms.Include(e => e.Module);
         }
 
         public Classroom GetClassroom(Guid id)
         {
-            return _context.Classrooms.FirstOrDefault(e => e.Id == id);
+            return GetClassrooms().FirstOrDefault(e => e.Id == id);
         }
 
         public async Task<Classroom> SaveClassroom(Classroom classroom)
