@@ -22,7 +22,7 @@ namespace PimPamProgrammeur.API.Mapping
             {
                 Id = classroom.Id,
                 Major = classroom.Major,
-                ModuleId = classroom.ModuleId,
+                Module = resolution.Mapper.Map<ModuleResponseDto>(classroom.Module),
                 Name = classroom.Name
             };
         }
