@@ -86,9 +86,9 @@ namespace PimPamProgrammeur.API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
 
-        public IActionResult GetSessions()
+        public IActionResult GetSessions([FromQuery] Guid? moduleId)
         {
-            var sessionResponseDto = _sessionProcessor.GetSessions();
+            var sessionResponseDto = _sessionProcessor.GetSessions(moduleId);
             if (!sessionResponseDto.Any())
             {
                 return NoContent();
@@ -107,7 +107,7 @@ namespace PimPamProgrammeur.API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
 
-        public IActionResult GetSessions([FromRoute] Guid id)
+        public IActionResult GetSession([FromRoute] Guid id)
         {
             var sessionResponseDto = _sessionProcessor.GetSession(id);
             if (sessionResponseDto == null)
