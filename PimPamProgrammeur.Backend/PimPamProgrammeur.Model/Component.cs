@@ -11,10 +11,9 @@ namespace PimPamProgrammeur.Model
         public Guid Id { get; set; }
         [Required]
         public string Title { get; set; }
-        [Required]
+
         [MaxLength(10000)]
         public string Theory { get; set; }
-        [Required]
         public string Question { get; set; }
         [Required]
         public bool Skippable { get; set; }

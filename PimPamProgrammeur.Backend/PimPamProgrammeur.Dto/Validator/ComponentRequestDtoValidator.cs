@@ -11,9 +11,12 @@ namespace PimPamProgrammeur.Dto.Validator
             var validationResult = new ValidationResult();
 
             // Check all required fields
+            if (string.IsNullOrEmpty(entity.Question) && string.IsNullOrEmpty(entity.Theory))
+            {
+                validationResult.Errors.Add("Either question or theory must have a value");
+            }
+
             ValidateNullOrEmpty(validationResult, nameof(entity.Title), entity.Title);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Theory), entity.Theory);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Question), entity.Question);
             ValidateNull(validationResult, nameof(entity.Skippable), entity.Skippable);
             ValidateNullOrEmpty(validationResult, nameof(entity.Hint), entity.Hint);
             ValidateNull(validationResult, nameof(entity.ModuleId), entity.ModuleId);
