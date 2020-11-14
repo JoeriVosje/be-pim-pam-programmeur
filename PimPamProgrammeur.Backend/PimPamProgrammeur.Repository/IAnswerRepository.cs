@@ -12,5 +12,7 @@ namespace PimPamProgrammeur.Repository
         Task DeleteAnswersByComponentId(Guid componentId);
         Task<Answer> UpdateAnswerByComponentId(Answer answer);
 
+        Answer GetRightAnswerByComponentId(Guid componentId);
+
     }
 }

@@ -11,18 +11,11 @@ namespace PimPamProgrammeur.API.Mapping
         {
             CreateMap<Result, ResultResponseDto>().ConvertUsing((e, _, context) => ResultToResultResponseDto(e, context));
             CreateMap<ResultRequestDto, Result>().ConvertUsing((e, _, context) => ResultRequestDtoToResult(e));
+            CreateMap<EmptyResultRequestDto, Result>().ConvertUsing((e, _, context) => EmptyResultRequestDtoToResult(e));
         }
 
         private ResultResponseDto ResultToResultResponseDto(Result result, ResolutionContext resolution)
         {
-            if(result.Answer == null)
-            {
-                return new ResultResponseDto
-                {
-                    Hint = null,
-                    Success = null
-                };
-            }
             return new ResultResponseDto
             {
                 Hint = result.Answer.Component.Hint,
@@ -39,6 +32,18 @@ namespace PimPamProgrammeur.API.Mapping
                 UserId = requestDto.UserId ?? Guid.Empty,
                 SessionId = requestDto.SessionId
             };
+        }
+
+        private Result EmptyResultRequestDtoToResult(EmptyResultRequestDto emptyRequestDto)
+        {
+            return new Result
+            {
+                StartTime = emptyRequestDto.StartTime,
+                UserId = emptyRequestDto.UserId ?? Guid.Empty,
+                SessionId = emptyRequestDto.SessionId,
+                AnswerId = null
+            };
+            
         }
 
     }

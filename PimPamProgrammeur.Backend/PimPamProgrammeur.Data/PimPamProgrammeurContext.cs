@@ -28,6 +28,7 @@ namespace PimPamProgrammeur.Data
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
         }
 
     }
