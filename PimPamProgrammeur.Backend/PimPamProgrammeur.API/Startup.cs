@@ -107,6 +107,7 @@ namespace PimPamProgrammeur.API
             services.AddSingleton<SessionRequestDtoValidator>();
             services.AddTransient<OpenSessionRequestDtoValidator>();
             services.AddTransient<CloseSessionRequestDtoValidator>();
+            services.AddSingleton<IValidator<Classroom>, ModuleDeleteValidator>();
 
 
             // controllers
