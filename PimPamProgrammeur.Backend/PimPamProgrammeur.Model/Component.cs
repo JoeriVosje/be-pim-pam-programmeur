@@ -17,7 +17,6 @@ namespace PimPamProgrammeur.Model
         public string Question { get; set; }
         [Required]
         public bool Skippable { get; set; }
-        [Required]
         public string Hint { get; set; }
 
         public int Order { get; set; }
