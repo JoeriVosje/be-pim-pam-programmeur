@@ -18,13 +18,17 @@ namespace PimPamProgrammeur.Dto.Validator
 
             ValidateNullOrEmpty(validationResult, nameof(entity.Title), entity.Title);
             ValidateNull(validationResult, nameof(entity.Skippable), entity.Skippable);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Hint), entity.Hint);
             ValidateNull(validationResult, nameof(entity.ModuleId), entity.ModuleId);
-            if (!entity.Skippable && entity.Answers.Count == 0)
+            if(entity.Question != null)
             {
-                validationResult.Errors.Add("A question must be skippable when there no answers provided");
-            }
+                ValidateNullOrEmpty(validationResult, nameof(entity.Hint), entity.Hint);
 
+                if (!entity.Skippable && entity.Answers.Count == 0)
+                {
+                    validationResult.Errors.Add("A question must be skippable when there no answers provided");
+
+                }
+            }
 
             return validationResult;
         }
