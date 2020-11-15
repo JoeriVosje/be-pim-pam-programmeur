@@ -1,0 +1,3248 @@
+{
+	"info": {
+		"_postman_id": "ae3b1c97-49d0-4d11-b9c9-eb91f8d6fca9",
+		"name": "PPP",
+		"description": "Alle Postman tests voor Pim Pam Programmeur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "LOGIN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7dd47238-091b-4521-ab3c-3e5ad935c1d9",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"tokenadmin\", jsonData.accessToken);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{adminEmail}}\",\r\n  \"password\": \"{{adminPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN ADMIN - INVALID INPUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a76c6a5-e5ee-4c30-8b85-70ebef061abc",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN ADMIN - WRONG PASSWORD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e72da70-5626-470c-9274-820e1a6279c6",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{adminEmail}}\",\r\n  \"password\": \"fout_wachtwoord\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e955400-7712-4fd9-a7a0-a79fe19b8db2",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"tokenuser\", jsonData.accessToken);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{userEmail}}\",\r\n  \"password\": \"{{userPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN USER - INVALID INPUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a4a2f2ea-2ede-4c25-9589-0b62868957a9",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN USER - WRONG PASSWORD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a4ced34-f287-45a5-bf97-1da7a1130dec",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{userEmail}}\",\r\n  \"password\": \"fout_wachtwoord\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST EXISTING USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9db122d-5caf-45b8-a235-92f3e85fbf0c",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"7365@student.hhs.nl\",\r\n  \"firstName\": \"Motje\",\r\n  \"lastName\": \"de Tester\",\r\n  \"classroomId\": \"19B994FF-EBDC-4EFF-0445-08D8888F59B7\",\r\n  \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST USER - (ALSO USED FOR DELETE USER)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff753cd7-8ea6-4dd9-9d6a-dedf9e8eee2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"classroom\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"useridfordelete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test0001test@student.hhs.nl\",\r\n  \"firstName\": \"Ik\",\r\n  \"lastName\": \"ben de Sjaak\",\r\n  \"classroomId\": \"19B994FF-EBDC-4EFF-0445-08D8888F59B7\",\r\n  \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST USER - INVALID INPUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d579d854-5cc8-4d33-b401-07f5af461cc9",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"\",\r\n  \"firstName\": \"\",\r\n  \"lastName\": \"\",\r\n  \"classroomId\": \"{{classroomidforget}}\",\r\n  \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/User",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER - CURRENT (TOKENADMIN)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9b92fd5c-230b-4c07-aa7d-d35ec06d54e7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"currentAdminId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/current",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER - CLASSROOM ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98203971-2d53-4b6f-8025-b573a4bae75f",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/009a50d8-7679-4b18-b2e9-da3f537c2893",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"009a50d8-7679-4b18-b2e9-da3f537c2893"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER - CURRENT (TOKENUSER)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3cd26061-0cf1-4efd-a0de-5686d4c5e4cf",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/current",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USERS - WITH TOKENUSER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d46b5ca9-f27b-4837-b15b-a7d0ce6106ec",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USERS - WITH TOKENADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "decc2c3d-49dc-48d5-a908-16c32c521ff4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SPECIFIC USER - WITH TOKENADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "201679a8-c079-4931-bf3b-2d652dbb839e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/{{currentAdminId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"{{currentAdminId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SPECIFIC USER - WITH TOKENUSER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2de4866f-3af5-4792-aaa2-7ec8c9d840e5",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/{{currentAdminId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"{{currentAdminId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USERS - WITH TOKENADMIN WRONG GUID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9118ac1-c101-43f5-888b-a1a591038969",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER - CURRENT (NO TOKEN)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0b9450e-c11d-44b2-b1c9-bc6d7a2306e9",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/current",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER - WITH TOKENADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9b462c38-39e3-483a-8bc9-776469b199ef",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/{{useridfordelete}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"{{useridfordelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE NON EXISTING USER - WITH TOKENADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9f2a40f-d4b1-413f-b8f8-e56ba039e758",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/3fa85f64-0000-0000-b3fc-2c963f66afa6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"3fa85f64-0000-0000-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER - INVALID INPUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0c137d8-3dca-4cec-8764-13707c6aea7c",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER - WITH TOKENUSER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74c51741-e56c-4c03-b483-e27f3ed88b39",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/User/{{useridfordelete}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User",
+								"{{useridfordelete}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MODULE",
+			"item": [
+				{
+					"name": "POST MODULE - NO TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "855978c9-a8e0-4300-9f1a-9759c26c13bb",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"SnapJijHet?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST MODULE - TOKEN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69d57645-c2bd-4575-b4da-b237f99badcc",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"SnapJijHet?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST MODULE - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a65a277-b5f4-422d-900c-7a64e88a98b3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"moduleidforput\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"TestModule001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT MODULE - NO TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5575bfdd-7958-4363-aecb-87765eaa114d",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"d312dacc-6819-439b-938f-08d888a8951a\",\r\n  \"name\": \"SnapJijHet2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT MODULE - TOKEN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b7e51b7d-bb7b-42f9-84b5-e1900aa57d81",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"d312dacc-6819-439b-938f-08d888a8951a\",\r\n  \"name\": \"SnapJijHet2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT MODULE - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38b51dee-9317-469c-885e-642e7f93acbb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{moduleidforput}}\",\r\n  \"name\": \"PutModuleWerktCorrect\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT MODULE - BAD REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3cf417bf-6450-4c12-befd-4d1782e3e204",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{moduleidforput}}\",\r\n  \"name\": 1 // dit is de fout, moet een string zijn\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT MODULE - INVALID REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "010f53cf-1fd1-46b7-8331-5b58659e8ebf",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{moduleidforput}}\",\r\n  \"name\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MODULES - NO TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24e2800a-3b39-4e68-b3e3-b7a41fcd198d",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MODULES - TOKEN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b64c2e31-e05a-4d2b-b1a9-b89812eab834",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MODULES - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e1905af4-3abb-4c22-befc-01c8732b718f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MODULE - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0bf4d83-665a-47f8-9b0a-1cad168a7f19",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Module/{{moduleidforput}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Module",
+								"{{moduleidforput}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CLASSROOM",
+			"item": [
+				{
+					"name": "GET ALL CLASSROOMS - NO TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "379e52ab-c5b3-43a8-9896-081f929d43e8",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL CLASSROOMS - TOKEN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a76afeb7-32a8-4e2f-a13a-cc4b8a724c12",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL CLASSROOMS - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "674a8494-0e98-454b-9b8a-4cb44f05fe9d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - NO TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b90c0bb-01f6-4a10-87cd-5db4e7b012a4",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Klasgenoten Klas\",\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - TOKEN USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe3b62f6-b13e-4341-89bb-ce4f2e6a3aea",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Klasgenoten Klas\",\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5e1e425-c40f-4c7a-a1cd-5b7e674ef6a2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"classroomidforget\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Klasgenoten Klas\",\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - INVALID INPUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ccf664d-d452-4878-9b2b-d243eacd2abd",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"\",\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - BAD REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c96e52a-1285-411e-b1a3-82aac8f6b259",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": 1,\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLASSROOM - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8bb18e0-b918-4592-8470-d3136eb8a97a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom/{{classroomidforget}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom",
+								"{{classroomidforget}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CLASSROOM - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "076a0aed-718b-4aea-b7e2-26797bdd7b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom/{{classroomidforget}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom",
+								"{{classroomidforget}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE NON EXISTING CLASSROOM - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0de2c5bc-6f04-4e15-93a5-98da5a1bf082",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom",
+								"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "COMPONENT",
+			"item": [
+				{
+					"name": "POST COMPONENT - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ad2e893-13df-4be3-ba08-ed160dc86681",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"componentidforputordelete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"ComMonent\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"Wat vraag ik hier?\",\r\n  \"skippable\": true,\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST COMPONENT WITHOUT QUESTION",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6de20f0-3fcb-430b-8903-00f34a8dddb2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"ComMonent\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"\",\r\n  \"skippable\": true,\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST COMPONENT - BAD REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d92b34d6-6b48-4b4e-afd4-d3bdc4a3b3c6",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"ComMonent\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"Wat vraag ik hier?\",\r\n  \"skippable\": \"haha\", //dit is de fout, moet boolean zijn\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST COMPONENT - INVALID REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e081f533-8211-4308-8d8c-7e5f8220f19b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"\",\r\n  \"theory\": \"\",\r\n  \"question\": \"\",\r\n  \"skippable\": true,\r\n  \"hint\": \"\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT COMPONENT - TOKEN ADMIN (voor als het ooit komt)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84c08859-9780-4a62-869f-0f92dcd5716a",
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"AANGEPAST!\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"Wat vraag ik hier?\",\r\n  \"skippable\": true,\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component/{{componentidforputordelete}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"{{componentidforputordelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT COMPONENT ORDER - INVALID REQUEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a1a894d-4917-4d5b-8e8c-0ad82df8db05",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"componentIds\": [\r\n    \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component/Order",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT COMPONENT ORDER - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3689b97a-779b-4520-869c-a8cdf77d9ac8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"componentIds\": [\r\n    \"776C7B64-1AD1-4407-8DA3-08D888B83EAC\",\r\n    \"01DD4534-51B1-416F-8DA4-08D888B83EAC\",\r\n    \"EE953288-5434-41AB-8DA6-08D888B83EAC\",\r\n    \"40B0E34B-DBF2-49F2-8DA7-08D888B83EAC\",\r\n    \"407614B0-8767-4640-8DAE-08D888B83EAC\",\r\n    \"E47FB3C4-2D9C-4D9E-8DA8-08D888B83EAC\",\r\n    \"275B2C5B-F9B0-4A6C-8DA9-08D888B83EAC\",\r\n    \"FA52FBA4-1DB5-493A-8DAA-08D888B83EAC\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component/Order",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPONENTS - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5968938d-c648-4957-892b-aebf2defd1e5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Component",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SPECIFIC COMPONENT - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50b25877-e65e-40c6-a2cf-785320314bc3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Component/{{componentidforputordelete}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"{{componentidforputordelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPONENTS BY MODULE ID- TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ed763aa-dc91-4920-8b81-791785f1cec9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Component/module/{{moduleidforput}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"module",
+								"{{moduleidforput}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMPONENT - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a05a7232-bb96-48bb-8aac-be30ee0e62ca",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"ComMonent\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"Wat vraag ik hier?\",\r\n  \"skippable\": true,\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component/{{componentidforputordelete}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"{{componentidforputordelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE NON EXISTING COMPONENT - TOKEN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "611f26d0-d40e-4089-89a6-ac0602043004",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"title\": \"ComMonent\",\r\n  \"theory\": \"Snappen jullie het?\",\r\n  \"question\": \"Wat vraag ik hier?\",\r\n  \"skippable\": true,\r\n  \"hint\": \"Wauw, je snapt er echt niets van he?\",\r\n  \"answers\": [\r\n    {\r\n      \"description\": \"Je vroeg niets!\",\r\n      \"isCorrectAnswer\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Component/3fa85f64-0000-0000-b3fc-2c963f66afa6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Component",
+								"3fa85f64-0000-0000-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SESSION & RESULT",
+			"item": [
+				{
+					"name": "POST SESSION - OPEN SESSION NON EXISTING MODULE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c178b4d8-c418-4fb8-8df5-3f6d1b1d432f",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Session/Open",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"Open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLASSROOM - FOR SESSION OPENING",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95686596-1f39-4eeb-a386-da4d617474b8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"classroomidforget\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Klasgenoten Klas\",\r\n  \"moduleId\": \"{{moduleidforput}}\",\r\n  \"major\": \"Burger King Management\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Classroom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST SESSION - OPEN SESSION",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb9aef0c-2511-454d-b1e0-9a45e700d4ba",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sessionIdForClosing\", jsonData.sessionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Session/Open",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"Open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST SESSION - OPEN SESSION ALREADY OPEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dc093590-d19b-4ff7-9f39-678991deb53b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Session/Open",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"Open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST RESULT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"answerId\": \"CCC3AE32-DFCC-45C5-DFE5-08D888C941B6\",\r\n  \"sessionId\": \"{{sessionIdForClosing}}\",\r\n  \"userId\": \"BE5E91DF-38D3-499E-1ADD-08D888A1BB9A\",\r\n  \"startTime\": \"2020-11-14T19:26:14.869Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Result",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Result"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST RESULT SKIP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28499753-c32e-467c-a2cb-206b6f37a255",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenuser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sessionId\": \"{{sessionIdForClosing}}\",\r\n  \"startTime\": \"2020-11-14T19:26:14.869Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Result/skip",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Result",
+								"skip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST SESSION - CLOSE  SESSION",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d08c0b4-1433-438f-9077-d43a342c9029",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Session/Close",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"Close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST SESSION - CLOSE  SESSION ALREADY CLOSED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3061379-3c66-4802-bbbc-30847e2efa39",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"moduleId\": \"{{moduleidforput}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Session/Close",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"Close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CLASSROOM - TO REMOVE ABOVE CLASSROOM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b6af7ad3-4484-4a9c-9420-5fde4d07d78f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Classroom/{{classroomidforget}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Classroom",
+								"{{classroomidforget}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL SESSIONS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Session",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SESSION ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenadmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Session/{{sessionIdForClosing}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Session",
+								"{{sessionIdForClosing}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "88316efe-9d1c-411b-98b0-f1fc30f86dcc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ac60e46-1e23-4726-85f6-d8aa46473349",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3ccf366d-072a-4817-b3fc-a66c0bd6e511",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "dc5ea43e-e201-45a1-947b-2a8385ed288a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "5dd5c033-4668-4b9a-8573-cd2d83222041",
+			"key": "url",
+			"value": "https://be-pim-pam-programmeur.azurewebsites.net/api"
+		},
+		{
+			"id": "040b0a32-141a-4ad1-9446-1c9c385a8f70",
+			"key": "token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
