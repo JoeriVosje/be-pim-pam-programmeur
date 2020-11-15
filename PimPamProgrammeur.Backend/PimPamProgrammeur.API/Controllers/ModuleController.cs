@@ -114,5 +114,20 @@ namespace PimPamProgrammeur.API.Controllers
 
             return Ok(modules);
         }
+
+        [HttpDelete("{id}")]
+        [AuthorizeAdmin]
+        public async Task<IActionResult> DeleteModule(Guid id)
+        {
+           var isDeleted = await _moduleProcessor.DeleteModule(id);
+           if (isDeleted.Errors.Any())
+           {
+                return BadRequest(isDeleted);
+           }
+
+            return Ok();
+
+        }
+
     }
 }

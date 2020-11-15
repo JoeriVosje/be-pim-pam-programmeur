@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PimPamProgrammeur.Dto;
+using PimPamProgrammeur.Dto.Validator;
 using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 using System;
@@ -12,11 +15,15 @@ namespace PimPamProgrammeur.API.Processors
     {
         private readonly IMapper _mapper;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IClassroomRepository _classroomRepository;
+        private readonly IValidator<Classroom> _classroomValidator;
 
-        public ModuleProcessor(IMapper mapper, IModuleRepository moduleRepository)
+        public ModuleProcessor(IMapper mapper, IModuleRepository moduleRepository, IClassroomRepository classroomRepository, IValidator<Classroom> classroomValidator)
         {
             _mapper = mapper;
             _moduleRepository = moduleRepository;
+            _classroomRepository = classroomRepository;
+            _classroomValidator = classroomValidator;
         }
         public async Task<ModuleResponseDto> SaveModule(ModuleRequestDto requestDto)
         {
@@ -49,6 +56,30 @@ namespace PimPamProgrammeur.API.Processors
             var modules = _moduleRepository.GetModules();
             //Return and map the module model to the ModuleResponseDTO 
             return _mapper.Map<IEnumerable<ModuleResponseDto>>(modules);
+        }
+
+        public async Task<ValidationResult> DeleteModule(Guid id)
+        {
+            var validationResult = new ValidationResult();
+
+            var module = _moduleRepository.GetModule(id);
+
+            if (module == null)
+            {
+                return null;
+            }
+
+            var classroom = _classroomRepository.GetClassroomByModule(module.Id);
+            if (classroom != null)
+            {
+                validationResult =_classroomValidator.Validate(classroom);
+                return validationResult;
+            }
+
+            await _moduleRepository.DeleteModule(id);
+
+            return validationResult;
+
         }
     }
 }
