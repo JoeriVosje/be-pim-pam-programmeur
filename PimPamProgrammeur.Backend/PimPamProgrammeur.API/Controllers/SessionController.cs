@@ -81,7 +81,7 @@ namespace PimPamProgrammeur.API.Controllers
         /// </summary>
         /// <returns>The sessions</returns>
         [HttpGet]
-        [AuthorizeAdmin]
+        [AuthorizeStudent]
         [ProducesResponseType(typeof(IEnumerable<SessionResponseDto>), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
