@@ -47,5 +47,14 @@ namespace PimPamProgrammeur.Repository
         {
             return _context.Modules.OrderBy(e=> e.CreationDate).ToList();
         }
+
+        public async Task DeleteModule(Guid id)
+        {
+            var module = GetModule(id);
+            _context.Modules.Remove(module);
+            await _context.SaveChangesAsync();
+
+        }
+
     }
 }

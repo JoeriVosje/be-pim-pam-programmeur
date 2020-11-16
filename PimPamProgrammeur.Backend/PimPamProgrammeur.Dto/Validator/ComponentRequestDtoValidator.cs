@@ -11,12 +11,24 @@ namespace PimPamProgrammeur.Dto.Validator
             var validationResult = new ValidationResult();
 
             // Check all required fields
+            if (string.IsNullOrEmpty(entity.Question) && string.IsNullOrEmpty(entity.Theory))
+            {
+                validationResult.Errors.Add("Either question or theory must have a value");
+            }
+
             ValidateNullOrEmpty(validationResult, nameof(entity.Title), entity.Title);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Theory), entity.Theory);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Question), entity.Question);
-            ValidateNullOrEmpty(validationResult, nameof(entity.Skippable), entity.Skippable.ToString());
-            ValidateNullOrEmpty(validationResult, nameof(entity.Hint), entity.Hint);
-            ValidateNullOrEmpty(validationResult, nameof(entity.ModuleId), entity.ModuleId.ToString());
+            ValidateNull(validationResult, nameof(entity.Skippable), entity.Skippable);
+            ValidateNull(validationResult, nameof(entity.ModuleId), entity.ModuleId);
+            if(entity.Question != null)
+            {
+                ValidateNullOrEmpty(validationResult, nameof(entity.Hint), entity.Hint);
+
+                if (!entity.Skippable && entity.Answers.Count == 0)
+                {
+                    validationResult.Errors.Add("A question must be skippable when there no answers provided");
+
+                }
+            }
 
             return validationResult;
         }

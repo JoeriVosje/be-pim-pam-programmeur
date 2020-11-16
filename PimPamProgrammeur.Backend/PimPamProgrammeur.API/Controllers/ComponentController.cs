@@ -67,7 +67,7 @@ namespace PimPamProgrammeur.API.Controllers
         {
             await _componentProcessor.DeleteComponent(id);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpGet]
@@ -105,7 +105,7 @@ namespace PimPamProgrammeur.API.Controllers
 
         [HttpGet("module/{moduleid}")]
         [AuthorizeStudent]
-        [ProducesResponseType(typeof(ComponentResponseDto), 200)]
+        [ProducesResponseType(typeof(IEnumerable<ComponentResponseDto>), 200)]
         [ProducesResponseType(204)]
         public IActionResult GetComponentsByModuleId(Guid moduleid)
         {

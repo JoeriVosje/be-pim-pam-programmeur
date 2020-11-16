@@ -11,5 +11,7 @@ namespace PimPamProgrammeur.Repository
         Module GetModule(Guid id);
         Task<Module> UpdateModule(Module module);
         IEnumerable<Module> GetModules();
+        Task DeleteModule(Guid id);
+
     }
 }

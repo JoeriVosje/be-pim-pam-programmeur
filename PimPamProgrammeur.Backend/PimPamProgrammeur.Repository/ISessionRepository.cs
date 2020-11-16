@@ -11,6 +11,6 @@ namespace PimPamProgrammeur.Repository
         Session GetSession(Guid id);
         IEnumerable<Session> GetOpenSessions(Guid moduleId);
         Task<Session> UpdateSession(Session session);
-        IEnumerable<Session> GetSessions();
+        IEnumerable<Session> GetSessions(Guid? moduleId);
     }
 }

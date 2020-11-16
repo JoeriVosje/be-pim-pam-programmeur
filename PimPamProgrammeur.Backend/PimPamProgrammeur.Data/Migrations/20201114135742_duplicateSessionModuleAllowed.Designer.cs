@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PimPamProgrammeur.Data;
 
 namespace PimPamProgrammeur.Data.Migrations
 {
     [DbContext(typeof(PimPamProgrammeurContext))]
-    partial class PimPamProgrammeurContextModelSnapshot : ModelSnapshot
+    [Migration("20201114135742_duplicateSessionModuleAllowed")]
+    partial class duplicateSessionModuleAllowed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,6 +78,7 @@ namespace PimPamProgrammeur.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Hint")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ModuleId")
@@ -85,13 +88,14 @@ namespace PimPamProgrammeur.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Question")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Skippable")
                         .HasColumnType("bit");
 
                     b.Property<string>("Theory")
-                        .HasMaxLength(10000)
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

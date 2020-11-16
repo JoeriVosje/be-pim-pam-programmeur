@@ -44,9 +44,12 @@ namespace PimPamProgrammeur.Repository
             return session;
         }
 
-        public IEnumerable<Session> GetSessions()
+
+        public IEnumerable<Session> GetSessions(Guid? moduleId)
         {
-            return GetSessionAndModule().OrderBy(e=> e.StartTime).ToList();
+            return moduleId.HasValue ?
+                GetSessionAndModule().Where(e=> e.ModuleId == moduleId.Value).OrderBy(e => e.StartTime).ToList() :
+                GetSessionAndModule().OrderBy(e=> e.StartTime).ToList();
         }
         private IIncludableQueryable<Session, Module> GetSessionAndModule()
         {
