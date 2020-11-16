@@ -9,12 +9,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="PimPamProgrammeurConnection">
-      <Value>Server=tcp:pimpamprogrammeur.database.windows.net,1433%3bInitial Catalog=PimPamProgrammeurDb%3bPersist Security Info=False%3bUser ID=pimpamadmin%3bPassword=r7YT1iYfztSfgNSHQF5TuYjCqAZwzjc3vzQsMuOnVnD8tWRGBvJYi7yCuLiygaXvlvd3pvfpHpMV0L7CXyQ3m4u8kmQFPQhwe3gFnwXZXZ6uumJ0mjakvx1ovQAwWJeO%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+      <Value>Server=tcp:pimpamprogrammeur.database.windows.net,1433%3bInitial Catalog=PimPamProgrammeurDb%3bPersist Security Info=False%3bUser ID=pimpamadmin%3bPassword=r7YT1iYfztSfgNSHQF5TuYjCqAZwzjc3vzQsMuOnVnD8tWRGBvJYi7yCuLiygaXvlvd3pvfpHpMV0L7CXyQ3m4u8kmQFPQhwe3gFnwXZXZ6uumJ0mjakvx1ovQAwWJeO%3bMultipleActiveResultSets=True%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
   <ItemGroup>
     <EFMigrations Include="PimPamProgrammeur.Data.PimPamProgrammeurContext">
-      <Value>Server=tcp:pimpamprogrammeur.database.windows.net,1433%3bInitial Catalog=PimPamProgrammeurDb%3bPersist Security Info=False%3bUser ID=pimpamadmin%3bPassword=r7YT1iYfztSfgNSHQF5TuYjCqAZwzjc3vzQsMuOnVnD8tWRGBvJYi7yCuLiygaXvlvd3pvfpHpMV0L7CXyQ3m4u8kmQFPQhwe3gFnwXZXZ6uumJ0mjakvx1ovQAwWJeO%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+      <Value>Server=tcp:pimpamprogrammeur.database.windows.net,1433%3bInitial Catalog=PimPamProgrammeurDb%3bPersist Security Info=False%3bUser ID=pimpamadmin%3bPassword=r7YT1iYfztSfgNSHQF5TuYjCqAZwzjc3vzQsMuOnVnD8tWRGBvJYi7yCuLiygaXvlvd3pvfpHpMV0L7CXyQ3m4u8kmQFPQhwe3gFnwXZXZ6uumJ0mjakvx1ovQAwWJeO%3bMultipleActiveResultSets=True%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
     </EFMigrations>
   </ItemGroup>
 </Project>
