@@ -22,8 +22,6 @@ namespace PimPamProgrammeur.Dto.Validator
             var validationResult = new ValidationResult();
 
             this.ValidateNullOrEmpty(validationResult, nameof(entity.Email), entity.Email);
-            this.ValidateNullOrEmpty(validationResult, nameof(entity.FirstName), entity.FirstName);
-            this.ValidateNullOrEmpty(validationResult, nameof(entity.LastName), entity.LastName);
             this.ValidateNull(validationResult, nameof(entity.ClassroomId), entity.ClassroomId);
 
             if (_userRepository.FindUser(entity.Email) != null)
