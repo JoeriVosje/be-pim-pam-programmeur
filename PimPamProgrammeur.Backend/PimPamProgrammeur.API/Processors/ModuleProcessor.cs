@@ -33,7 +33,7 @@ namespace PimPamProgrammeur.API.Processors
 
             var resultModule = await _moduleRepository.SaveModule(module);
 
-            var moduleWithStatus = getModuleStatus(resultModule);
+            var moduleWithStatus = GetModuleStatus(resultModule);
 
             return moduleWithStatus ?? null;
 
@@ -41,7 +41,7 @@ namespace PimPamProgrammeur.API.Processors
         public ModuleResponseDto GetModule(Guid id)
         {
             var module = _moduleRepository.GetModule(id);
-            var moduleResponse = getModuleStatus(module);
+            var moduleResponse = GetModuleStatus(module);
 
             return moduleResponse ?? null;
 
@@ -53,19 +53,15 @@ namespace PimPamProgrammeur.API.Processors
             
             var resultModule = await _moduleRepository.UpdateModule(module);
 
-            var moduleWithStatus = getModuleStatus(resultModule);
+            var moduleWithStatus = GetModuleStatus(resultModule);
 
             return moduleWithStatus ?? null;
         }
 
         public IEnumerable<ModuleResponseDto> GetModules()
         {
-            //Connection with repository
             var modules = _moduleRepository.GetModules();
-            var modulesWithStatuses = getAllModuleStatus(modules);
-            //Return and map the module model to the ModuleResponseDTO 
-            //return _mapper.Map<IEnumerable<ModuleResponseDto>>(modules);
-
+            var modulesWithStatuses = GetAllModuleStatus(modules);
             return modulesWithStatuses ?? null;
         }
 
@@ -93,22 +89,23 @@ namespace PimPamProgrammeur.API.Processors
 
         }
 
-        public ModuleResponseDto getModuleStatus(Module module)
+        public ModuleResponseDto GetModuleStatus(Module module)
         {
             var session = _sessionRepository.GetOpenSessions(module.Id);
 
             var moduleWithoutSession = _mapper.Map<ModuleResponseDto>(module);
-            if (session.Count() != 0)
+            if (session.Any())
             {
                 moduleWithoutSession.Status = "open";
                 var moduleWithSession = moduleWithoutSession;
                 return moduleWithSession ?? null;
             }
 
-            var closedSession = _sessionRepository.GetSessions(module.Id);
-            if (closedSession.Count() != 0)
+            var Sessions = _sessionRepository.GetSessions(module.Id);
+            var closedSessions = Sessions.Where(e => e.ModuleId == module.Id && e.EndTime != null);
+
+            if (closedSessions.Any())
             {
-                closedSession.Where(e => e.ModuleId == module.Id && e.EndTime != null);
                 moduleWithoutSession.Status = "closed";
                 var moduleWithClosedSession = moduleWithoutSession;
                 return moduleWithClosedSession ?? null;
@@ -118,35 +115,14 @@ namespace PimPamProgrammeur.API.Processors
             return moduleWithoutSession ?? null;
         }
 
-        public IEnumerable<ModuleResponseDto> getAllModuleStatus(IEnumerable<Module> modules)
+        public IEnumerable<ModuleResponseDto> GetAllModuleStatus(IEnumerable<Module> modules)
         {
             var modulesWithStatuses = new List<ModuleResponseDto>();
 
             foreach (var module in modules)
             {
-                var session = _sessionRepository.GetOpenSessions(module.Id);
-                var closedSession = _sessionRepository.GetSessions(module.Id);
-
-                var moduleWithoutSession = _mapper.Map<ModuleResponseDto>(module);
-                if (session.Count() != 0)
-                {
-                    moduleWithoutSession.Status = "open";
-                    var moduleWithSession = moduleWithoutSession;
-                    modulesWithStatuses.Add(moduleWithSession);
-                }else if (closedSession.Count() != 0)
-                {
-                    closedSession.Where(e => e.ModuleId == module.Id && e.EndTime != null);
-                    moduleWithoutSession.Status = "closed";
-                    var moduleWithClosedSession = moduleWithoutSession;
-                    modulesWithStatuses.Add(moduleWithClosedSession);
-                }
-                else
-                {
-                    moduleWithoutSession.Status = "session not found";
-                    modulesWithStatuses.Add(moduleWithoutSession);
-
-                }
-                
+                var moduleWithStatus = GetModuleStatus(module);
+                modulesWithStatuses.Add(moduleWithStatus);
             }
 
             return modulesWithStatuses;
