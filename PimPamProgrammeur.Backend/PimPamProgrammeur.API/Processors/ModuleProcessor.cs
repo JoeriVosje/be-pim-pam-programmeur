@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Dto.Validator;
 using PimPamProgrammeur.Model;
 using PimPamProgrammeur.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -17,13 +16,15 @@ namespace PimPamProgrammeur.API.Processors
         private readonly IModuleRepository _moduleRepository;
         private readonly IClassroomRepository _classroomRepository;
         private readonly IValidator<Classroom> _classroomValidator;
+        private readonly ISessionRepository _sessionRepository;
 
-        public ModuleProcessor(IMapper mapper, IModuleRepository moduleRepository, IClassroomRepository classroomRepository, IValidator<Classroom> classroomValidator)
+        public ModuleProcessor(IMapper mapper, IModuleRepository moduleRepository, IClassroomRepository classroomRepository, IValidator<Classroom> classroomValidator, ISessionRepository sessionRepository)
         {
             _mapper = mapper;
             _moduleRepository = moduleRepository;
             _classroomRepository = classroomRepository;
             _classroomValidator = classroomValidator;
+            _sessionRepository = sessionRepository;
         }
         public async Task<ModuleResponseDto> SaveModule(ModuleRequestDto requestDto)
         {
@@ -32,13 +33,18 @@ namespace PimPamProgrammeur.API.Processors
 
             var resultModule = await _moduleRepository.SaveModule(module);
 
-            return _mapper.Map<ModuleResponseDto>(resultModule);
+            var moduleWithStatus = GetModuleStatus(resultModule);
+
+            return moduleWithStatus ?? null;
 
         }
         public ModuleResponseDto GetModule(Guid id)
         {
             var module = _moduleRepository.GetModule(id);
-            return module == null ? null : _mapper.Map<ModuleResponseDto>(module);
+            var moduleResponse = GetModuleStatus(module);
+
+            return moduleResponse ?? null;
+
         }
 
         public async Task<ModuleResponseDto> UpdateModule(ModuleUpdateRequestDto requestDto)
@@ -47,15 +53,16 @@ namespace PimPamProgrammeur.API.Processors
             
             var resultModule = await _moduleRepository.UpdateModule(module);
 
-            return _mapper.Map<ModuleResponseDto>(resultModule);
+            var moduleWithStatus = GetModuleStatus(resultModule);
+
+            return moduleWithStatus ?? null;
         }
 
         public IEnumerable<ModuleResponseDto> GetModules()
         {
-            //Connection with repository
             var modules = _moduleRepository.GetModules();
-            //Return and map the module model to the ModuleResponseDTO 
-            return _mapper.Map<IEnumerable<ModuleResponseDto>>(modules);
+            var modulesWithStatuses = GetAllModuleStatus(modules);
+            return modulesWithStatuses ?? null;
         }
 
         public async Task<ValidationResult> DeleteModule(Guid id)
@@ -81,5 +88,50 @@ namespace PimPamProgrammeur.API.Processors
             return validationResult;
 
         }
+
+        public ModuleResponseDto GetModuleStatus(Module module)
+        {
+            var session = _sessionRepository.GetOpenSessions(module.Id);
+
+            var moduleWithoutSession = _mapper.Map<ModuleResponseDto>(module);
+            if (session.Any())
+            {
+                moduleWithoutSession.Status = "open";
+                var moduleWithSession = moduleWithoutSession;
+                return moduleWithSession ?? null;
+            }
+
+            var Sessions = _sessionRepository.GetSessions(module.Id);
+            var closedSessions = Sessions.Where(e => e.ModuleId == module.Id && e.EndTime != null);
+
+            if (closedSessions.Any())
+            {
+                moduleWithoutSession.Status = "closed";
+                var moduleWithClosedSession = moduleWithoutSession;
+                return moduleWithClosedSession ?? null;
+            }
+
+            moduleWithoutSession.Status = "session not found";
+            return moduleWithoutSession ?? null;
+        }
+
+        public IEnumerable<ModuleResponseDto> GetAllModuleStatus(IEnumerable<Module> modules)
+        {
+            var modulesWithStatuses = new List<ModuleResponseDto>();
+
+            foreach (var module in modules)
+            {
+                var moduleWithStatus = GetModuleStatus(module);
+                modulesWithStatuses.Add(moduleWithStatus);
+            }
+
+            return modulesWithStatuses;
+
+        }
+
+            
+
+
+
     }
 }
