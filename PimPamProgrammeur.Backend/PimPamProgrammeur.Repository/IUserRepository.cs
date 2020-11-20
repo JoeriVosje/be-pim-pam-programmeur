@@ -15,5 +15,6 @@ namespace PimPamProgrammeur.Repository
 
         User FindUser(string email);
         IEnumerable<User> GetUserByClassroomId(Guid ClassroomId);
+        Task DeleteAllUsers(IEnumerable<User> users);
     }
 }

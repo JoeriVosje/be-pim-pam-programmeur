@@ -5,6 +5,7 @@ using PimPamProgrammeur.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PimPamProgrammeur.API.Processors
@@ -13,17 +14,24 @@ namespace PimPamProgrammeur.API.Processors
     {
         private readonly IMapper _mapper;
         private readonly IClassroomRepository _classroomRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ClassroomProcessor(IClassroomRepository classroomRepository, IMapper mapper)
+        public ClassroomProcessor(IClassroomRepository classroomRepository, IMapper mapper, IUserRepository userRepository)
         {
             _classroomRepository = classroomRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task DeleteClassroom(Guid id)
         {
             if (_classroomRepository.GetClassroom(id) != null)
             {
+                var getAllUsers = _userRepository.GetUserByClassroomId(id);
+                if (getAllUsers.Any())
+                {
+                    await _userRepository.DeleteAllUsers(getAllUsers);
+                }
                 await _classroomRepository.DeleteClassroom(id);
             }
         }
