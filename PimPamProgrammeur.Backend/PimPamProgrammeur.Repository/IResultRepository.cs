@@ -9,5 +9,6 @@ namespace PimPamProgrammeur.Repository
     {
         Task<Result> SaveResult(Result result);
         IEnumerable<Result> FindResult(Guid sessionId, Guid userId);
+        bool CheckIfResultsArePresentByUserId(Guid userId);
     }
 }
