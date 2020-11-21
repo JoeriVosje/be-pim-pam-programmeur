@@ -28,7 +28,7 @@ namespace PimPamProgrammeur.Utils
 
         public struct Authentication
         {
-            public const string BaseUrl = "https://google.com";
+            public const string BaseUrl = "https://pimpamprogrammeur.azurewebsites.net/";
         }
     }
 }
