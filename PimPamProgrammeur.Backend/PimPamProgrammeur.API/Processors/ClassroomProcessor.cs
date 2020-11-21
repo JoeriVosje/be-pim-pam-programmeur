@@ -72,8 +72,8 @@ namespace PimPamProgrammeur.API.Processors
             var usersHasResults = false;
             foreach (var user in users)
             {
-               var hasResults = _resultRepository.CheckIfResultsArePresentByUserId(user.Id);
-                if (hasResults)
+               var hasResults = _resultRepository.GetByUserId(user.Id);
+                if (hasResults.Any())
                 {
                     usersHasResults = true;
                     return usersHasResults;
