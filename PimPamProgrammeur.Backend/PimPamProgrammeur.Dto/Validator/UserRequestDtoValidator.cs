@@ -22,16 +22,20 @@ namespace PimPamProgrammeur.Dto.Validator
             var validationResult = new ValidationResult();
 
             this.ValidateNullOrEmpty(validationResult, nameof(entity.Email), entity.Email);
-            this.ValidateNull(validationResult, nameof(entity.ClassroomId), entity.ClassroomId);
 
             if (_userRepository.FindUser(entity.Email) != null)
             {
                 validationResult.Errors.Add($"User with email {entity.Email} already added");
             }
 
-            if (_classroomRepository.GetClassroom(entity.ClassroomId) == null)
+            if (!entity.ClassroomId.HasValue && entity.Role == 0)
             {
-                validationResult.Errors.Add($"Classroom {entity.ClassroomId} not found");
+                validationResult.Errors.Add("A classroomId is required when creating a student");
+            }
+
+            if (entity.ClassroomId.HasValue && _classroomRepository.GetClassroom(entity.ClassroomId.Value) == null)
+            {
+                validationResult.Errors.Add($"Classroom {entity.ClassroomId.Value} not found");
             }
 
             return validationResult;

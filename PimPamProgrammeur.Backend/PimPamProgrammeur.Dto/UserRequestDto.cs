@@ -7,7 +7,7 @@ namespace PimPamProgrammeur.Dto
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Guid ClassroomId { get; set; }
+        public Guid? ClassroomId { get; set; }
         public int Role { get; set; }
 
     }
