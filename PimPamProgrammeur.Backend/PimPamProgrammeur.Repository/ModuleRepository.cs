@@ -19,7 +19,7 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Module> SaveModule(Module module)
         {
-            module.CreationDate = DateTime.Now;
+            module.CreationDate = DateTime.UtcNow.FromUtcToGmt();
 
             await _context.Modules.AddAsync(module);
             await _context.SaveChangesAsync();
@@ -34,7 +34,7 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Module> UpdateModule(Module module)
         {
-            module.CreationDate = DateTime.Now;
+            module.CreationDate = DateTime.UtcNow.FromUtcToGmt();
 
             _context.Entry(module).State = EntityState.Modified;
 

@@ -72,7 +72,7 @@ namespace PimPamProgrammeur.API.Processors
         public async Task<SessionResponseDto> Open(SessionRequestDto sessionRequest)
         {
             var sessionModel = _mapper.Map<Session>(sessionRequest);
-            sessionModel.StartTime = DateTime.Now;
+            sessionModel.StartTime = DateTime.UtcNow.FromUtcToGmt();
 
             var savedSession = await _sessionRepository.SaveSession(sessionModel);
 
@@ -85,7 +85,7 @@ namespace PimPamProgrammeur.API.Processors
         {
             var session = GetCurrentSession(sessionRequest);
 
-            session.EndTime = DateTime.Now;
+            session.EndTime = DateTime.UtcNow.FromUtcToGmt();
             var updatedSession = await _sessionRepository.UpdateSession(session);
 
             var (totalStudents, finishedStudents) = GetStudentStats(updatedSession);

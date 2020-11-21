@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
+using PimPamProgrammeur.Repository;
 
 namespace PimPamProgrammeur.API.Mapping
 {
@@ -50,7 +51,7 @@ namespace PimPamProgrammeur.API.Mapping
             return new User
             {
                 ClassroomId = userRequestDto.ClassroomId,
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.UtcNow.FromUtcToGmt(),
                 Email = userRequestDto.Email,
                 Password = password,
                 FirstName = userRequestDto.FirstName,
