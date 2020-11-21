@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PimPamProgrammeur.Repository;
+
 
 namespace PimPamProgrammeur.API.Mapping
 {
@@ -34,7 +36,7 @@ namespace PimPamProgrammeur.API.Mapping
                 Major = requestDto.Major,
                 ModuleId = requestDto.ModuleId,
                 Name = requestDto.Name,
-                CreationDate = DateTime.Now
+                CreationDate = DateTime.UtcNow.FromUtcToGmt()
             };
         }
     }
