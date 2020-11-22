@@ -19,7 +19,8 @@ namespace PimPamProgrammeur.API.Mapping
             return new ResultResponseDto
             {
                 Hint = result.Answer.Component.Hint,
-                Success = result.Answer.IsCorrectAnswer
+                Success = result.Answer.IsCorrectAnswer,
+                CorrectAnswerId = result.Answer.Id
             };
         }
 
