@@ -56,5 +56,20 @@ namespace PimPamProgrammeur.Repository
         {
             return _context.Users.Where(e => e.ClassroomId == ClassroomId).OrderBy(e=> e.CreationDate);
         }
+
+        public async Task DeleteAllUsers(IEnumerable<User> users)
+        {
+            var deleteUsers = users;
+
+            foreach (var deleteUser in deleteUsers)
+            {
+                var user = GetUser(deleteUser.Id);
+                _context.Users.Remove(user);
+            }
+
+            await _context.SaveChangesAsync();
+
+
+        }
     }
 }
