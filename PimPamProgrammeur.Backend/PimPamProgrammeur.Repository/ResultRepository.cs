@@ -37,5 +37,11 @@ namespace PimPamProgrammeur.Repository
                 ? _context.Results.Include(e => e.Answer).Where(e => e.SessionId == sessionId.Value)
                 : _context.Results.Include(e => e.Answer);
         }
+        
+        public IEnumerable<Result> GetByUserId(Guid userId)
+        {
+            var results = _context.Results.Where(e => e.UserId == userId).ToList();
+            return results;
+        }
     }
 }

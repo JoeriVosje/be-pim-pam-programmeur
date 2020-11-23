@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using PimPamProgrammeur.Dto;
 using PimPamProgrammeur.Model;
@@ -42,11 +43,12 @@ namespace PimPamProgrammeur.API.Mapping
 
         private ResultResponseDto ResultToResultResponseDto(Result result, ResolutionContext resolution)
         {
+            var correctAnswer = result.Answer.Component.Answers.FirstOrDefault(e => e.IsCorrectAnswer);
             return new ResultResponseDto
             {
                 Hint = result.Answer.Component.Hint,
                 Success = result.Answer.IsCorrectAnswer,
-                CorrectAnswerId = result.Answer.Id
+                CorrectAnswerId = correctAnswer == null ? Guid.Empty : correctAnswer.Id,
             };
         }
 
