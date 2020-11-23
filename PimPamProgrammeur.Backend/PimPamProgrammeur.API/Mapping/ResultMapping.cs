@@ -11,7 +11,7 @@ namespace PimPamProgrammeur.API.Mapping
         public ResultMapping()
         {
             CreateMap<Result, ResultResponseDto>().ConvertUsing((e, _, context) => ResultToResultResponseDto(e, context));
-            CreateMap<ResultRequestDto, Result>().ConvertUsing((e, _, context) => ResultRequestDtoToResult(e));
+            CreateMap<(ResultRequestDto, Guid), Result>().ConvertUsing((e, _, context) => ResultRequestDtoToResult(e));
             CreateMap<EmptyResultRequestDto, Result>().ConvertUsing((e, _, context) => EmptyResultRequestDtoToResult(e));
             CreateMap<Answer, ResultResponseDto>().ConvertUsing((e, _) => CorrectAnswerToResultResponseDto(e));
             CreateMap<Result, ResultInfoResponseDto>().ConvertUsing((e, _, context) => ResultToResultInfoResponseDto(e, context));
@@ -26,7 +26,8 @@ namespace PimPamProgrammeur.API.Mapping
                 Session = context.Mapper.Map<SessionResponseDto>(result.Session),
                 User = context.Mapper.Map<UserResponseDto>(result.User),
                 StartTime = result.StartTime,
-                EndTime = result.EndTime
+                EndTime = result.EndTime,
+                Component = context.Mapper.Map<ComponentResponseDto>(result.Component)
             };
         }
 
@@ -52,14 +53,16 @@ namespace PimPamProgrammeur.API.Mapping
             };
         }
 
-        private Result ResultRequestDtoToResult(ResultRequestDto requestDto)
+        private Result ResultRequestDtoToResult((ResultRequestDto requestDto, Guid componentId) value)
         {
+            var (requestDto, componentId) = value;
             return new Result
             {
                 StartTime = requestDto.StartTime,
                 AnswerId = requestDto.AnswerId,
                 UserId = requestDto.UserId ?? Guid.Empty,
-                SessionId = requestDto.SessionId
+                SessionId = requestDto.SessionId,
+                ComponentId = componentId
             };
         }
 
@@ -70,7 +73,8 @@ namespace PimPamProgrammeur.API.Mapping
                 StartTime = emptyRequestDto.StartTime,
                 UserId = emptyRequestDto.UserId ?? Guid.Empty,
                 SessionId = emptyRequestDto.SessionId,
-                AnswerId = null
+                AnswerId = null,
+                ComponentId = emptyRequestDto.ComponentId
             };
             
         }
