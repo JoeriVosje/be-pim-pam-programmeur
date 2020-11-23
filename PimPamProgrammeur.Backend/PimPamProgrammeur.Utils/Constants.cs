@@ -17,12 +17,12 @@ namespace PimPamProgrammeur.Utils
 
         public struct Smtp
         {
-            public const string MailServerAddress = "smtp.sendgrid.net";
+            public const string MailServerAddress = "box.mysecuremail.inthe.eu";
             public static readonly int MailServerPort = 587;
-            public const string MailUsername = "apikey";
-            public const string MailPassword = "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";
+            public const string MailUsername = "pimpamprogrammeur@mysecuremail.inthe.eu";
+            public const string MailPassword = "9cKkpcsNz4dcY23v";
             public static readonly bool UseSsl = true;
-            public const string MailAddress = "pimpamprogrammeur@gmail.com";
+            public const string MailAddress = "pimpamprogrammeur@mysecuremail.inthe.eu";
             public const string MailSenderAlias = Constants.ApplicationName;
         }
 
