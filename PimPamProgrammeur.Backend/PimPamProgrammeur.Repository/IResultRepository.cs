@@ -9,6 +9,7 @@ namespace PimPamProgrammeur.Repository
     {
         Task<Result> SaveResult(Result result);
         IEnumerable<Result> FindResult(Guid sessionId, Guid userId);
+        IEnumerable<Result> GetAllResults(Guid? sessionId);
         IEnumerable<Result> GetByUserId(Guid userId);
     }
 }

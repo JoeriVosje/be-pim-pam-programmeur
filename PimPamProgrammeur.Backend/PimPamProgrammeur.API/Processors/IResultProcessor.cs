@@ -10,6 +10,8 @@ namespace PimPamProgrammeur.API.Processors
         IEnumerable<ResultResponseDto> FindResults(Guid sessionId, Guid userId);
         Task<ResultResponseDto> SaveResult(ResultRequestDto resultRequest);
 
-        Task<AnswerResponseDto> SaveEmptyResult(EmptyResultRequestDto request);
+        Task<ResultResponseDto> SaveEmptyResult(EmptyResultRequestDto request);
+
+        IEnumerable<ResultInfoResponseDto> GetResults(Guid? sessionId);
     }
 }

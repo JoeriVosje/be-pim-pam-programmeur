@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PimPamProgrammeur.API.Auth;
 using PimPamProgrammeur.API.Processors;
@@ -78,7 +79,7 @@ namespace PimPamProgrammeur.API.Controllers
 
         [HttpPost("skip")]
         [AuthorizeStudent]
-        [ProducesResponseType(typeof(AnswerResponseDto), 200)]
+        [ProducesResponseType(typeof(ResultResponseDto), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
         public async Task<IActionResult> SkipAnswer(EmptyResultRequestDto request)
         {
@@ -97,6 +98,14 @@ namespace PimPamProgrammeur.API.Controllers
 
             return Ok(result);
 
+        }
+
+        [HttpGet]
+        [AuthorizeAdmin]
+        [ProducesResponseType(typeof(ResultInfoResponseDto), 200)]
+        public IActionResult GetAllResults(Guid? sessionId)
+        {
+            return Ok(_resultProcessor.GetResults(sessionId));
         }
 
         private bool ReadUserIdFromHeader(ResultRequestDto request)
