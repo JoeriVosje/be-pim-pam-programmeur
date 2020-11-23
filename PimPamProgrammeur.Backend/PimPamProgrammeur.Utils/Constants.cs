@@ -17,10 +17,10 @@ namespace PimPamProgrammeur.Utils
 
         public struct Smtp
         {
-            public const string MailServerAddress = "smtp.gmail.com";
+            public const string MailServerAddress = "smtp.sendgrid.net";
             public static readonly int MailServerPort = 587;
-            public const string MailUsername = "pimpamprogrammeur@gmail.com";
-            public const string MailPassword = ".A.F3w/_\NFnm!>:";
+            public const string MailUsername = "apikey";
+            public const string MailPassword = "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";
             public static readonly bool UseSsl = true;
             public const string MailAddress = "pimpamprogrammeur@gmail.com";
             public const string MailSenderAlias = Constants.ApplicationName;
