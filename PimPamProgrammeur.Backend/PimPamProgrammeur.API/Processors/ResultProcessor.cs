@@ -36,7 +36,7 @@ namespace PimPamProgrammeur.API.Processors
 
             return resultResponse;
         }
-        public async Task<AnswerResponseDto> SaveEmptyResult(EmptyResultRequestDto request)
+        public async Task<ResultResponseDto> SaveEmptyResult(EmptyResultRequestDto request)
         {
             var result = _mapper.Map<Result>(request);
             await _resultRepository.SaveResult(result);
@@ -44,11 +44,17 @@ namespace PimPamProgrammeur.API.Processors
             //Get right answer
             var rightAnswer = _answerRepository.GetRightAnswerByComponentId(request.ComponentId);
 
-            var answerResponse = _mapper.Map<AnswerResponseDto>(rightAnswer);
+            var answerResponse = _mapper.Map<ResultResponseDto>(rightAnswer);
 
             return answerResponse;
         }
 
+        public IEnumerable<ResultInfoResponseDto> GetResults(Guid? sessionId)
+        {
+            var allResults = _resultRepository.GetAllResults(sessionId);
+
+            return _mapper.Map<IEnumerable<ResultInfoResponseDto>>(allResults);
+        }
 
     }
 }
