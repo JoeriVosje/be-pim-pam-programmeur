@@ -20,7 +20,7 @@ namespace PimPamProgrammeur.Utils
             public const string MailServerAddress = "smtp.gmail.com";
             public static readonly int MailServerPort = 587;
             public const string MailUsername = "pimpamprogrammeur@gmail.com";
-            public const string MailPassword = ".A.F3w/_\NFnm!>:";
+            public const string MailPassword = "";
             public static readonly bool UseSsl = true;
             public const string MailAddress = "pimpamprogrammeur@gmail.com";
             public const string MailSenderAlias = Constants.ApplicationName;
