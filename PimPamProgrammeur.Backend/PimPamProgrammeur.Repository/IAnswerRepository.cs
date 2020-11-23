@@ -13,6 +13,6 @@ namespace PimPamProgrammeur.Repository
         Task<Answer> UpdateAnswerByComponentId(Answer answer);
 
         Answer GetRightAnswerByComponentId(Guid componentId);
-
+        Answer GetAnswer(Guid id);
     }
 }

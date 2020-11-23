@@ -30,8 +30,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task<ResultResponseDto> SaveResult(ResultRequestDto resultRequest)
         {
-            var result = _mapper.Map<Result>(resultRequest);
+            var answer = _answerRepository.GetAnswer(resultRequest.AnswerId);
+            var result = _mapper.Map<Result>((resultRequest, answer.Component.Id));
             var savedResult = await _resultRepository.SaveResult(result);
+
             var resultResponse = _mapper.Map<ResultResponseDto>(savedResult);
 
             return resultResponse;

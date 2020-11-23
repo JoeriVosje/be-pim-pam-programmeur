@@ -21,6 +21,11 @@ namespace PimPamProgrammeur.Repository
             return _context.Answers.Where(e => e.ComponentId == componentId);
         }
 
+        public Answer GetAnswer(Guid id)
+        {
+            return _context.Answers.FirstOrDefault( e => e.Id == id);
+        }
+
         public async Task DeleteAnswersByComponentId(Guid componentId)
         {
             var answers = GetAnswersByComponentId(componentId);

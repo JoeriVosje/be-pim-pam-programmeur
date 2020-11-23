@@ -15,5 +15,7 @@ namespace PimPamProgrammeur.Dto
         public SessionResponseDto Session { get; set; }
 
         public AnswerResponseDto Answer { get; set; }
+
+        public ComponentResponseDto Component { get; set; }
     }
 }
