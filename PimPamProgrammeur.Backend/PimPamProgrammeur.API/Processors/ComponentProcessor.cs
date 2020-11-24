@@ -48,7 +48,10 @@ namespace PimPamProgrammeur.API.Processors
 
         public async Task<ComponentResponseDto> SaveComponent(ComponentRequestDto componentRequest)
         {
-            var component = _mapper.Map<Component>(componentRequest);
+            var lastItem = _repository.GetComponentsByModule(componentRequest.ModuleId).OrderByDescending(e => e.Order).FirstOrDefault();
+            var order = lastItem == null ? 0 : lastItem.Order;
+
+            var component = _mapper.Map<Component>((componentRequest, order));
             var savedComponent = await _repository.SaveComponent(component);
 
             var componentResponse = _mapper.Map<ComponentResponseDto>(savedComponent);
