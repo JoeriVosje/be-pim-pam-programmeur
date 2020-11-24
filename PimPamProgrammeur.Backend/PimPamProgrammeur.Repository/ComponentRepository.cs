@@ -44,10 +44,6 @@ namespace PimPamProgrammeur.Repository
 
         public async Task<Component> SaveComponent(Component component)
         {
-            var highestOrderComponent = GetComponentsByModule(component.ModuleId)
-                .OrderByDescending(e => e.Order).FirstOrDefault();
-
-            component.Order = highestOrderComponent?.Order ?? 0;
             await _context.Components.AddAsync(component);
             await _context.SaveChangesAsync();
 
