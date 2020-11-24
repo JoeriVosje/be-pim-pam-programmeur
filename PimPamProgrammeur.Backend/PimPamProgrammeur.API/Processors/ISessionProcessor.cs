@@ -11,5 +11,7 @@ namespace PimPamProgrammeur.API.Processors
         IEnumerable<SessionResponseDto> GetSessions(Guid? moduleId);
         Task<SessionResponseDto> Open(SessionRequestDto sessionRequest);
         Task<SessionResponseDto> Close(SessionRequestDto sessionRequest);
+
+        SessionStatusResponseDto GetSessionStatus(Guid userId);
     }
 }
