@@ -11,7 +11,7 @@ namespace PimPamProgrammeur.API.Mapping
         public ComponentMapping()
         {
             CreateMap<Component, ComponentResponseDto>().ConvertUsing((e, _, context) => ComponentToComponentResponseDto(e, context));
-            CreateMap<ComponentRequestDto, Component>().ConvertUsing((e, _, context) => ComponentRequestDtoToComponent(e));
+            CreateMap<(ComponentRequestDto, int), Component>().ConvertUsing((e, _, context) => ComponentRequestDtoToComponent(e));
             CreateMap<ComponentUpdateRequestDto, Component>().ConvertUsing((e, _, context) => ComponentUpdateRequestDtoToComponent(e));
         }
 
@@ -32,8 +32,9 @@ namespace PimPamProgrammeur.API.Mapping
             };
         }
 
-        private Component ComponentRequestDtoToComponent(ComponentRequestDto requestDto)
+        private Component ComponentRequestDtoToComponent((ComponentRequestDto requestDto, int order) tuple)
         {
+            var (requestDto, order) = tuple;
             return new Component
             {
                 Answers = AnswerRequestDtoToAnswer(requestDto.Answers), 
@@ -42,7 +43,8 @@ namespace PimPamProgrammeur.API.Mapping
                 Question = requestDto.Question,
                 Skippable = requestDto.Skippable,
                 Theory = requestDto.Theory,
-                Title = requestDto.Title
+                Title = requestDto.Title,
+                Order = order
             };
         }
 
