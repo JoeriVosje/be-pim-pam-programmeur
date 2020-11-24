@@ -119,16 +119,12 @@ namespace PimPamProgrammeur.API.Processors
             var lastResultOfUser = results.OrderByDescending(e => GetComponentFromResult(e).Order).FirstOrDefault();
 
             var lastAnsweredComponent = GetComponentFromResult(lastResultOfUser, components);
-            if (lastAnsweredComponent == null)
-            {
-                return null;
-            }
 
             return new SessionStatusResponseDto()
             {
                 SessionId = activeSession.Id,
-                LastAnsweredComponent = _mapper.Map<ComponentResponseDto>(lastAnsweredComponent),
-                Finished = lastAnsweredComponent.Id == lastComponentOfModule.Key
+                LastAnsweredComponent = lastAnsweredComponent == null ? null : _mapper.Map<ComponentResponseDto>(lastAnsweredComponent),
+                Finished = lastAnsweredComponent != null && lastAnsweredComponent.Id == lastComponentOfModule.Key
             };
         }
 
