@@ -1,0 +1,29 @@
+trigger:
+  branches:
+    include:
+    - master
+name: $(date:yyyyMMdd)$(rev:.r)
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: ubuntu-16.04
+  steps:
+  - checkout: self
+  - task: Docker@2
+    displayName: buildAndPush
+    inputs:
+      containerRegistry: 47458460-41c0-4ccb-9d6d-b7b8b211c19e
+      repository: pimpamprogrammeurapi
+      buildContext: PimPamProgrammeur.Backend
+      tags: >-
+        $(Build.BuildId)
+
+        latest
+      addPipelineData: false
+...
